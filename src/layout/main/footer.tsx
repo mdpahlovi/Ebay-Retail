@@ -1,6 +1,6 @@
-import { useAppSelector } from "@/redux/hooks";
 import { Link } from "react-router-dom";
 import { Facebook, Linkedin, Mail } from "lucide-react";
+import LogoToggle from "@/components/logo-toggle";
 
 const links = [
     { title: "Product", children: ["Features", "Integrations", "Pricing", "FAQ"] },
@@ -9,14 +9,10 @@ const links = [
 ];
 
 export default function Footer() {
-    const { theme } = useAppSelector((state) => state.theme);
-
     return (
         <footer className="divide-y border-t">
-            <div className="container flex flex-col justify-between py-10 space-y-8 lg:flex-row lg:space-y-0">
-                <Link to="/">
-                    <img src={`/logo/${theme}-logo.png`} alt="" className="w-40 lg:w-48" />
-                </Link>
+            <section className="flex flex-col justify-between py-10 space-y-8 lg:flex-row lg:space-y-0">
+                <LogoToggle />
                 <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
                     {links.map(({ title, children }, idx) => (
                         <div key={idx} className="space-y-3">
@@ -45,7 +41,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
             <div className="py-6 text-sm text-center">© 2022 Company Co. All rights reserved.</div>
         </footer>
     );
