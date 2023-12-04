@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import UserNav from "../user-nav";
 import NavLinks from "./navlinks";
-import { Button } from "@/components/ui/button";
 import LogoToggle from "@/components/logo-toggle";
 import ModeToggle from "@/components/mode-toggle";
 import MenuToggle from "@/components/menu-toggle";
@@ -17,11 +16,9 @@ export default function Navbar() {
                     <div className="hidden lg:flex items-center gap-4">
                         <NavLinks icon />
                     </div>
-                    <div className="flex gap-6">
+                    <div className="flex items-center gap-6">
+                        <UserNav />
                         <MenuToggle toggled={isOpen} toggle={setOpen} />
-                        <Link to="/login" className="hidden lg:block">
-                            <Button>Login / Register</Button>
-                        </Link>
                         <ModeToggle />
                     </div>
                 </section>
@@ -32,9 +29,7 @@ export default function Navbar() {
                 } transition-all origin-top duration-500 lg:hidden`}
             >
                 <NavLinks />
-                <Link to="/login">
-                    <Button>Login / Register</Button>{" "}
-                </Link>
+                <UserNav mobile />
             </section>
         </>
     );

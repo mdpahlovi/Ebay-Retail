@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Auth from "@/layout/auth";
 import Form from "@/components/form";
 import FormInput from "@/components/form/FormInput";
@@ -26,10 +26,12 @@ const registerSchema = yup.object().shape({
 
 export default function Register() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location?.state?.path || "/";
+    const { state } = useLocation();
+    const from = state?.from || "/";
     const { isLoading, isError, error, user } = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
+
+    console.log(location);
 
     useEffect(() => {
         if (isError) {
@@ -45,9 +47,9 @@ export default function Register() {
                 <CardTitle className="text-2xl">Create Account</CardTitle>
                 <CardDescription>
                     If already have an account!{" "}
-                    <Link to="/login" className="text-primary hover:underline">
+                    <button onClick={() => navigate("/login", { state: { from }, replace: true })} className="text-primary hover:underline">
                         Login
-                    </Link>
+                    </button>
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
