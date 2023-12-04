@@ -5,6 +5,8 @@ import Register from "@/pages/auth/register";
 import Dashboard from "@/layout/dashboard";
 import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import DashboardHome from "@/pages/dashboard/home";
+import Bookings from "@/pages/dashboard/bookings";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
                 <Dashboard />
             </PrivateRoute>
         ),
+        children: [
+            { path: "/dashboard", element: <DashboardHome /> },
+            { path: "bookings", element: <Bookings /> },
+        ],
     },
 ]);
 

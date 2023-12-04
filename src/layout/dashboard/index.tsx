@@ -3,13 +3,17 @@ import { PanelLeftOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ModeToggle from "@/components/mode-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Outlet } from "react-router-dom";
+import Sidebar from "./sidebar";
 
 export default function Dashboard() {
     return (
         <Sheet>
-            <div className="h-screen grid lg:grid-cols-[264px_1fr]">
-                <ScrollArea className="border-r hidden lg:block"></ScrollArea>
+            <div className="h-screen grid lg:grid-cols-[20rem_1fr]">
+                <ScrollArea className="border-r hidden lg:block p-6">
+                    <Sidebar />
+                </ScrollArea>
                 <ScrollArea>
                     <div className="sticky top-0 h-16 bg-background border-b flex justify-between items-center gap-6 px-6">
                         <SheetTrigger>
@@ -22,16 +26,11 @@ export default function Dashboard() {
                             <ModeToggle />
                         </div>
                     </div>
-                    <div className="px-6 pt-5"></div>
+                    <Outlet />
                 </ScrollArea>
             </div>
-            <SheetContent side="left" className="w-[264px]">
-                <SheetHeader>
-                    <SheetTitle>Are you sure absolutely sure?</SheetTitle>
-                    <SheetDescription>
-                        This action cannot be undone. This will permanently delete your account and remove your data from our servers.
-                    </SheetDescription>
-                </SheetHeader>
+            <SheetContent side="left" className="w-80 p-6">
+                <Sidebar />
             </SheetContent>
         </Sheet>
     );

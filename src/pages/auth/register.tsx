@@ -31,8 +31,6 @@ export default function Register() {
     const { isLoading, isError, error, user } = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
 
-    console.log(location);
-
     useEffect(() => {
         if (isError) {
             toast.error(error || "Something Error!");

@@ -28,7 +28,7 @@ const FormInput = ({ type = "text", name, label, placeholder, textarea, disabled
             ) : (
                 <Input type={type} {...config} />
             )}
-            {meta && meta.touched && meta.error ? <p className="mt-0.5 ml-1.5 text-sm text-red-500">{meta.error}</p> : ""}
+            {meta && meta.touched && meta.error ? <p className="mt-0.5 ml-1.5 text-sm text-destructive">{meta.error}</p> : ""}
         </div>
     );
 };
