@@ -1,13 +1,41 @@
+import * as yup from "yup";
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Auth from "@/layout/auth";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import Form from "@/components/form";
 import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
+import { Button } from "@/components/ui/button";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AtSign, Github } from "lucide-react";
+import { loginUser } from "@/redux/features/users/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { toast } from "react-toastify";
+
+const loginSchema = yup.object().shape({
+    email: yup.string().required("Email is required").email("Email is invalid"),
+    password: yup
+        .string()
+        .required("Password is required")
+        .min(6, "Password must be at least 6 characters")
+        .max(40, "Password must not exceed 40 characters"),
+});
 
 export default function Login() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.path || "/";
+    const { isLoading, isError, error, user } = useAppSelector((state) => state.user);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(error || "Something Error!");
+        } else if (user?._id && !isLoading) {
+            navigate(from, { replace: true });
+        }
+    }, [user, isLoading, isError, error, navigate, from]);
+
     return (
         <Auth>
             <CardHeader className="space-y-1">
@@ -38,10 +66,14 @@ export default function Login() {
                         <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
                     </div>
                 </div>
-                <Form initialValues={{ email: "", password: "" }} onSubmit={(value) => console.log(value)}>
+                <Form
+                    initialValues={{ email: "", password: "" }}
+                    validationSchema={loginSchema}
+                    onSubmit={(value) => dispatch(loginUser(value))}
+                >
                     <FormInput type="email" name="email" label="Email" placeholder="username@example.com" />
                     <FormInput type="password" name="password" label="Password" placeholder="6+ Characters" />
-                    <FormSubmit>Login</FormSubmit>
+                    <FormSubmit loading={isLoading}>Login</FormSubmit>
                 </Form>
             </CardContent>
         </Auth>

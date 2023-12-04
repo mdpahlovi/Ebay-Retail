@@ -1,4 +1,4 @@
-export type Theme = null | "dark" | "light";
+export type Theme = "dark" | "light" | undefined;
 
 export interface ThemeProviderProps {
     children: React.ReactNode;

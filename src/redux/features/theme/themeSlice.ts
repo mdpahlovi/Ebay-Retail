@@ -1,7 +1,7 @@
 import { Theme } from "@/types/theme";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState: { theme: Theme } = { theme: null };
+const initialState: { theme: Theme } = { theme: undefined };
 
 const themeSlice = createSlice({
     name: "theme",

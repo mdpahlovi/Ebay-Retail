@@ -1,13 +1,26 @@
+export interface IUser {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+    avatar: string;
+}
+
 export interface IUserState {
-    user: {
-        email: string | null;
-    };
+    user: null | IUser;
     isLoading: boolean;
     isError: boolean;
     error: string | null;
 }
 
-export interface ICredential {
+export interface IRegisterUser {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+}
+
+export interface ILoginUser {
     email: string;
     password: string;
 }

@@ -13,7 +13,7 @@ export default {
         },
         extend: {
             backgroundImage: {
-                auth: "url('/public/auth.avif')",
+                auth: "url('/auth.avif')",
             },
             colors: {
                 border: "hsl(var(--border))",
