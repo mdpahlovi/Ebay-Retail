@@ -35,8 +35,8 @@ export default function UserNav({ mobile }: { mobile?: boolean }) {
                     <DropdownMenuContent className="w-56" align={mobile ? "start" : "end"} forceMount>
                         <DropdownMenuLabel className="font-normal">
                             <div className="flex flex-col space-y-1">
-                                <p className="text-sm">{user?.name}</p>
-                                <p className="text-xs text-muted-foreground">{user?.email}</p>
+                                <h6 className="text-sm">{user?.name}</h6>
+                                <p className="text-xs">{user?.email}</p>
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />

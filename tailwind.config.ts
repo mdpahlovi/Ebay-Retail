@@ -8,13 +8,17 @@ export default {
             center: true,
             padding: "2rem",
             screens: {
-                "2xl": "1400px",
+                xs: "448px",
+                sm: "640px",
+                md: "768px",
+                lg: "1024px",
+                xl: "1280px",
+                "2xl": "1600px",
             },
         },
+        fontFamily: { sans: ["Poppins", "sans-serif"] },
         extend: {
-            backgroundImage: {
-                auth: "url('/auth.avif')",
-            },
+            backgroundImage: { auth: "url('/auth.avif')" },
             colors: {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",

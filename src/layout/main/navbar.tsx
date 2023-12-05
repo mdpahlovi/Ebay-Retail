@@ -11,7 +11,7 @@ export default function Navbar() {
     return (
         <>
             <nav className="border-b">
-                <section className="h-20 flex justify-between items-center">
+                <section className="my-0 h-20 flex justify-between items-center">
                     <LogoToggle />
                     <div className="hidden lg:flex items-center gap-4">
                         <NavLinks icon />
@@ -24,7 +24,7 @@ export default function Navbar() {
                 </section>
             </nav>
             <section
-                className={`mt-8 border rounded-md py-8 flex flex-col gap-4 ${
+                className={`fixed z-[9999] bg-background mt-8 border rounded-md py-8 flex flex-col gap-4 ${
                     isOpen ? "scale-y-100" : "scale-y-0"
                 } transition-all origin-top duration-500 lg:hidden`}
             >

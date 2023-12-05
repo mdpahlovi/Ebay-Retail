@@ -1,18 +1,15 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { capitalizeFirstWord } from "@/lib/capitalizeFirstWord";
 import { useAppSelector } from "@/redux/hooks";
 
 const DashboardHome = () => {
-    const { user, isLoading } = useAppSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
 
     return (
         <div className="h-[calc(100vh_-_16rem)] flex flex-col justify-center items-center">
-            <p className="text-6xl font-bold">Welcome To</p>
+            <h1 className="text-6xl">Welcome To</h1>
             <div className="flex justify-center items-center text-base-content/50 mt-4">
-                {!isLoading && user?.role ? (
-                    <p className="text-3xl font-medium">{capitalizeFirstWord(user.role)} Dashboard</p>
-                ) : (
-                    <div className="animate-pulse w-60 h-8 bg-base-content/10 mt-2"></div>
-                )}
+                <h2>{capitalizeFirstWord(user?.role!)} Dashboard</h2>
             </div>
         </div>
     );

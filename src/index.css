@@ -68,6 +68,33 @@
         @apply bg-background text-foreground;
     }
     section {
-        @apply container;
+        @apply container mt-12 sm:mt-14 lg:mt-16;
+    }
+    h1 {
+        @apply text-4xl leading-[44px] lg:text-[40px] lg:leading-[48px] font-bold;
+    }
+    h2 {
+        @apply text-3xl lg:text-4xl font-bold;
+    }
+    h3 {
+        @apply text-2xl font-semibold;
+    }
+    h4 {
+        @apply text-lg font-semibold;
+    }
+    h5 {
+        @apply font-semibold;
+    }
+    h6 {
+        @apply text-sm;
+    }
+    p {
+        @apply text-muted-foreground;
+    }
+}
+
+@layer components {
+    .line-x {
+        @apply flex items-center text-xs uppercase before:flex-1 before:border-t before:border-border after:flex-1 after:border-t after:border-border;
     }
 }
