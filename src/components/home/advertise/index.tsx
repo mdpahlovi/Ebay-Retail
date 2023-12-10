@@ -1,8 +1,9 @@
+import { Product } from "@/types/data";
 import { useQuery, gql } from "@apollo/client";
-import AdvertiseCard from "./advertise-card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { baseSwiper } from "@/lib/baseSwiper";
-import { Product } from "@/types/data";
+import { Skeleton } from "@/components/ui/skeleton";
+import AdvertiseCard from "./advertise-card";
 
 const GET_ADVERTISE_PRODUCTS = gql`
     query GetAdvertise {
@@ -26,7 +27,7 @@ const Advertise = () => {
                 {loading
                     ? [...Array(3)].map((_, idx) => (
                           <SwiperSlide key={idx}>
-                              <div className="animate-pulse bg-base-content/10 rounded-lg h-80" />
+                              <Skeleton className="h-80 rounded-lg" />
                           </SwiperSlide>
                       ))
                     : data?.advertise?.map((product: Product) => (

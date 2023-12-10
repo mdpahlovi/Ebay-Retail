@@ -1,3 +1,4 @@
+import "swiper/css";
 import "./index.css";
 
 import axios from "axios";
