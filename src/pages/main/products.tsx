@@ -37,7 +37,7 @@ export default function Products() {
     if (loading) return <Loader />;
     return (
         <>
-            <Header title={data?.category?.name} />
+            <Header title={data?.category?.name} last={data?.category?.name} />
             <section className="container section-gap grid grid-cols-1 xl:grid-cols-2 gap-12">
                 {data?.category?.products?.map((product: Product) => (
                     <ProductCard key={product.id} product={product} />
