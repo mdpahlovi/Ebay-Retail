@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 
 const initialState: IUserState = {
     user: null,
-    isLoading: false,
+    isLoading: true,
     isError: false,
     error: null,
 };
@@ -42,6 +42,7 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(createUser.pending, (state) => {
+                state.user = null;
                 state.isLoading = true;
                 state.isError = false;
                 state.error = null;
@@ -49,6 +50,8 @@ const userSlice = createSlice({
             .addCase(createUser.fulfilled, (state, action) => {
                 state.user = action.payload;
                 state.isLoading = false;
+                state.isError = false;
+                state.error = null;
             })
             .addCase(createUser.rejected, (state, action) => {
                 state.user = null;
@@ -57,6 +60,7 @@ const userSlice = createSlice({
                 state.error = action.error.message!;
             })
             .addCase(loginUser.pending, (state) => {
+                state.user = null;
                 state.isLoading = true;
                 state.isError = false;
                 state.error = null;
@@ -64,6 +68,8 @@ const userSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.user = action.payload;
                 state.isLoading = false;
+                state.isError = false;
+                state.error = null;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.user = null;

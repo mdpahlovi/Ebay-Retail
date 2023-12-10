@@ -1,3 +1,4 @@
+import Advertise from "@/components/home/advertise";
 import Hero from "@/components/home/hero";
 import ServiceCard from "@/components/home/service-card";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ export default function Home() {
     return (
         <>
             <Hero />
+            <Advertise />
             <section className="grid lg:grid-cols-2 gap-x-16 gap-y-10">
                 <div className="space-y-4">
                     <h1>Why should you trust our services?</h1>

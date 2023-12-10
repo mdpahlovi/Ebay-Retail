@@ -97,4 +97,7 @@
     .line-x {
         @apply flex items-center text-xs uppercase before:flex-1 before:border-t before:border-border after:flex-1 after:border-t after:border-border;
     }
+    .bg-overly {
+        @apply bg-cover bg-center bg-no-repeat;
+    }
 }
