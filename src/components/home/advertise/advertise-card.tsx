@@ -7,7 +7,7 @@ const AdvertiseCard = ({ product }: { product: Product }) => {
 
     return (
         <div className="relative rounded-lg bg-overly p-6 pt-64" style={{ backgroundImage: `url(${image})` }}>
-            <span className="absolute inset-0 bg-black/30 dark:bg-black/70 rounded-lg" />
+            <span className="absolute inset-0 bg-black/30 rounded-lg" />
             <Badge className="absolute top-4 left-0 rounded-none">{condition}</Badge>
             <div className="relative text-center">
                 <h3 className="uppercase tracking-wider text-white">

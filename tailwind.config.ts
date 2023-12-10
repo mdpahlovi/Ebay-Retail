@@ -18,7 +18,7 @@ export default {
         },
         fontFamily: { sans: ["Poppins", "sans-serif"] },
         extend: {
-            backgroundImage: { auth: "url('/auth.avif')" },
+            backgroundImage: { auth: "url('/auth.avif')", header: "url('/header.png')" },
             colors: {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",

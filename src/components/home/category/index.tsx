@@ -39,7 +39,7 @@ const Category = () => {
             <h1 className="text-center mb-8">Categories</h1>
             <Swiper ref={sliderRef} {...baseSwiper} breakpoints={breakpoints}>
                 {loading
-                    ? [...Array(4)].map((_, idx) => (
+                    ? [...Array(6)].map((_, idx) => (
                           <SwiperSlide key={idx}>
                               <Skeleton className="h-48 rounded-lg" />
                           </SwiperSlide>
