@@ -1,14 +1,13 @@
 import "react-toastify/dist/ReactToastify.css";
 
-import axios from "axios";
 import router from "./router";
 import { useEffect } from "react";
-import auth from "./config/firebase.config";
 import { ToastContainer } from "react-toastify";
 import { RouterProvider } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
+import { setUser } from "./redux/features/users/userSlice";
+import { getCookies } from "./lib/cookies";
+import decodeToken from "./lib/decodeToken";
 import { setTheme } from "./redux/features/theme/themeSlice";
-import { setLoading, setUser } from "./redux/features/users/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 
 export default function App() {
@@ -16,19 +15,8 @@ export default function App() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setLoading(true));
-
-        const unSubscribe = onAuthStateChanged(auth, (user) => {
-            if (user?.uid) {
-                axios.get(`/user/${user?.email}`).then((res) => {
-                    dispatch(setUser(res.data));
-                    dispatch(setLoading(false));
-                });
-            } else {
-                dispatch(setLoading(false));
-            }
-        });
-        return () => unSubscribe();
+        const token = getCookies();
+        dispatch(setUser(decodeToken(token!)));
     }, [dispatch]);
 
     useEffect(() => {

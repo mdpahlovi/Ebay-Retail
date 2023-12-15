@@ -3,7 +3,7 @@ import { useAppSelector } from "@/redux/hooks";
 import DashboardLinks from "./navlinks";
 import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { capitalizeFirstWord } from "@/lib/capitalizeFirstWord";
+import capitalizeFirstWord from "@/lib/capitalizeFirstWord";
 import LogoToggle from "@/components/logo-toggle";
 
 export default function Sidebar() {

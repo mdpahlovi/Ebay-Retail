@@ -1,4 +1,4 @@
-import { capitalizeFirstWord } from "@/lib/capitalizeFirstWord";
+import capitalizeFirstWord from "@/lib/capitalizeFirstWord";
 import { ChevronRight, Home } from "lucide-react";
 import { Link, useLocation, useParams } from "react-router-dom";
 

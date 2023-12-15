@@ -8,7 +8,7 @@ export interface FormProps extends React.PropsWithChildren {
     onSubmit: (values: any, formikHelpers: FormikHelpers<any>) => void | Promise<any>;
 }
 
-export interface FromInputProps {
+export interface FormInputProps {
     type?: HTMLInputTypeAttribute;
     name: string;
     label: string;

@@ -1,40 +1,43 @@
-import * as yup from "yup";
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/redux/hooks";
+import { gql, useMutation } from "@apollo/client";
+import useNavigateWithState from "@/hooks/useNavigator";
+import { setCookies } from "@/lib/cookies";
+import decodeToken from "@/lib/decodeToken";
+import { setUser } from "@/redux/features/users/userSlice";
+import { toast } from "react-toastify";
 import Auth from "@/layout/auth";
+import { Button } from "@/components/ui/button";
+import { AtSign, Github } from "lucide-react";
 import Form from "@/components/form";
 import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
-import { Button } from "@/components/ui/button";
+import loginSchema from "@/validations/loginSchema";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AtSign, Github } from "lucide-react";
-import { loginUser } from "@/redux/features/users/userSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { toast } from "react-toastify";
 
-const loginSchema = yup.object().shape({
-    email: yup.string().required("Email is required").email("Email is invalid"),
-    password: yup
-        .string()
-        .required("Password is required")
-        .min(6, "Password must be at least 6 characters")
-        .max(40, "Password must not exceed 40 characters"),
-});
+const LOGIN = gql`
+    mutation Login($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
+            token
+        }
+    }
+`;
 
 export default function Login() {
-    const navigate = useNavigate();
-    const { state } = useLocation();
-    const from = state?.from || "/";
-    const { isLoading, isError, error, user } = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
+    const [login, { loading }] = useMutation(LOGIN);
+    const { navigateTo, navigateFrom } = useNavigateWithState();
 
-    useEffect(() => {
-        if (isError) {
-            toast.error(error || "Something Error!");
-        } else if (user?._id && !isLoading) {
-            navigate(from, { replace: true });
-        }
-    }, [user, isLoading, isError, error, navigate, from]);
+    const handleLogin = (value: { email: string; password: string }) => {
+        login({ variables: value })
+            .then(({ data }) => {
+                if (data?.login?.token) {
+                    setCookies(data.login.token);
+                    dispatch(setUser(decodeToken(data.login.token)));
+                    navigateFrom();
+                }
+            })
+            .catch((error) => toast.error(error.message));
+    };
 
     return (
         <Auth>
@@ -42,10 +45,7 @@ export default function Login() {
                 <CardTitle className="text-2xl">Welcome Back</CardTitle>
                 <CardDescription>
                     If don't have account!{" "}
-                    <button
-                        onClick={() => navigate("/register", { state: { from }, replace: true })}
-                        className="text-primary hover:underline"
-                    >
+                    <button onClick={() => navigateTo("/register")} className="text-primary hover:underline">
                         Register
                     </button>
                 </CardDescription>
@@ -64,14 +64,10 @@ export default function Login() {
                 <div className="line-x">
                     <p className="bg-background px-2">Or continue with</p>
                 </div>
-                <Form
-                    initialValues={{ email: "", password: "" }}
-                    validationSchema={loginSchema}
-                    onSubmit={(value) => dispatch(loginUser(value))}
-                >
+                <Form initialValues={{ email: "", password: "" }} validationSchema={loginSchema} onSubmit={handleLogin}>
                     <FormInput type="email" name="email" label="Email" placeholder="username@example.com" />
                     <FormInput type="password" name="password" label="Password" placeholder="6+ Characters" />
-                    <FormSubmit loading={isLoading}>Login</FormSubmit>
+                    <FormSubmit loading={loading}>Login</FormSubmit>
                 </Form>
             </CardContent>
         </Auth>

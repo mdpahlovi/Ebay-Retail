@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { capitalizeFirstWord } from "@/lib/capitalizeFirstWord";
+import capitalizeFirstWord from "@/lib/capitalizeFirstWord";
 import { useAppSelector } from "@/redux/hooks";
 
 const DashboardHome = () => {
