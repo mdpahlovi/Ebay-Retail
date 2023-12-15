@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useAppSelector } from "@/redux/hooks";
 import DashboardLinks from "./navlinks";
 import { NavLink } from "react-router-dom";
@@ -13,10 +12,10 @@ export default function Sidebar() {
         <>
             <LogoToggle />
             <div className="flex justify-center my-8">
-                <img className="w-56 rounded-3xl" src={user?.avatar!} alt="" />
+                <img className="w-56 rounded-full" src={user?.image} alt="" />
             </div>
             <h3 className="text-3xl text-center font-bold">{user?.name}</h3>
-            <p className="mb-6 text-center">{capitalizeFirstWord(user?.role!)}</p>
+            <p className="mb-6 text-center">{capitalizeFirstWord(user?.role)}</p>
             <div className="flex flex-col">
                 <NavLink to="/dashboard" end>
                     {({ isActive }) => (

@@ -1,8 +1,8 @@
 import { HashLoader } from "react-spinners";
 
-export default function Loader() {
+export default function Loader({ app }: { app?: boolean }) {
     return (
-        <div className="w-full h-[512px] flex justify-center items-center">
+        <div className={`${app ? "h-screen" : "h-[calc(100vh_-_80px)]"} flex justify-center items-center`}>
             <HashLoader color="#F48E00" size={100} />
         </div>
     );

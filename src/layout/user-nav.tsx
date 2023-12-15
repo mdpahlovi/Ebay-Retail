@@ -31,7 +31,7 @@ export default function UserNav({ mobile }: { mobile?: boolean }) {
                     <DropdownMenuTrigger asChild>
                         <Avatar className="cursor-pointer">
                             <AvatarImage src={user?.image} alt="" />
-                            <AvatarFallback>SC</AvatarFallback>
+                            <AvatarFallback />
                         </Avatar>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56" align={mobile ? "start" : "end"} forceMount>

@@ -38,7 +38,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                     <div className="flex items-center gap-2">
                         <Avatar>
                             <AvatarImage src={seller.image} alt="" />
-                            <AvatarFallback>SC</AvatarFallback>
+                            <AvatarFallback />
                         </Avatar>
                         <div>
                             <h5 className="font-semibold flex items-center gap-1">

@@ -9,10 +9,12 @@ import { getCookies } from "./lib/cookies";
 import decodeToken from "./lib/decodeToken";
 import { setTheme } from "./redux/features/theme/themeSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import Loader from "./components/ui/loader";
 
 export default function App() {
-    const { theme } = useAppSelector((state) => state.theme);
     const dispatch = useAppDispatch();
+    const { theme } = useAppSelector((state) => state.theme);
+    const { loading } = useAppSelector((state) => state.user);
 
     useEffect(() => {
         //Authenticate User
@@ -32,7 +34,7 @@ export default function App() {
 
     return (
         <>
-            <RouterProvider router={router}></RouterProvider>
+            {loading ? <Loader app /> : <RouterProvider router={router} />}
             <ToastContainer position="top-right" autoClose={1500} theme={theme} />
         </>
     );
