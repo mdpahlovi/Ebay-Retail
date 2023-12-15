@@ -9,6 +9,8 @@ import DashboardHome from "@/pages/dashboard/home";
 import Bookings from "@/pages/dashboard/bookings";
 import Categories from "@/pages/main/categories";
 import Products from "@/pages/main/products";
+import AddProduct from "@/pages/dashboard/add-product";
+import SellerRoute from "./SellerRoute";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
         children: [
             { path: "/dashboard", element: <DashboardHome /> },
             { path: "bookings", element: <Bookings /> },
+            {
+                path: "add-product",
+                element: (
+                    <SellerRoute>
+                        <AddProduct />
+                    </SellerRoute>
+                ),
+            },
         ],
     },
 ]);

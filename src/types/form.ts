@@ -16,3 +16,18 @@ export interface FormInputProps {
     textarea?: boolean;
     disabled?: boolean;
 }
+
+export interface FormSelectProps {
+    name: string;
+    label: string;
+    values: { value: string; text: string }[];
+    placeholder?: string;
+    disabled?: boolean;
+}
+
+export interface FormDatePickerProps {
+    name: string;
+    label: string;
+    placeholder?: string;
+    disabled?: boolean;
+}

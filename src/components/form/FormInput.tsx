@@ -5,6 +5,7 @@ import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { Label } from "../ui/label";
+import ErrorMassage from "./ErrorMassage";
 
 const FormInput = ({ type = "text", name, label, placeholder, textarea, disabled }: FormInputProps) => {
     const [field, meta] = useField(name);
@@ -28,7 +29,7 @@ const FormInput = ({ type = "text", name, label, placeholder, textarea, disabled
             ) : (
                 <Input type={type} {...config} />
             )}
-            {meta && meta.touched && meta.error ? <p className="mt-0.5 ml-1.5 text-sm text-destructive">{meta.error}</p> : ""}
+            <ErrorMassage meta={meta} />
         </div>
     );
 };
