@@ -15,11 +15,10 @@ export default function App() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        const token = getCookies();
-        dispatch(setUser(decodeToken(token!)));
-    }, [dispatch]);
+        //Authenticate User
+        dispatch(setUser(decodeToken(getCookies())));
 
-    useEffect(() => {
+        // Set Current Browser Theme
         const root = window.document.documentElement;
         root.classList.remove("light", "dark");
         if (!theme) {
