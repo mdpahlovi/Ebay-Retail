@@ -1,4 +1,5 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_CATEGORIES } from "@/graphql/queries";
 import Form from "@/components/form";
 import FormDatePicker from "@/components/form/FormDatePicker";
 import FormInput from "@/components/form/FormInput";
@@ -7,15 +8,6 @@ import FormSelect from "@/components/form/FormSelect";
 import { Category } from "@/types/data";
 import Loader from "@/components/ui/loader";
 import createProductSchema from "@/validations/createProductSchema";
-
-const GET_CATEGORIES = gql`
-    query GetCategories {
-        categories {
-            id
-            name
-        }
-    }
-`;
 
 const initialValues = {
     category: "",

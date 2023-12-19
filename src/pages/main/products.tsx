@@ -1,34 +1,10 @@
-import ProductCard from "@/components/products/product-card";
-import Header from "@/components/ui/header";
-import Loader from "@/components/ui/loader";
 import { Product } from "@/types/data";
-import { useQuery, gql } from "@apollo/client";
 import { useParams } from "react-router-dom";
-
-const GET_PRODUCTS = gql`
-    query GetProducts($id: ID!) {
-        category(id: $id) {
-            name
-            products {
-                name
-                image
-                location
-                resale_price
-                original_price
-                purchase_date
-                description
-                condition
-                seller {
-                    name
-                    image
-                    isVerify
-                }
-                createdAt
-                isBooked
-            }
-        }
-    }
-`;
+import { useQuery } from "@apollo/client";
+import { GET_PRODUCTS } from "@/graphql/queries";
+import Loader from "@/components/ui/loader";
+import Header from "@/components/ui/header";
+import ProductCard from "@/components/products/product-card";
 
 export default function Products() {
     const params = useParams();

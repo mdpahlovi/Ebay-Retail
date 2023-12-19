@@ -1,5 +1,6 @@
 import { Category } from "@/types/data";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_CATEGORIES } from "@/graphql/queries";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { baseSwiper } from "@/lib/baseSwiper";
 import { useCallback, useRef } from "react";
@@ -7,17 +8,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import CategoryCard from "./category-card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const GET_CATEGORIES = gql`
-    query GetCategories {
-        categories {
-            id
-            name
-            image
-            total
-        }
-    }
-`;
 
 const Category = () => {
     const { loading, data } = useQuery(GET_CATEGORIES);

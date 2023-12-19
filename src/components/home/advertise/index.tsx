@@ -1,21 +1,10 @@
 import { Product } from "@/types/data";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_ADVERTISE_PRODUCTS } from "@/graphql/queries";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { baseSwiper } from "@/lib/baseSwiper";
 import { Skeleton } from "@/components/ui/skeleton";
 import AdvertiseCard from "./advertise-card";
-
-const GET_ADVERTISE_PRODUCTS = gql`
-    query GetAdvertise {
-        advertise {
-            id
-            image
-            condition
-            name
-            isBooked
-        }
-    }
-`;
 
 const Advertise = () => {
     const { loading, data } = useQuery(GET_ADVERTISE_PRODUCTS);

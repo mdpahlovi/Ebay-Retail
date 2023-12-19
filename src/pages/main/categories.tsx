@@ -1,19 +1,9 @@
-import { useQuery, gql } from "@apollo/client";
 import { Category } from "@/types/data";
+import { useQuery } from "@apollo/client";
+import { GET_CATEGORIES } from "@/graphql/queries";
 import Header from "@/components/ui/header";
 import { Skeleton } from "@/components/ui/skeleton";
 import CategoryCard from "@/components/home/category/category-card";
-
-const GET_CATEGORIES = gql`
-    query GetCategories {
-        categories {
-            id
-            name
-            image
-            total
-        }
-    }
-`;
 
 const Categories = () => {
     const { loading, data } = useQuery(GET_CATEGORIES);

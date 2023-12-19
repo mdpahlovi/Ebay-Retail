@@ -1,23 +1,7 @@
 import DataTable from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
-import { useQuery, gql } from "@apollo/client";
-
-const GET_SELLER_PRODUCTS = gql`
-    query GetSellerProducts($id: ID!) {
-        products {
-            name
-            image
-            location
-            resale_price
-            original_price
-            purchase_date
-            description
-            condition
-            createdAt
-            isBooked
-        }
-    }
-`;
+import { GET_SELLER_PRODUCTS } from "@/graphql/queries";
+import { useQuery } from "@apollo/client";
 
 type Payment = {
     id: string;
@@ -144,6 +128,7 @@ function getData(): Payment[] {
 
 export default function SellerProducts() {
     const { data, loading } = useQuery(GET_SELLER_PRODUCTS);
+    console.log({ data, loading });
     const data1 = getData();
 
     return (
