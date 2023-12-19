@@ -1,5 +1,23 @@
 import DataTable from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
+import { useQuery, gql } from "@apollo/client";
+
+const GET_SELLER_PRODUCTS = gql`
+    query GetSellerProducts($id: ID!) {
+        products {
+            name
+            image
+            location
+            resale_price
+            original_price
+            purchase_date
+            description
+            condition
+            createdAt
+            isBooked
+        }
+    }
+`;
 
 type Payment = {
     id: string;
@@ -125,11 +143,13 @@ function getData(): Payment[] {
 }
 
 export default function SellerProducts() {
-    const data = getData();
+    const { data, loading } = useQuery(GET_SELLER_PRODUCTS);
+    const data1 = getData();
 
     return (
-        <div className="container mx-auto py-10">
-            <DataTable columns={columns} data={data} />
-        </div>
+        <>
+            <h1>All Products</h1>
+            <DataTable columns={columns} data={data1} />
+        </>
     );
 }

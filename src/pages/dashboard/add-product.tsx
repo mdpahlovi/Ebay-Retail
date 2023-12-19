@@ -58,7 +58,7 @@ export default function AddProduct() {
     };
 
     return (
-        <div className="px-6 py-5 space-y-6">
+        <>
             <h1>Add New Product</h1>
             <Form initialValues={initialValues} validationSchema={createProductSchema} onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-[4fr_8fr] gap-5">
@@ -78,6 +78,6 @@ export default function AddProduct() {
                 <FormInput name="description" label="Description" textarea />
                 <FormSubmit>Submit</FormSubmit>
             </Form>
-        </div>
+        </>
     );
 }
