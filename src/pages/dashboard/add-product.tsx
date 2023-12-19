@@ -21,8 +21,8 @@ const initialValues = {
     category: "",
     name: "",
     image: "",
-    resale_price: 0,
-    original_price: 0,
+    resale_price: "",
+    original_price: "",
     condition: "",
     description: "",
     location: "",
@@ -32,12 +32,12 @@ type InitialValues = {
     category: string;
     name: string;
     image: string;
+    location: string;
     resale_price: number;
     original_price: number;
+    purchase_date: string;
     condition: string;
     description: string;
-    location: string;
-    purchase_date: string;
 };
 export default function AddProduct() {
     const { loading, data } = useQuery(GET_CATEGORIES);
@@ -66,10 +66,7 @@ export default function AddProduct() {
                     <FormInput name="name" label="Product Name" />
                 </div>
                 <FormInput name="image" label="Image URL" />
-                <div className="grid sm:grid-cols-2 gap-5">
-                    <FormInput name="location" label="Location" />
-                    <FormInput name="phone" label="Phone" />
-                </div>
+                <FormInput name="location" label="Location" />
                 <div className="grid sm:grid-cols-2 gap-5">
                     <FormInput type="number" name="resale_price" label="Resale Price" />
                     <FormInput type="number" name="original_price" label="Original Price" />

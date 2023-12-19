@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function ServiceCard({ title, stats }: { title: string; stats: number }) {
     return (

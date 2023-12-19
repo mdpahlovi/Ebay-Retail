@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useField } from "formik";
 import { FormInputProps } from "@/types/form";
-import { Textarea } from "../ui/textarea";
-import { Input } from "../ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
-import { Label } from "../ui/label";
+import { Label } from "@/components/ui/label";
 import ErrorMassage from "./ErrorMassage";
 
 const FormInput = ({ type = "text", name, label, placeholder, textarea, disabled }: FormInputProps) => {
@@ -22,7 +22,7 @@ const FormInput = ({ type = "text", name, label, placeholder, textarea, disabled
             ) : type === "password" ? (
                 <>
                     <Input type={show ? "text" : "password"} {...config} />
-                    <button className="absolute top-8 right-2.5 text-input" onClick={() => setShow(!show)}>
+                    <button type="button" className="absolute top-8 right-2.5 text-input" onClick={() => setShow(!show)}>
                         {show ? <Eye size={20} /> : <EyeOff size={20} />}
                     </button>
                 </>

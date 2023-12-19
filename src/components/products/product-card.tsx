@@ -1,9 +1,9 @@
 import format from "date-fns/format";
 import { formatDistance } from "date-fns";
 import { Product } from "@/types/data";
-import { Badge } from "../ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 const ProductCard = ({ product }: { product: Product }) => {
     const { name, image, location, resale_price, original_price, purchase_date, description, condition, seller, createdAt, isBooked } =

@@ -11,6 +11,7 @@ import Categories from "@/pages/main/categories";
 import Products from "@/pages/main/products";
 import AddProduct from "@/pages/dashboard/add-product";
 import SellerRoute from "./SellerRoute";
+import SellerProducts from "@/pages/dashboard/products";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,14 @@ const router = createBrowserRouter([
                 element: (
                     <SellerRoute>
                         <AddProduct />
+                    </SellerRoute>
+                ),
+            },
+            {
+                path: "products",
+                element: (
+                    <SellerRoute>
+                        <SellerProducts />
                     </SellerRoute>
                 ),
             },
