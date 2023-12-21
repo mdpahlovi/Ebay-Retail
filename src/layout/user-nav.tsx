@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { AvatarWithFallback } from "@/components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -29,10 +29,7 @@ export default function UserNav({ mobile }: { mobile?: boolean }) {
             {user?.id ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Avatar className="cursor-pointer">
-                            <AvatarImage src={user?.image} alt="" />
-                            <AvatarFallback />
-                        </Avatar>
+                        <AvatarWithFallback src={user?.image} className="cursor-pointer" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56" align={mobile ? "start" : "end"} forceMount>
                         <DropdownMenuLabel className="font-normal">

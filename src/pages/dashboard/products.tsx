@@ -27,17 +27,17 @@ const columns: ColumnDef<Product>[] = [
     {
         accessorKey: "purchase_date",
         header: "Purchase Date",
-        cell: ({ row }) => <div>{format(new Date(Number(row.getValue("purchase_date"))), "PP")}</div>,
+        cell: ({ getValue }) => <div>{format(new Date(Number(getValue())), "PP")}</div>,
     },
     {
         accessorKey: "condition",
         header: "Condition",
-        cell: ({ row }) => <Badge>{row.getValue("condition")}</Badge>,
+        cell: ({ getValue }) => <Badge>{getValue() as string}</Badge>,
     },
     {
         accessorKey: "createdAt",
         header: "Post Date",
-        cell: ({ row }) => <div>{format(new Date(Number(row.getValue("createdAt"))), "PP")}</div>,
+        cell: ({ getValue }) => <div>{format(new Date(Number(getValue())), "PP")}</div>,
     },
 ];
 
@@ -48,7 +48,7 @@ export default function SellerProducts() {
 
     return (
         <>
-            <h1>All Products</h1>
+            <h1>All Product</h1>
             <DataTable columns={columns} data={data.products} />
         </>
     );

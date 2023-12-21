@@ -6,8 +6,8 @@ export type User = {
     image: string;
     role: string;
     isVerify: boolean;
-    products: Product[];
-    bookings: Booking[];
+    totalProduct: number;
+    totalBooking: number;
     createdAt: string;
     updatedAt: string;
 };

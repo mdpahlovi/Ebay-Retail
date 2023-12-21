@@ -3,7 +3,7 @@ import { formatDistance } from "date-fns";
 import { Product } from "@/types/data";
 import { Dialog } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { AvatarWithFallback } from "@/components/ui/avatar";
 import { BookingDialog, BookingTrigger } from "@/components/dialogs/booking";
 
 const ProductCard = ({ product }: { product: Product }) => {
@@ -36,10 +36,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                     </div>
                     <div className="mt-2.5 flex flex-wrap justify-between items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <Avatar>
-                                <AvatarImage src={seller.image} alt="" />
-                                <AvatarFallback />
-                            </Avatar>
+                            <AvatarWithFallback src={seller.image} />
                             <div>
                                 <h5 className="font-semibold flex items-center gap-1">
                                     {seller.name}
