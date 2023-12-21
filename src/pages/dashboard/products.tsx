@@ -1,140 +1,60 @@
-import DataTable from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
-import { GET_SELLER_PRODUCTS } from "@/graphql/queries";
+import { Product } from "@/types/data";
 import { useQuery } from "@apollo/client";
+import { GET_SELLER_PRODUCTS } from "@/graphql/queries";
+import { format } from "date-fns";
+import { Badge } from "@/components/ui/badge";
+import Loader from "@/components/ui/loader";
+import DataTable from "@/components/ui/data-table";
 
-type Payment = {
-    id: string;
-    amount: number;
-    status: "pending" | "processing" | "success" | "failed";
-    email: string;
-};
-
-const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Product>[] = [
     {
-        accessorKey: "status",
+        accessorKey: "name",
+        header: "Name",
+    },
+    {
+        accessorKey: "location",
+        header: "Location",
+    },
+    {
+        accessorKey: "resale_price",
+        header: "Resale Price",
+    },
+    {
+        accessorKey: "original_price",
+        header: "Original Price",
+    },
+    {
+        accessorKey: "purchase_date",
+        header: "Purchase Date",
+        cell: ({ row }) => <div>{format(new Date(Number(row.getValue("purchase_date"))), "PP")}</div>,
+    },
+    {
+        accessorKey: "condition",
+        header: "Condition",
+        cell: ({ row }) => <Badge>{row.getValue("condition")}</Badge>,
+    },
+    {
+        accessorKey: "isBooked",
         header: "Status",
+        cell: ({ row }) => <Badge>{row.getValue("isBooked") ? "Booked" : "Pending"}</Badge>,
     },
     {
-        accessorKey: "email",
-        header: "Email",
-    },
-    {
-        accessorKey: "amount",
-        header: "Amount",
+        accessorKey: "createdAt",
+        header: "Post Date",
+        cell: ({ row }) => <div>{format(new Date(Number(row.getValue("createdAt"))), "PP")}</div>,
     },
 ];
 
-function getData(): Payment[] {
-    return [
-        {
-            id: "728ed52f",
-            amount: 100,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52g",
-            amount: 101,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52h",
-            amount: 102,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52i",
-            amount: 103,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52f",
-            amount: 100,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52g",
-            amount: 101,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52h",
-            amount: 102,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52i",
-            amount: 103,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52f",
-            amount: 100,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52g",
-            amount: 101,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52h",
-            amount: 102,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52i",
-            amount: 103,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52f",
-            amount: 100,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52g",
-            amount: 101,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52h",
-            amount: 102,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52i",
-            amount: 103,
-            status: "pending",
-            email: "m@example.com",
-        },
-    ];
-}
-
 export default function SellerProducts() {
     const { data, loading } = useQuery(GET_SELLER_PRODUCTS);
-    console.log({ data, loading });
-    const data1 = getData();
+
+    if (loading) return <Loader />;
 
     return (
         <>
             <h1>All Products</h1>
-            <DataTable columns={columns} data={data1} />
+            <DataTable columns={columns} data={data.products} />
         </>
     );
 }

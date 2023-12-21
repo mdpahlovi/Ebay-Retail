@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
+import { ScrollArea, ScrollBar } from "./scroll-area";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -17,14 +18,14 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 
     return (
         <>
-            <div className="rounded-md border">
+            <ScrollArea className="rounded-md border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id} className="whitespace-nowrap">
                                             {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                         </TableHead>
                                     );
@@ -50,7 +51,8 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
                         )}
                     </TableBody>
                 </Table>
-            </div>
+                <ScrollBar orientation="horizontal" />
+            </ScrollArea>
             <div className="flex items-center justify-end gap-4">
                 <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                     Previous

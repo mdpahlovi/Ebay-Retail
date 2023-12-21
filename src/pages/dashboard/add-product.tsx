@@ -1,39 +1,21 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_CATEGORIES } from "@/graphql/queries";
+import { CREATE_PRODUCT } from "@/graphql/mutations";
+import { FormikHelpers } from "formik";
+import { toast } from "react-toastify";
+import { Category, Product } from "@/types/data";
+import { createProductValues } from "@/lib/initialValues";
+import createProductSchema from "@/validations/createProductSchema";
 import Form from "@/components/form";
-import FormDatePicker from "@/components/form/FormDatePicker";
+import FormImageUpload from "@/components/form/FormImageUpload";
 import FormInput from "@/components/form/FormInput";
+import FormDatePicker from "@/components/form/FormDatePicker";
 import FormSubmit from "@/components/form/FormSubmit";
 import FormSelect from "@/components/form/FormSelect";
-import { Category } from "@/types/data";
-import Loader from "@/components/ui/loader";
-import createProductSchema from "@/validations/createProductSchema";
 
-const initialValues = {
-    category: "",
-    name: "",
-    image: "",
-    resale_price: "",
-    original_price: "",
-    condition: "",
-    description: "",
-    location: "",
-    purchase_date: new Date(),
-};
-type InitialValues = {
-    category: string;
-    name: string;
-    image: string;
-    location: string;
-    resale_price: number;
-    original_price: number;
-    purchase_date: string;
-    condition: string;
-    description: string;
-};
 export default function AddProduct() {
-    const { loading, data } = useQuery(GET_CATEGORIES);
-    if (loading) return <Loader />;
+    const { data } = useQuery(GET_CATEGORIES);
+    const [createProduct, { loading }] = useMutation(CREATE_PRODUCT);
 
     const categories = (categories: Category[] | undefined) => {
         if (categories) {
@@ -45,19 +27,24 @@ export default function AddProduct() {
         }
     };
 
-    const handleSubmit = (data: InitialValues) => {
-        console.log(data);
+    const handleSubmit = (data: Product, formikHelpers: FormikHelpers<Product>) => {
+        createProduct({ variables: data })
+            .then(({ data }: { data?: { createProduct: { id: string } } }) => {
+                if (data?.createProduct) toast.success("Product Added Successfully");
+                formikHelpers.resetForm();
+            })
+            .catch((error) => toast.error(error.message));
     };
 
     return (
         <>
             <h1>Add New Product</h1>
-            <Form initialValues={initialValues} validationSchema={createProductSchema} onSubmit={handleSubmit}>
+            <Form initialValues={createProductValues} validationSchema={createProductSchema} onSubmit={handleSubmit}>
+                <FormImageUpload name="image" />
                 <div className="grid sm:grid-cols-[4fr_8fr] gap-5">
                     <FormSelect name="category" label="Select Category" values={categories(data?.categories)} />
                     <FormInput name="name" label="Product Name" />
                 </div>
-                <FormInput name="image" label="Image URL" />
                 <FormInput name="location" label="Location" />
                 <div className="grid sm:grid-cols-2 gap-5">
                     <FormInput type="number" name="resale_price" label="Resale Price" />
@@ -68,7 +55,7 @@ export default function AddProduct() {
                     <FormInput name="condition" label="Condition" />
                 </div>
                 <FormInput name="description" label="Description" textarea />
-                <FormSubmit>Submit</FormSubmit>
+                <FormSubmit loading={loading}>Submit</FormSubmit>
             </Form>
         </>
     );

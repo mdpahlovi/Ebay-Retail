@@ -15,7 +15,7 @@ export default function Dashboard() {
                     <Sidebar />
                 </ScrollArea>
                 <ScrollArea>
-                    <div className="sticky top-0 h-16 bg-background border-b flex justify-between items-center gap-6 px-6">
+                    <div className="sticky-nav h-16 flex justify-between items-center gap-6 px-6">
                         <SheetTrigger>
                             <Button variant="outline" size="icon" className="lg:hidden">
                                 <PanelLeftOpen size={20} />

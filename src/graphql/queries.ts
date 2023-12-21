@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_ADVERTISE_PRODUCTS = gql`
-    query {
+    query advertise {
         advertise {
             id
             image
@@ -13,7 +13,7 @@ export const GET_ADVERTISE_PRODUCTS = gql`
 `;
 
 export const GET_CATEGORIES = gql`
-    query {
+    query categories {
         categories {
             id
             name
@@ -28,6 +28,7 @@ export const GET_PRODUCTS = gql`
         category(id: $id) {
             name
             products {
+                id
                 name
                 image
                 location
@@ -49,15 +50,14 @@ export const GET_PRODUCTS = gql`
 `;
 
 export const GET_SELLER_PRODUCTS = gql`
-    query {
+    query products {
         products {
+            id
             name
-            image
             location
             resale_price
             original_price
             purchase_date
-            description
             condition
             createdAt
             isBooked
