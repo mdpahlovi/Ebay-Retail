@@ -4,10 +4,11 @@ export const GET_ADVERTISE_PRODUCTS = gql`
     query advertise {
         advertise {
             id
+            name
             image
             condition
-            name
-            isBooked
+            resale_price
+            original_price
         }
     }
 `;
@@ -38,12 +39,12 @@ export const GET_PRODUCTS = gql`
                 description
                 condition
                 seller {
+                    id
                     name
                     image
                     isVerify
                 }
                 createdAt
-                isBooked
             }
         }
     }
@@ -60,7 +61,6 @@ export const GET_SELLER_PRODUCTS = gql`
             purchase_date
             condition
             createdAt
-            isBooked
         }
     }
 `;

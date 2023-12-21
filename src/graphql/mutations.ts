@@ -27,3 +27,11 @@ export const CREATE_PRODUCT = gql`
         }
     }
 `;
+
+export const CREATE_BOOKING = gql`
+    mutation createBooking($date: String!, $location: String!, $seller: String!, $product: String!) {
+        createBooking(date: $date, location: $location, seller: $seller, product: $product) {
+            id
+        }
+    }
+`;

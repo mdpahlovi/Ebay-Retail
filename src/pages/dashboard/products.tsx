@@ -35,11 +35,6 @@ const columns: ColumnDef<Product>[] = [
         cell: ({ row }) => <Badge>{row.getValue("condition")}</Badge>,
     },
     {
-        accessorKey: "isBooked",
-        header: "Status",
-        cell: ({ row }) => <Badge>{row.getValue("isBooked") ? "Booked" : "Pending"}</Badge>,
-    },
-    {
         accessorKey: "createdAt",
         header: "Post Date",
         cell: ({ row }) => <div>{format(new Date(Number(row.getValue("createdAt"))), "PP")}</div>,
