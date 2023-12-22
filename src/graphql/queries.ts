@@ -12,6 +12,7 @@ export const GET_ADVERTISE_PRODUCTS = gql`
             seller {
                 id
             }
+            isBooked
         }
     }
 `;
@@ -47,6 +48,7 @@ export const GET_PRODUCTS = gql`
                     image
                     isVerify
                 }
+                isBooked
                 createdAt
             }
         }

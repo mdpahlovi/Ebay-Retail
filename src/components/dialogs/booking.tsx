@@ -20,13 +20,13 @@ const bookingSchema = yup.object().shape({
     location: yup.string().required("Meeting Location is Required"),
 });
 
-export function BookingTrigger() {
+export function BookingTrigger({ isBooked }: { isBooked: boolean }) {
     const { pathname } = useLocation();
     const { navigateTo } = useNavigateWithState();
     const { user } = useAppSelector((state) => state.user);
 
     const isHome = pathname === "/";
-    const config: ButtonProps = { size: isHome ? "default" : "sm", className: isHome ? "w-full" : "" };
+    const config: ButtonProps = { size: isHome ? "default" : "sm", className: isHome ? "w-full" : "", disabled: isBooked };
 
     if (!user?.id) {
         return (

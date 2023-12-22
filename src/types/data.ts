@@ -35,7 +35,7 @@ export type Product = {
     purchase_date: string;
     seller: User;
     advertised: boolean;
-    booking: Booking;
+    isBooked: boolean;
     createdAt: string;
     updatedAt: string;
 };

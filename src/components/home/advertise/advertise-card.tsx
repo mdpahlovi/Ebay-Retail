@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { BookingDialog, BookingTrigger } from "@/components/dialogs/booking";
 
 const AdvertiseCard = ({ product }: { product: Product }) => {
-    const { name, image, condition, original_price, resale_price } = product;
+    const { name, image, condition, original_price, resale_price, isBooked } = product;
 
     return (
         <Dialog>
@@ -20,7 +20,7 @@ const AdvertiseCard = ({ product }: { product: Product }) => {
                         on Buy
                     </h3>
                     <p className="mt-1 mb-4 text-white">{name}</p>
-                    <BookingTrigger />
+                    <BookingTrigger isBooked={isBooked} />
                 </div>
             </div>
             <BookingDialog product={product} />

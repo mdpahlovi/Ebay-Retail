@@ -35,3 +35,11 @@ export const CREATE_BOOKING = gql`
         }
     }
 `;
+
+export const CREATE_CATEGORY = gql`
+    mutation createCategory($name: String!, $image: String!) {
+        createCategory(name: $name, image: $image) {
+            id
+        }
+    }
+`;

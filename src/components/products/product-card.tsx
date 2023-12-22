@@ -7,7 +7,8 @@ import { AvatarWithFallback } from "@/components/ui/avatar";
 import { BookingDialog, BookingTrigger } from "@/components/dialogs/booking";
 
 const ProductCard = ({ product }: { product: Product }) => {
-    const { name, image, location, resale_price, original_price, purchase_date, description, condition, seller, createdAt } = product;
+    const { name, image, location, resale_price, original_price, purchase_date, description, condition, seller, isBooked, createdAt } =
+        product;
     const used_year = formatDistance(new Date(), new Date(Number(purchase_date)));
     const post_date = format(new Date(Number(createdAt)), "PPp");
 
@@ -45,7 +46,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                                 <h6>{post_date}</h6>
                             </div>
                         </div>
-                        <BookingTrigger />
+                        <BookingTrigger isBooked={isBooked} />
                     </div>
                 </div>
             </div>

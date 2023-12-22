@@ -35,6 +35,11 @@ const columns: ColumnDef<Product>[] = [
         cell: ({ getValue }) => <Badge>{getValue() as string}</Badge>,
     },
     {
+        accessorKey: "isBooked",
+        header: "Status",
+        cell: ({ getValue }) => <Badge>{(getValue() as boolean) ? "Booked" : "Not Booked"}</Badge>,
+    },
+    {
         accessorKey: "createdAt",
         header: "Post Date",
         cell: ({ getValue }) => <div>{format(new Date(Number(getValue())), "PP")}</div>,
