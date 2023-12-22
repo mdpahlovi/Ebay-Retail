@@ -43,3 +43,11 @@ export const CREATE_CATEGORY = gql`
         }
     }
 `;
+
+export const SOCIAL_LOGIN = gql`
+    mutation socialLogin($name: String!, $email: String!, $image: String!, $provider: String!) {
+        socialLogin(name: $name, email: $email, image: $image, provider: $provider) {
+            token
+        }
+    }
+`;

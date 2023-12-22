@@ -17,7 +17,7 @@ export default function Contact() {
 
     const handleSubmit = (data: Values) => {
         setLoading(true);
-        emailjs.send("ebay-retail", "ebay-retail", data, "coRDz-k03U_Rr77eZ").then(
+        emailjs.send("ebay-retail", "ebay-retail", data, import.meta.env.VITE_EMAILJS_PUBLIC_ID).then(
             (result) => {
                 setLoading(false);
                 if (result.text === "OK") toast.success("Email Sent Successfully");

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import { MoreVertical } from "lucide-react";
 
-const links = ["Home", "About", "Categories", "Contacts"];
+const links = ["Home", "Categories", "Contacts"];
 
 export default function NavLinks({ icon }: { icon?: boolean }) {
     return links.map((link, idx) => {

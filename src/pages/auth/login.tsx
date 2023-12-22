@@ -6,12 +6,12 @@ import decodeToken from "@/lib/decodeToken";
 import { setUser } from "@/redux/features/users/userSlice";
 import { toast } from "react-toastify";
 import Auth from "@/layout/auth";
-import { Button } from "@/components/ui/button";
-import { AtSign, Github } from "lucide-react";
+import GoogleLogin from "@/components/auth/login/google-login";
+import GithubLogin from "@/components/auth/login/github-login";
 import Form from "@/components/form";
+import loginSchema from "@/validations/loginSchema";
 import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
-import loginSchema from "@/validations/loginSchema";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const LOGIN = gql`
@@ -52,14 +52,8 @@ export default function Login() {
             </CardHeader>
             <CardContent className="grid gap-4">
                 <div className="grid sm:grid-cols-2 gap-6">
-                    <Button variant="outline">
-                        <AtSign size={16} className="mr-2" />
-                        Google
-                    </Button>
-                    <Button variant="outline">
-                        <Github size={16} className="mr-2" />
-                        Github
-                    </Button>
+                    <GoogleLogin navigateFrom={navigateFrom} />
+                    <GithubLogin navigateFrom={navigateFrom} />
                 </div>
                 <div className="line-x">
                     <p className="bg-background px-2">Or continue with</p>

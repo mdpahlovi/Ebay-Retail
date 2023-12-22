@@ -10,8 +10,8 @@ interface DataTableProps<TData, TValue> {
 
 export default function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
     const table = useReactTable({
-        data,
         columns,
+        data: data ? data : [],
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
     });
