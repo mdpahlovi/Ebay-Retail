@@ -16,6 +16,7 @@ import AdminRoute from "./AdminRoute";
 import AllBuyer from "@/pages/dashboard/all-buyer";
 import AllSeller from "@/pages/dashboard/all-seller";
 import AddCategory from "@/pages/dashboard/add-category";
+import Contact from "@/pages/main/contact";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: "/categories/:id",
                 element: <Products />,
+            },
+            {
+                path: "/contacts",
+                element: <Contact />,
             },
         ],
     },

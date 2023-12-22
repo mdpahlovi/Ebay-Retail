@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "@/graphql/queries";
 import Loader from "@/components/ui/loader";
 import Header from "@/components/ui/header";
-import ProductCard from "@/components/products/product-card";
+import ProductCard from "@/components/main/products/product-card";
 
 export default function Products() {
     const params = useParams();

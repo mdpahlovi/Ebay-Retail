@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GET_CATEGORIES } from "@/graphql/queries";
 import Header from "@/components/ui/header";
 import { Skeleton } from "@/components/ui/skeleton";
-import CategoryCard from "@/components/home/category/category-card";
+import CategoryCard from "@/components/main/home/category/category-card";
 
 const Categories = () => {
     const { loading, data } = useQuery(GET_CATEGORIES);

@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@apollo/client": "^3.8.8",
+        "@emailjs/browser": "^3.11.0",
         "@radix-ui/react-avatar": "^1.0.4",
         "@radix-ui/react-checkbox": "^1.0.4",
         "@radix-ui/react-collapsible": "^1.0.3",

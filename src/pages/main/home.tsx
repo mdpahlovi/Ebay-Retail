@@ -1,7 +1,7 @@
-import Advertise from "@/components/home/advertise";
-import Category from "@/components/home/category";
-import Hero from "@/components/home/hero";
-import ServiceCard from "@/components/home/service-card";
+import Advertise from "@/components/main/home/advertise";
+import Category from "@/components/main/home/category";
+import Hero from "@/components/main/home/hero";
+import ServiceCard from "@/components/main/home/service-card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 

@@ -2,14 +2,14 @@
 
 ### Open [Ebay Retail](https://ebay-retail.vercel.app/) to view this project
 
-#### Technology Used : React, JavaScript, TailwindCSS, Daisy UI, React Router Dom, Firebase, React Icons, React Toast, React Photo View, React Spinner etc.
+#### Technology Used : React, Typescript, Redux Toolkit, TailwindCSS, Shadcn/ui, React Router Dom, React Icons, React Toast, React Spinner etc.
 
 ### What can you get here?
 
--   Website including Dashboard panel with three different role for use like Admin, Buyer & Seller.
--   Admin See & delete All Buyer & Seller.
--   Seller can add product, see & delete his product.
--   Buyer can book product & see his booking.
+-   Resell website includes a Dashboard panel with three different roles for users: Admin, Buyer, and seller.
+-   Admin can manage all buyer seller and category.
+-   Seller can manage their products and bookings.
+-   Buyer can see and make their bookings.
 -   Firebase Authentication Email & Password Base & Google.
 -   Switch Light & Dark Mode.
 
