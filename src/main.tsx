@@ -9,12 +9,15 @@ import ReactDOM from "react-dom/client";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
 axios.defaults.withCredentials = true;
 const client = new ApolloClient({
-    uri: "http://localhost:4000",
+    uri: import.meta.env.VITE_SERVER_URL,
     cache: new InMemoryCache(),
-    credentials: "include",
+    headers: {
+        credentials: "include",
+        mode: "cors",
+    },
 });
 
 const google_client_id = import.meta.env.VITE_GOOGLE_CLIENT_ID;

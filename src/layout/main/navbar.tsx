@@ -23,14 +23,12 @@ export default function Navbar() {
                     </div>
                 </section>
             </nav>
-            <section
-                className={`fixed z-20 bg-background mt-8 border rounded-md py-8 flex flex-col gap-4 ${
-                    isOpen ? "scale-y-100" : "scale-y-0"
-                } transition-all origin-top duration-500 lg:hidden`}
-            >
-                <NavLinks />
-                <UserNav mobile />
-            </section>
+            <nav className={`fixed w-full z-20 ${isOpen ? "scale-y-100" : "scale-y-0"} transition-all origin-top duration-500`}>
+                <section className="mt-8 bg-background border rounded-md py-8 flex flex-col gap-4 lg:hidden">
+                    <NavLinks />
+                    <UserNav mobile />
+                </section>
+            </nav>
         </>
     );
 }
