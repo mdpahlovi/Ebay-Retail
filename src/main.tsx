@@ -9,10 +9,10 @@ import ReactDOM from "react-dom/client";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
+axios.defaults.baseURL = "https://ebay-retail-server.vercel.app";
 axios.defaults.withCredentials = true;
 const client = new ApolloClient({
-    uri: import.meta.env.VITE_SERVER_URL,
+    uri: "https://ebay-retail-server.vercel.app",
     cache: new InMemoryCache(),
     headers: {
         credentials: "include",
