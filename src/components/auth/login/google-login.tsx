@@ -46,7 +46,7 @@ export default function GoogleLogin({ navigateFrom }: { navigateFrom: () => void
     return (
         <Button variant="outline" onClick={() => handleClick()}>
             <AtSign size={16} className="mr-2" />
-            Google
+            Login With Google
         </Button>
     );
 }

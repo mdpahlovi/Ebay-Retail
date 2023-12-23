@@ -7,7 +7,6 @@ import { setUser } from "@/redux/features/users/userSlice";
 import { toast } from "react-toastify";
 import Auth from "@/layout/auth";
 import GoogleLogin from "@/components/auth/login/google-login";
-import GithubLogin from "@/components/auth/login/github-login";
 import Form from "@/components/form";
 import loginSchema from "@/validations/loginSchema";
 import FormInput from "@/components/form/FormInput";
@@ -51,10 +50,7 @@ export default function Login() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
-                <div className="grid sm:grid-cols-2 gap-6">
-                    <GoogleLogin navigateFrom={navigateFrom} />
-                    <GithubLogin navigateFrom={navigateFrom} />
-                </div>
+                <GoogleLogin navigateFrom={navigateFrom} />
                 <div className="line-x">
                     <p className="bg-background px-2">Or continue with</p>
                 </div>
