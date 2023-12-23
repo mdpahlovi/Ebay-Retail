@@ -1,8 +1,7 @@
 import { useAppDispatch } from "@/redux/hooks";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "@/graphql/mutations";
 import useNavigateWithState from "@/hooks/useNavigator";
-import { setCookies } from "@/lib/cookies";
-import decodeToken from "@/lib/decodeToken";
 import { setUser } from "@/redux/features/users/userSlice";
 import { toast } from "react-toastify";
 import Auth from "@/layout/auth";
@@ -13,14 +12,6 @@ import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-const LOGIN = gql`
-    mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            token
-        }
-    }
-`;
-
 export default function Login() {
     const dispatch = useAppDispatch();
     const [login, { loading }] = useMutation(LOGIN);
@@ -29,9 +20,8 @@ export default function Login() {
     const handleLogin = (value: { email: string; password: string }) => {
         login({ variables: value })
             .then(({ data }) => {
-                if (data?.login?.token) {
-                    setCookies(data.login.token);
-                    dispatch(setUser(decodeToken(data.login.token)));
+                if (data?.login?.id) {
+                    dispatch(setUser(data.login));
                     navigateFrom();
                 }
             })

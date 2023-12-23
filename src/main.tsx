@@ -1,6 +1,7 @@
 import "swiper/css";
 import "./index.css";
 
+import axios from "axios";
 import App from "./app.tsx";
 import store from "./redux/store.ts";
 import { Provider } from "react-redux";
@@ -8,8 +9,10 @@ import ReactDOM from "react-dom/client";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
+axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.withCredentials = true;
 const client = new ApolloClient({
-    uri: "https://ebay-retail.onrender.com/graphql",
+    uri: "http://localhost:4000",
     cache: new InMemoryCache(),
     credentials: "include",
 });

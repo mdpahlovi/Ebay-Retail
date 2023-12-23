@@ -1,8 +1,7 @@
 import { useAppDispatch } from "@/redux/hooks";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { REGISTER } from "@/graphql/mutations";
 import useNavigateWithState from "@/hooks/useNavigator";
-import { setCookies } from "@/lib/cookies";
-import decodeToken from "@/lib/decodeToken";
 import { setUser } from "@/redux/features/users/userSlice";
 import { toast } from "react-toastify";
 import Auth from "@/layout/auth";
@@ -11,14 +10,6 @@ import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
 import registerSchema from "@/validations/registerSchema";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-const REGISTER = gql`
-    mutation Register($name: String!, $email: String!, $password: String!) {
-        register(name: $name, email: $email, password: $password) {
-            token
-        }
-    }
-`;
 
 const initialValues = { name: "", email: "", password: "", c_password: "" };
 type InitialValue = { name: string; email: string; password: string; c_password: string };
@@ -31,9 +22,8 @@ export default function Register() {
     const handleRegister = (value: InitialValue) => {
         register({ variables: value })
             .then(({ data }) => {
-                if (data?.register?.token) {
-                    setCookies(data.register.token);
-                    dispatch(setUser(decodeToken(data.register.token)));
+                if (data?.register?.id) {
+                    dispatch(setUser(data.register));
                     navigateFrom();
                 }
             })

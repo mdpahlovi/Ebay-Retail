@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -12,17 +13,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { setUser } from "@/redux/features/users/userSlice";
-import { removeCookies } from "@/lib/cookies";
 
 export default function UserNav({ mobile }: { mobile?: boolean }) {
     const { pathname } = useLocation();
     const isDashboard = pathname?.includes("dashboard");
     const { user } = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
-    const handleLogout = () => {
-        removeCookies();
-        dispatch(setUser(null));
-    };
 
     return (
         <div className={!isDashboard ? (mobile ? "lg:hidden" : "hidden lg:block") : ""}>
@@ -55,7 +51,7 @@ export default function UserNav({ mobile }: { mobile?: boolean }) {
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            onClick={handleLogout}
+                            onClick={() => axios.get("/logout").then(() => dispatch(setUser(null)))}
                             className="text-destructive focus:bg-destructive/10 focus:text-destructive cursor-pointer"
                         >
                             Log out

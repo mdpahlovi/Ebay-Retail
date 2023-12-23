@@ -1,12 +1,12 @@
 import "react-toastify/dist/ReactToastify.css";
 
+import axios from "axios";
 import router from "./router";
 import { useEffect } from "react";
+import { UserToken } from "./types";
 import { ToastContainer } from "react-toastify";
 import { RouterProvider } from "react-router-dom";
 import { setUser } from "./redux/features/users/userSlice";
-import { getCookies } from "./lib/cookies";
-import decodeToken from "./lib/decodeToken";
 import { setTheme } from "./redux/features/theme/themeSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import Loader from "./components/ui/loader";
@@ -17,10 +17,10 @@ export default function App() {
     const { loading } = useAppSelector((state) => state.user);
 
     useEffect(() => {
-        //Authenticate User
-        dispatch(setUser(decodeToken(getCookies())));
+        axios.get("/refresh").then((res: { data: UserToken }) => dispatch(setUser(res.data)));
+    }, [dispatch]);
 
-        // Set Current Browser Theme
+    useEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove("light", "dark");
         if (!theme) {

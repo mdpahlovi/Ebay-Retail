@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { SOCIAL_LOGIN } from "@/graphql/mutations";
-import { setCookies } from "@/lib/cookies";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/features/users/userSlice";
-import decodeToken from "@/lib/decodeToken";
 import { Button } from "@/components/ui/button";
 import { AtSign } from "lucide-react";
 
@@ -31,9 +29,8 @@ export default function GoogleLogin({ navigateFrom }: { navigateFrom: () => void
                 .then(({ name, email, picture }) => {
                     socialLogin({ variables: { name, email, image: picture, provider: "google" } })
                         .then(({ data }) => {
-                            if (data?.socialLogin?.token) {
-                                setCookies(data.socialLogin.token);
-                                dispatch(setUser(decodeToken(data.socialLogin.token)));
+                            if (data?.socialLogin?.id) {
+                                dispatch(setUser(data.socialLogin.token));
                                 navigateFrom();
                             }
                         })
