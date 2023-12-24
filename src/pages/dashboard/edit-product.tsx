@@ -17,7 +17,7 @@ import Loader from "@/components/ui/loader";
 export default function EditProduct() {
     const params = useParams();
     const navigate = useNavigate();
-    const { data: categoriesData } = useQuery(GET_CATEGORIES);
+    const { data: categoriesData } = useQuery(GET_CATEGORIES, { fetchPolicy: "no-cache" });
     const { data, loading } = useQuery(GET_PRODUCT, { fetchPolicy: "no-cache", variables: { id: params?.id } });
     const [updateProduct, { loading: updateLoading }] = useMutation(UPDATE_PRODUCT);
 

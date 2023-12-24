@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddProduct() {
     const navigate = useNavigate();
-    const { data } = useQuery(GET_CATEGORIES);
+    const { data } = useQuery(GET_CATEGORIES, { fetchPolicy: "no-cache" });
     const [createProduct, { loading }] = useMutation(CREATE_PRODUCT);
 
     const categories = (categories: Category[] | undefined) => {

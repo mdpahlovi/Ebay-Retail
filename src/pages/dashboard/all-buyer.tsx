@@ -39,7 +39,7 @@ const columns: ColumnDef<User>[] = [
 ];
 
 export default function AllBuyer() {
-    const { data, loading, refetch } = useQuery(GET_ALL_BUYER);
+    const { data, loading, refetch } = useQuery(GET_ALL_BUYER, { fetchPolicy: "no-cache" });
 
     if (loading) return <Loader />;
 

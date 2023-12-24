@@ -143,6 +143,20 @@ export const GET_BOOKING = gql`
     }
 `;
 
+export const GET_USER = gql`
+    query user($id: ID!) {
+        user(id: $id) {
+            id
+            name
+            email
+            phone
+            image
+            role
+            isVerify
+        }
+    }
+`;
+
 export const GET_ALL_BUYER = gql`
     query allBuyer {
         allBuyer {

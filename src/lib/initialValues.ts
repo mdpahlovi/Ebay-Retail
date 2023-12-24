@@ -1,4 +1,4 @@
-import { Booking, Product } from "@/types/data";
+import { Booking, Product, User } from "@/types/data";
 
 export const createProductValues = {
     category: "",
@@ -30,5 +30,13 @@ export const updateBookingValues = (booking: Booking) => {
     return {
         date: booking?.date ? new Date(Number(booking.date)) : new Date(),
         location: booking?.location ? booking.location : "",
+    };
+};
+
+export const updateUserValues = (user: User) => {
+    return {
+        name: user?.name ? user.name : "",
+        image: user?.image ? user.image : "",
+        phone: user?.phone ? user.phone : "",
     };
 };

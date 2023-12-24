@@ -19,6 +19,7 @@ import AddCategory from "@/pages/dashboard/add-category";
 import Contact from "@/pages/main/contact";
 import EditProduct from "@/pages/dashboard/edit-product";
 import EditBooking from "@/pages/dashboard/edit-booking";
+import EditUser from "@/pages/dashboard/edit-user";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
             { path: "/dashboard", element: <DashboardHome /> },
             { path: "bookings", element: <Bookings /> },
             { path: "edit-booking/:id", element: <EditBooking /> },
+            { path: "edit-user/:id", element: <EditUser /> },
             {
                 path: "add-product",
                 element: (

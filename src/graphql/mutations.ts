@@ -72,6 +72,15 @@ export const UPDATE_BOOKING = gql`
     }
 `;
 
+export const UPDATE_USER = gql`
+    mutation updateUser($id: ID!, $data: UserInput!) {
+        updateUser(id: $id, data: $data) {
+            id
+            role
+        }
+    }
+`;
+
 export const DELETE_PRODUCT = gql`
     mutation deleteProduct($id: ID!) {
         deleteProduct(id: $id) {

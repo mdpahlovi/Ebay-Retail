@@ -19,7 +19,7 @@ export default function Home() {
                         program, which means that we’ll replace the item for FREE if it’s not as described in the ad!
                     </p>
                     <div className="flex items-center gap-6">
-                        <Link to="/contact">
+                        <Link to="/contacts">
                             <Button>Contact Us</Button>
                         </Link>
                         <Button variant="outline">Learn more</Button>
