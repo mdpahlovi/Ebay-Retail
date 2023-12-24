@@ -8,9 +8,10 @@ import { UserToken } from "@/types";
 import { AvatarWithFallback } from "@/components/ui/avatar";
 import { format } from "date-fns";
 import DataTable from "@/components/ui/data-table";
+import { DELETE_BOOKING } from "@/graphql/mutations";
 
 export default function Bookings() {
-    const { data, loading } = useQuery(GET_BOOKINGS);
+    const { data, loading, refetch } = useQuery(GET_BOOKINGS);
     const { user } = useAppSelector((state) => state.user);
 
     if (loading) return <Loader />;
@@ -63,7 +64,7 @@ export default function Bookings() {
     return (
         <>
             <h1>All Booking</h1>
-            <DataTable columns={columns} data={data.bookings} />
+            <DataTable path="booking" deleteMutation={DELETE_BOOKING} refetch={refetch} columns={columns} data={data.bookings} />
         </>
     );
 }

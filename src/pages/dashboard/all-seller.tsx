@@ -7,6 +7,7 @@ import { GET_ALL_SELLER } from "@/graphql/queries";
 import Loader from "@/components/ui/loader";
 
 import DataTable from "@/components/ui/data-table";
+import { DELETE_USER } from "@/graphql/mutations";
 
 const columns: ColumnDef<User>[] = [
     {
@@ -42,14 +43,14 @@ const columns: ColumnDef<User>[] = [
 ];
 
 export default function AllSeller() {
-    const { data, loading } = useQuery(GET_ALL_SELLER);
+    const { data, loading, refetch } = useQuery(GET_ALL_SELLER);
 
     if (loading) return <Loader />;
 
     return (
         <>
             <h1>All Seller</h1>
-            <DataTable columns={columns} data={data.allSeller} />
+            <DataTable path="user" columns={columns} deleteMutation={DELETE_USER} refetch={refetch} data={data.allSeller} />
         </>
     );
 }

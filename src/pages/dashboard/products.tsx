@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import Loader from "@/components/ui/loader";
 import DataTable from "@/components/ui/data-table";
+import { DELETE_PRODUCT } from "@/graphql/mutations";
 
 const columns: ColumnDef<Product>[] = [
     {
@@ -37,7 +38,10 @@ const columns: ColumnDef<Product>[] = [
     {
         accessorKey: "isBooked",
         header: "Status",
-        cell: ({ getValue }) => <Badge>{(getValue() as boolean) ? "Booked" : "Not Booked"}</Badge>,
+        cell: ({ getValue }) => {
+            console.log(getValue());
+            return <Badge>{(getValue() as boolean) ? "Booked" : "Padding"}</Badge>;
+        },
     },
     {
         accessorKey: "createdAt",
@@ -47,14 +51,14 @@ const columns: ColumnDef<Product>[] = [
 ];
 
 export default function SellerProducts() {
-    const { data, loading } = useQuery(GET_SELLER_PRODUCTS);
+    const { data, loading, refetch } = useQuery(GET_SELLER_PRODUCTS);
 
     if (loading) return <Loader />;
 
     return (
         <>
             <h1>All Product</h1>
-            <DataTable columns={columns} data={data.products} />
+            <DataTable path="product" deleteMutation={DELETE_PRODUCT} refetch={refetch} columns={columns} data={data.products} />
         </>
     );
 }

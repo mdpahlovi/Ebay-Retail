@@ -65,6 +65,7 @@ export const GET_SELLER_PRODUCTS = gql`
             original_price
             purchase_date
             condition
+            isBooked
             createdAt
         }
     }

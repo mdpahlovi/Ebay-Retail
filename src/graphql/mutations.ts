@@ -56,9 +56,25 @@ export const CREATE_PRODUCT = gql`
     }
 `;
 
+export const DELETE_PRODUCT = gql`
+    mutation deleteProduct($id: ID!) {
+        deleteProduct(id: $id) {
+            id
+        }
+    }
+`;
+
 export const CREATE_BOOKING = gql`
     mutation createBooking($date: String!, $location: String!, $seller: String!, $product: String!) {
         createBooking(date: $date, location: $location, seller: $seller, product: $product) {
+            id
+        }
+    }
+`;
+
+export const DELETE_BOOKING = gql`
+    mutation deleteBooking($id: ID!) {
+        deleteBooking(id: $id) {
             id
         }
     }
@@ -82,6 +98,14 @@ export const SOCIAL_LOGIN = gql`
             image
             role
             isVerify
+        }
+    }
+`;
+
+export const DELETE_USER = gql`
+    mutation deleteUser($id: ID!) {
+        deleteUser(id: $id) {
+            id
         }
     }
 `;

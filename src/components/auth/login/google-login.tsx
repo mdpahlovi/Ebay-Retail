@@ -30,7 +30,7 @@ export default function GoogleLogin({ navigateFrom }: { navigateFrom: () => void
                     socialLogin({ variables: { name, email, image: picture, provider: "google" } })
                         .then(({ data }) => {
                             if (data?.socialLogin?.id) {
-                                dispatch(setUser(data.socialLogin.token));
+                                dispatch(setUser(data.socialLogin));
                                 navigateFrom();
                             }
                         })
