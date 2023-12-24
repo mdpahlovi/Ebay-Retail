@@ -134,3 +134,17 @@ export const DELETE_USER = gql`
         }
     }
 `;
+
+export const PROFILE = gql`
+    mutation profile($name: String!, $phone: String!, $image: String) {
+        profile(name: $name, phone: $phone, image: $image) {
+            id
+            name
+            email
+            phone
+            image
+            role
+            isVerify
+        }
+    }
+`;

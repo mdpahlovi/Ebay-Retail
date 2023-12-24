@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import ErrorMassage from "./ErrorMassage";
 
-export default function FormImageUpload({ name, avatar }: { name: string; avatar?: boolean }) {
+export default function FormImageUpload({ name, disabled, avatar }: { name: string; disabled?: boolean; avatar?: boolean }) {
     const [{ value }, meta] = useField(name);
     const { setFieldValue } = useFormikContext();
     const [preview, setPreview] = useState<string | ArrayBuffer | null | undefined>(value);
@@ -18,17 +18,19 @@ export default function FormImageUpload({ name, avatar }: { name: string; avatar
         >
             {preview ? (
                 <>
-                    <Button
-                        size="icon"
-                        variant="destructive"
-                        className="absolute top-1 bottom-1 z-10"
-                        onClick={() => {
-                            setPreview(null);
-                            setFieldValue(name, "");
-                        }}
-                    >
-                        <X />
-                    </Button>
+                    {!disabled ? (
+                        <Button
+                            size="icon"
+                            variant="destructive"
+                            className="absolute top-1 bottom-1 z-10"
+                            onClick={() => {
+                                setPreview(null);
+                                setFieldValue(name, "");
+                            }}
+                        >
+                            <X />
+                        </Button>
+                    ) : null}
                     <img src={preview as string} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                 </>
             ) : (

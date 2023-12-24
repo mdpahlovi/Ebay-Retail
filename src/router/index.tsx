@@ -20,6 +20,7 @@ import Contact from "@/pages/main/contact";
 import EditProduct from "@/pages/dashboard/edit-product";
 import EditBooking from "@/pages/dashboard/edit-booking";
 import EditUser from "@/pages/dashboard/edit-user";
+import Profile from "@/pages/auth/profile";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: "/contacts",
                 element: <Contact />,
+            },
+            {
+                path: "/profile",
+                element: <Profile />,
             },
         ],
     },

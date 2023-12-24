@@ -32,10 +32,10 @@ export default function UserNav({ mobile }: { mobile?: boolean }) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56" align={mobile ? "start" : "end"} forceMount>
                         <DropdownMenuLabel className="font-normal">
-                            <div className="flex flex-col space-y-1">
+                            <Link to="/profile" className="flex flex-col space-y-1">
                                 <h6 className="text-sm">{user?.name}</h6>
                                 <p className="text-xs">{user?.email}</p>
-                            </div>
+                            </Link>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
