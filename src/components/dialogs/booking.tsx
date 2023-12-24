@@ -4,15 +4,15 @@ import useNavigateWithState from "@/hooks/useNavigator";
 import { useLocation } from "react-router-dom";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Product } from "@/types/data";
+import { BookingDialogProps } from "@/types";
 import { useMutation } from "@apollo/client";
 import { CREATE_BOOKING } from "@/graphql/mutations";
 import { toast } from "react-toastify";
-import { FormikHelpers } from "formik";
 import Form from "@/components/form";
 import FormDatePicker from "@/components/form/FormDatePicker";
 import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
+import toastOption from "@/lib/toastOption";
 
 type BookingInput = { date: string; location: string };
 const bookingSchema = yup.object().shape({
@@ -43,15 +43,16 @@ export function BookingTrigger({ isBooked }: { isBooked: boolean }) {
     }
 }
 
-export function BookingDialog({ product }: { product: Product }) {
-    const [createBooking, { loading }] = useMutation(CREATE_BOOKING);
-    const handleBook = (data: BookingInput, formikHelpers: FormikHelpers<BookingInput>) => {
+export function BookingDialog({ product, refetch }: BookingDialogProps) {
+    const [createBooking] = useMutation(CREATE_BOOKING);
+    const handleBook = (data: BookingInput) => {
+        const toastId = toast.loading("Please Wait For Booking");
         createBooking({ variables: { ...data, seller: product.seller.id, product: product.id } })
             .then(({ data }: { data?: { createBooking: { id: string } } }) => {
-                if (data?.createBooking) toast.success("Product Booked Successfully");
-                formikHelpers.resetForm();
+                refetch();
+                if (data?.createBooking) toast.update(toastId, toastOption("success", `${product?.name} Booked Successfully`));
             })
-            .catch((error) => toast.error(error.message));
+            .catch(() => toast.update(toastId, toastOption("error", `Booking Failed`)));
     };
 
     return (
@@ -62,7 +63,7 @@ export function BookingDialog({ product }: { product: Product }) {
             <Form initialValues={{ date: "", location: "" }} validationSchema={bookingSchema} onSubmit={handleBook}>
                 <FormDatePicker name="date" label="Meeting Date" />
                 <FormInput name="location" label="Meeting Location" />
-                <FormSubmit loading={loading}>Book Now</FormSubmit>
+                <FormSubmit dialog>Book Now</FormSubmit>
             </Form>
         </DialogContent>
     );

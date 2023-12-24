@@ -31,3 +31,9 @@ export interface FormDatePickerProps {
     placeholder?: string;
     disabled?: boolean;
 }
+
+export interface FormSubmitProps {
+    loading?: boolean;
+    dialog?: boolean;
+    children: React.ReactNode;
+}

@@ -48,7 +48,7 @@ const columns: ColumnDef<Product>[] = [
 ];
 
 export default function SellerProducts() {
-    const { data, loading, refetch } = useQuery(GET_SELLER_PRODUCTS);
+    const { data, loading, refetch } = useQuery(GET_SELLER_PRODUCTS, { fetchPolicy: "no-cache" });
 
     if (loading) return <Loader />;
 

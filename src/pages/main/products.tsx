@@ -8,7 +8,7 @@ import ProductCard from "@/components/main/products/product-card";
 
 export default function Products() {
     const params = useParams();
-    const { loading, data } = useQuery(GET_PRODUCTS, { variables: { id: params?.id } });
+    const { loading, data, refetch } = useQuery(GET_PRODUCTS, { variables: { id: params?.id } });
 
     if (loading) return <Loader />;
     return (
@@ -16,7 +16,7 @@ export default function Products() {
             <Header title={data?.category?.name} last={data?.category?.name} />
             <section className="container section-gap grid grid-cols-1 xl:grid-cols-2 gap-12">
                 {data?.category?.products?.map((product: Product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product.id} product={product} refetch={refetch} />
                 ))}
             </section>
         </>

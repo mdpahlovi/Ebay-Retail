@@ -18,7 +18,7 @@ export default function EditProduct() {
     const params = useParams();
     const navigate = useNavigate();
     const { data: categoriesData } = useQuery(GET_CATEGORIES);
-    const { data, loading } = useQuery(GET_PRODUCT, { variables: { id: params?.id } });
+    const { data, loading } = useQuery(GET_PRODUCT, { fetchPolicy: "no-cache", variables: { id: params?.id } });
     const [updateProduct, { loading: updateLoading }] = useMutation(UPDATE_PRODUCT);
 
     const categories = (categories: Category[] | undefined) => {
@@ -44,7 +44,7 @@ export default function EditProduct() {
 
     return (
         <>
-            <h1>Edit Product</h1>
+            <h1>Edit {data?.product?.name}</h1>
             <Form initialValues={updateProductValues(data?.product)} validationSchema={createProductSchema} onSubmit={handleSubmit}>
                 <FormImageUpload name="image" />
                 <div className="grid sm:grid-cols-[4fr_8fr] gap-5">

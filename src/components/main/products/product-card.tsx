@@ -1,12 +1,12 @@
 import format from "date-fns/format";
 import { formatDistance } from "date-fns";
-import { Product } from "@/types/data";
+import { ProductCardProps } from "@/types";
 import { Dialog } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { AvatarWithFallback } from "@/components/ui/avatar";
 import { BookingDialog, BookingTrigger } from "@/components/dialogs/booking";
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product, refetch }: ProductCardProps) => {
     const { name, image, location, resale_price, original_price, purchase_date, description, condition, seller, isBooked, createdAt } =
         product;
     const used_year = formatDistance(new Date(), new Date(Number(purchase_date)));
@@ -50,7 +50,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                     </div>
                 </div>
             </div>
-            <BookingDialog product={product} />
+            <BookingDialog product={product} refetch={refetch} />
         </Dialog>
     );
 };

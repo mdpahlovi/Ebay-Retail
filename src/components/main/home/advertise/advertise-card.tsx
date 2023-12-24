@@ -1,9 +1,9 @@
-import { Product } from "@/types/data";
 import { Dialog } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { BookingDialog, BookingTrigger } from "@/components/dialogs/booking";
+import { ProductCardProps } from "@/types";
 
-const AdvertiseCard = ({ product }: { product: Product }) => {
+const AdvertiseCard = ({ product, refetch }: ProductCardProps) => {
     const { name, image, condition, original_price, resale_price, isBooked } = product;
 
     return (
@@ -23,7 +23,7 @@ const AdvertiseCard = ({ product }: { product: Product }) => {
                     <BookingTrigger isBooked={isBooked} />
                 </div>
             </div>
-            <BookingDialog product={product} />
+            <BookingDialog product={product} refetch={refetch} />
         </Dialog>
     );
 };

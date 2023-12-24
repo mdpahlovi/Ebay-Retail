@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import AdvertiseCard from "./advertise-card";
 
 const Advertise = () => {
-    const { loading, data } = useQuery(GET_ADVERTISE_PRODUCTS);
+    const { loading, data, refetch } = useQuery(GET_ADVERTISE_PRODUCTS);
     const breakpoints = { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } };
 
     return (
@@ -21,7 +21,7 @@ const Advertise = () => {
                       ))
                     : data?.advertise?.map((product: Product) => (
                           <SwiperSlide key={product?.id}>
-                              <AdvertiseCard product={product} />
+                              <AdvertiseCard product={product} refetch={refetch} />
                           </SwiperSlide>
                       ))}
             </Swiper>

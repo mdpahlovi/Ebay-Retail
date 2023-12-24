@@ -2,6 +2,7 @@
 import { DocumentNode } from "graphql";
 import { ApolloQueryResult, OperationVariables } from "@apollo/client";
 import { ColumnDef } from "@tanstack/react-table";
+import { Product } from "./data";
 
 export interface UserToken {
     id: string;
@@ -19,4 +20,14 @@ export interface DataTableProps<TData, TValue> {
     refetch: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<any>>;
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+}
+
+export interface ProductCardProps {
+    product: Product;
+    refetch: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<any>>;
+}
+
+export interface BookingDialogProps {
+    product: Product;
+    refetch: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<any>>;
 }

@@ -11,7 +11,7 @@ import DataTable from "@/components/ui/data-table";
 import { DELETE_BOOKING } from "@/graphql/mutations";
 
 export default function Bookings() {
-    const { data, loading, refetch } = useQuery(GET_BOOKINGS);
+    const { data, loading, refetch } = useQuery(GET_BOOKINGS, { fetchPolicy: "no-cache" });
     const { user } = useAppSelector((state) => state.user);
 
     if (loading) return <Loader />;
@@ -41,6 +41,10 @@ export default function Bookings() {
             accessorKey: "date",
             header: "Meeting Date",
             cell: ({ getValue }) => <div>{format(new Date(Number(getValue())), "PP")}</div>,
+        },
+        {
+            accessorKey: "location",
+            header: "Meeting Location",
         },
         {
             accessorKey: "product.name",

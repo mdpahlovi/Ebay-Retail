@@ -130,6 +130,19 @@ export const GET_BOOKINGS = gql`
     }
 `;
 
+export const GET_BOOKING = gql`
+    query booking($id: ID!) {
+        booking(id: $id) {
+            id
+            date
+            location
+            product {
+                name
+            }
+        }
+    }
+`;
+
 export const GET_ALL_BUYER = gql`
     query allBuyer {
         allBuyer {

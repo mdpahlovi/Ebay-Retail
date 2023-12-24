@@ -18,6 +18,7 @@ import AllSeller from "@/pages/dashboard/all-seller";
 import AddCategory from "@/pages/dashboard/add-category";
 import Contact from "@/pages/main/contact";
 import EditProduct from "@/pages/dashboard/edit-product";
+import EditBooking from "@/pages/dashboard/edit-booking";
 
 const router = createBrowserRouter([
     {
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
         children: [
             { path: "/dashboard", element: <DashboardHome /> },
             { path: "bookings", element: <Bookings /> },
+            { path: "edit-booking/:id", element: <EditBooking /> },
             {
                 path: "add-product",
                 element: (

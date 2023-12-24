@@ -16,7 +16,7 @@ export default function Dashboard() {
                 </ScrollArea>
                 <ScrollArea>
                     <div className="sticky-nav h-16 flex justify-between items-center gap-6 px-6">
-                        <SheetTrigger>
+                        <SheetTrigger asChild>
                             <Button variant="outline" size="icon" className="lg:hidden">
                                 <PanelLeftOpen size={20} />
                             </Button>
