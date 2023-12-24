@@ -38,10 +38,7 @@ const columns: ColumnDef<Product>[] = [
     {
         accessorKey: "isBooked",
         header: "Status",
-        cell: ({ getValue }) => {
-            console.log(getValue());
-            return <Badge>{(getValue() as boolean) ? "Booked" : "Padding"}</Badge>;
-        },
+        cell: ({ getValue }) => <Badge>{(getValue() as boolean) ? "Booked" : "Padding"}</Badge>,
     },
     {
         accessorKey: "createdAt",

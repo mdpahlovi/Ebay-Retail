@@ -1,9 +1,9 @@
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_CATEGORIES } from "@/graphql/queries";
-import { CREATE_PRODUCT } from "@/graphql/mutations";
+import { GET_CATEGORIES, GET_PRODUCT } from "@/graphql/queries";
+import { UPDATE_PRODUCT } from "@/graphql/mutations";
 import { toast } from "react-toastify";
 import { Category, Product } from "@/types/data";
-import { createProductValues } from "@/lib/initialValues";
+import { updateProductValues } from "@/lib/initialValues";
 import createProductSchema from "@/validations/createProductSchema";
 import Form from "@/components/form";
 import FormImageUpload from "@/components/form/FormImageUpload";
@@ -11,12 +11,15 @@ import FormInput from "@/components/form/FormInput";
 import FormDatePicker from "@/components/form/FormDatePicker";
 import FormSubmit from "@/components/form/FormSubmit";
 import FormSelect from "@/components/form/FormSelect";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Loader from "@/components/ui/loader";
 
-export default function AddProduct() {
+export default function EditProduct() {
+    const params = useParams();
     const navigate = useNavigate();
-    const { data } = useQuery(GET_CATEGORIES);
-    const [createProduct, { loading }] = useMutation(CREATE_PRODUCT);
+    const { data: categoriesData } = useQuery(GET_CATEGORIES);
+    const { data, loading } = useQuery(GET_PRODUCT, { variables: { id: params?.id } });
+    const [updateProduct, { loading: updateLoading }] = useMutation(UPDATE_PRODUCT);
 
     const categories = (categories: Category[] | undefined) => {
         if (categories) {
@@ -29,21 +32,23 @@ export default function AddProduct() {
     };
 
     const handleSubmit = (data: Product) => {
-        createProduct({ variables: data })
-            .then(({ data }: { data?: { createProduct: { id: string } } }) => {
-                if (data?.createProduct) toast.success("Product Added Successfully");
+        updateProduct({ variables: { id: params?.id, data } })
+            .then(({ data }: { data?: { updateProduct: { id: string } } }) => {
+                if (data?.updateProduct) toast.success("Product Updated Successfully");
                 navigate("/dashboard/products");
             })
             .catch((error) => toast.error(error.message));
     };
 
+    if (loading) return <Loader />;
+
     return (
         <>
-            <h1>Add New Product</h1>
-            <Form initialValues={createProductValues} validationSchema={createProductSchema} onSubmit={handleSubmit}>
+            <h1>Edit Product</h1>
+            <Form initialValues={updateProductValues(data?.product)} validationSchema={createProductSchema} onSubmit={handleSubmit}>
                 <FormImageUpload name="image" />
                 <div className="grid sm:grid-cols-[4fr_8fr] gap-5">
-                    <FormSelect name="category" label="Select Category" values={categories(data?.categories)} />
+                    <FormSelect name="category" label="Select Category" values={categories(categoriesData?.categories)} />
                     <FormInput name="name" label="Product Name" />
                 </div>
                 <FormInput name="location" label="Location" />
@@ -56,7 +61,7 @@ export default function AddProduct() {
                     <FormInput name="condition" label="Condition" />
                 </div>
                 <FormInput name="description" label="Description" textarea />
-                <FormSubmit loading={loading}>Submit</FormSubmit>
+                <FormSubmit loading={updateLoading}>Submit</FormSubmit>
             </Form>
         </>
     );

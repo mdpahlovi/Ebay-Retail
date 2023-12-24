@@ -17,6 +17,7 @@ import AllBuyer from "@/pages/dashboard/all-buyer";
 import AllSeller from "@/pages/dashboard/all-seller";
 import AddCategory from "@/pages/dashboard/add-category";
 import Contact from "@/pages/main/contact";
+import EditProduct from "@/pages/dashboard/edit-product";
 
 const router = createBrowserRouter([
     {
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
                 element: (
                     <SellerRoute>
                         <AddProduct />
+                    </SellerRoute>
+                ),
+            },
+            {
+                path: "edit-product/:id",
+                element: (
+                    <SellerRoute>
+                        <EditProduct />
                     </SellerRoute>
                 ),
             },

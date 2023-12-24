@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import { useFormikContext } from "formik";
+import { useField, useFormikContext } from "formik";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import ErrorMassage from "./ErrorMassage";
 
-export default function FormImageUpload({ image, name }: { image?: string; name: string }) {
+export default function FormImageUpload({ name }: { name: string }) {
+    const [{ value }, meta] = useField(name);
     const { setFieldValue } = useFormikContext();
-    const [preview, setPreview] = useState<string | ArrayBuffer | null | undefined>(image);
+    const [preview, setPreview] = useState<string | ArrayBuffer | null | undefined>(value);
 
     return (
         <div className="relative max-w-lg h-60 border border-dashed rounded overflow-hidden flex items-center justify-center gap-4">
@@ -48,6 +50,7 @@ export default function FormImageUpload({ image, name }: { image?: string; name:
                     />
                 </Label>
             )}
+            <ErrorMassage meta={meta} />
         </div>
     );
 }

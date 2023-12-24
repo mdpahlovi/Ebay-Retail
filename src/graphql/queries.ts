@@ -71,6 +71,34 @@ export const GET_SELLER_PRODUCTS = gql`
     }
 `;
 
+export const GET_PRODUCT = gql`
+    query product($id: ID!) {
+        product(id: $id) {
+            id
+            category {
+                id
+                name
+            }
+            name
+            image
+            location
+            resale_price
+            original_price
+            purchase_date
+            description
+            condition
+            seller {
+                id
+                name
+                image
+                isVerify
+            }
+            isBooked
+            createdAt
+        }
+    }
+`;
+
 export const GET_BOOKINGS = gql`
     query bookings {
         bookings {
