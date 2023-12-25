@@ -1,26 +1,27 @@
 import Main from "@/layout/main";
 import Home from "@/pages/main/home";
+import Categories from "@/pages/main/categories";
+import Products from "@/pages/main/products";
+import Contact from "@/pages/main/contact";
+import Profile from "@/pages/auth/profile";
 import Login from "@/pages/auth/login";
 import Register from "@/pages/auth/register";
 import Dashboard from "@/layout/dashboard";
 import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import DashboardHome from "@/pages/dashboard/home";
+import Chats from "@/pages/dashboard/chats";
 import Bookings from "@/pages/dashboard/bookings";
-import Categories from "@/pages/main/categories";
-import Products from "@/pages/main/products";
-import AddProduct from "@/pages/dashboard/add-product";
+import EditBooking from "@/pages/dashboard/edit-booking";
 import SellerRoute from "./SellerRoute";
 import SellerProducts from "@/pages/dashboard/products";
+import AddProduct from "@/pages/dashboard/add-product";
+import EditProduct from "@/pages/dashboard/edit-product";
 import AdminRoute from "./AdminRoute";
 import AllBuyer from "@/pages/dashboard/all-buyer";
 import AllSeller from "@/pages/dashboard/all-seller";
-import AddCategory from "@/pages/dashboard/add-category";
-import Contact from "@/pages/main/contact";
-import EditProduct from "@/pages/dashboard/edit-product";
-import EditBooking from "@/pages/dashboard/edit-booking";
 import EditUser from "@/pages/dashboard/edit-user";
-import Profile from "@/pages/auth/profile";
+import AddCategory from "@/pages/dashboard/add-category";
 
 const router = createBrowserRouter([
     {
@@ -61,9 +62,17 @@ const router = createBrowserRouter([
         ),
         children: [
             { path: "/dashboard", element: <DashboardHome /> },
+            { path: "chats", element: <Chats /> },
             { path: "bookings", element: <Bookings /> },
             { path: "edit-booking/:id", element: <EditBooking /> },
-            { path: "edit-user/:id", element: <EditUser /> },
+            {
+                path: "products",
+                element: (
+                    <SellerRoute>
+                        <SellerProducts />
+                    </SellerRoute>
+                ),
+            },
             {
                 path: "add-product",
                 element: (
@@ -80,14 +89,7 @@ const router = createBrowserRouter([
                     </SellerRoute>
                 ),
             },
-            {
-                path: "products",
-                element: (
-                    <SellerRoute>
-                        <SellerProducts />
-                    </SellerRoute>
-                ),
-            },
+
             {
                 path: "all-buyer",
                 element: (
@@ -101,6 +103,14 @@ const router = createBrowserRouter([
                 element: (
                     <AdminRoute>
                         <AllSeller />
+                    </AdminRoute>
+                ),
+            },
+            {
+                path: "edit-user/:id",
+                element: (
+                    <AdminRoute>
+                        <EditUser />
                     </AdminRoute>
                 ),
             },

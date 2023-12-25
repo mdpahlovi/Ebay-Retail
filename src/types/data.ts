@@ -41,6 +41,7 @@ export type Product = {
 };
 
 export type Booking = {
+    id: string;
     date: string;
     location: string;
     buyer: User;

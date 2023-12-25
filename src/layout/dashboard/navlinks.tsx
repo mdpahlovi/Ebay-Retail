@@ -8,9 +8,9 @@ function links(role: string): string[] {
         case "admin":
             return ["All Buyer", "All Seller", "Add Category"];
         case "seller":
-            return ["Bookings", "Add Product", "Products"];
+            return ["Chats", "Bookings", "Products", "Add Product"];
         default:
-            return ["Bookings"];
+            return ["Chats", "Bookings"];
     }
 }
 

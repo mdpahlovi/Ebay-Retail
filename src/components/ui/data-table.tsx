@@ -86,8 +86,8 @@ export default function DataTable<TData, TValue>({ path, deleteMutation, refetch
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                <TableCell colSpan={columns.length + 2} className="h-24 text-center">
+                                    No {capitalizeFirstWord(path)} Data
                                 </TableCell>
                             </TableRow>
                         )}
