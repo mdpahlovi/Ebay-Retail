@@ -3,7 +3,7 @@ import { AvatarWithFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSearchParams } from "react-router-dom";
 
-export default function ChatSidebar({ bookings }: { bookings: Booking[] }) {
+export default function ChatSidebar({ bookings = [] }: { bookings: Booking[] }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const query = searchParams.get("room");
 

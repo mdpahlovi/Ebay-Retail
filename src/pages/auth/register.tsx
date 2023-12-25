@@ -1,9 +1,8 @@
-import { useAppDispatch } from "@/redux/hooks";
+import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { REGISTER } from "@/graphql/mutations";
 import useNavigateWithState from "@/hooks/useNavigator";
-import { setUser } from "@/redux/features/users/userSlice";
-import { toast } from "react-toastify";
+import useAuthToken from "@/hooks/useAuthToken";
 import Auth from "@/layout/auth";
 import Form from "@/components/form";
 import FormInput from "@/components/form/FormInput";
@@ -15,18 +14,13 @@ const initialValues = { name: "", email: "", password: "", c_password: "" };
 type InitialValue = { name: string; email: string; password: string; c_password: string };
 
 export default function Register() {
-    const dispatch = useAppDispatch();
     const [register, { loading }] = useMutation(REGISTER);
-    const { navigateTo, navigateFrom } = useNavigateWithState();
+    const { navigateTo } = useNavigateWithState();
+    const { loginUser } = useAuthToken();
 
     const handleRegister = (value: InitialValue) => {
         register({ variables: value })
-            .then(({ data }) => {
-                if (data?.register?.id) {
-                    dispatch(setUser(data.register));
-                    navigateFrom();
-                }
-            })
+            .then(({ data }) => loginUser(data?.register))
             .catch((error) => toast.error(error.message));
     };
 

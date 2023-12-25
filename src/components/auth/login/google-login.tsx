@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { SOCIAL_LOGIN } from "@/graphql/mutations";
-import { useAppDispatch } from "@/redux/hooks";
-import { setUser } from "@/redux/features/users/userSlice";
 import { Button } from "@/components/ui/button";
 import { AtSign } from "lucide-react";
+import useAuthToken from "@/hooks/useAuthToken";
 
-export default function GoogleLogin({ navigateFrom }: { navigateFrom: () => void }) {
-    const dispatch = useAppDispatch();
+export default function GoogleLogin() {
+    const { loginUser } = useAuthToken();
     const [socialLogin] = useMutation(SOCIAL_LOGIN);
     const [accessToken, setAccessToken] = useState("");
     const handleClick = useGoogleLogin({
@@ -28,17 +27,12 @@ export default function GoogleLogin({ navigateFrom }: { navigateFrom: () => void
                 .then((res) => res.json())
                 .then(({ name, email, picture }) => {
                     socialLogin({ variables: { name, email, image: picture, provider: "google" } })
-                        .then(({ data }) => {
-                            if (data?.socialLogin?.id) {
-                                dispatch(setUser(data.socialLogin));
-                                navigateFrom();
-                            }
-                        })
+                        .then(({ data }) => loginUser(data?.socialLogin))
                         .catch(() => toast.error("Google Login Failed"));
                 })
                 .catch(() => toast.error("Google Login Failed"));
         }
-    }, [accessToken, dispatch, navigateFrom, socialLogin]);
+    }, [accessToken, loginUser, socialLogin]);
 
     return (
         <Button variant="outline" onClick={() => handleClick()}>

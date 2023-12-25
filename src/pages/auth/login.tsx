@@ -1,9 +1,8 @@
-import { useAppDispatch } from "@/redux/hooks";
+import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "@/graphql/mutations";
 import useNavigateWithState from "@/hooks/useNavigator";
-import { setUser } from "@/redux/features/users/userSlice";
-import { toast } from "react-toastify";
+import useAuthToken from "@/hooks/useAuthToken";
 import Auth from "@/layout/auth";
 import GoogleLogin from "@/components/auth/login/google-login";
 import Form from "@/components/form";
@@ -13,18 +12,13 @@ import FormSubmit from "@/components/form/FormSubmit";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Login() {
-    const dispatch = useAppDispatch();
     const [login, { loading }] = useMutation(LOGIN);
-    const { navigateTo, navigateFrom } = useNavigateWithState();
+    const { navigateTo } = useNavigateWithState();
+    const { loginUser } = useAuthToken();
 
     const handleLogin = (value: { email: string; password: string }) => {
         login({ variables: value })
-            .then(({ data }) => {
-                if (data?.login?.id) {
-                    dispatch(setUser(data.login));
-                    navigateFrom();
-                }
-            })
+            .then(({ data }) => loginUser(data?.login))
             .catch((error) => toast.error(error.message));
     };
 
@@ -40,7 +34,7 @@ export default function Login() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
-                <GoogleLogin navigateFrom={navigateFrom} />
+                <GoogleLogin />
                 <div className="line-x">
                     <p className="bg-background px-2">Or continue with</p>
                 </div>

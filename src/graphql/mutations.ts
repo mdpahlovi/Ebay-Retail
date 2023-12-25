@@ -2,29 +2,13 @@ import { gql } from "@apollo/client";
 
 export const LOGIN = gql`
     mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            id
-            name
-            email
-            phone
-            image
-            role
-            isVerify
-        }
+        login(email: $email, password: $password)
     }
 `;
 
 export const REGISTER = gql`
     mutation Register($name: String!, $email: String!, $password: String!) {
-        register(name: $name, email: $email, password: $password) {
-            id
-            name
-            email
-            phone
-            image
-            role
-            isVerify
-        }
+        register(name: $name, email: $email, password: $password)
     }
 `;
 
@@ -123,15 +107,7 @@ export const CREATE_CATEGORY = gql`
 
 export const SOCIAL_LOGIN = gql`
     mutation socialLogin($name: String!, $email: String!, $image: String!, $provider: String!) {
-        socialLogin(name: $name, email: $email, image: $image, provider: $provider) {
-            id
-            name
-            email
-            phone
-            image
-            role
-            isVerify
-        }
+        socialLogin(name: $name, email: $email, image: $image, provider: $provider)
     }
 `;
 
@@ -145,14 +121,6 @@ export const DELETE_USER = gql`
 
 export const PROFILE = gql`
     mutation profile($name: String!, $phone: String!, $image: String) {
-        profile(name: $name, phone: $phone, image: $image) {
-            id
-            name
-            email
-            phone
-            image
-            role
-            isVerify
-        }
+        profile(name: $name, phone: $phone, image: $image)
     }
 `;
