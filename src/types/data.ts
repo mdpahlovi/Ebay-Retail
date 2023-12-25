@@ -40,6 +40,14 @@ export type Product = {
     updatedAt: string;
 };
 
+export type Message = {
+    id: string;
+    user: string;
+    type: string;
+    content: string;
+    createdAt: string;
+};
+
 export type Booking = {
     id: string;
     date: string;
@@ -47,6 +55,7 @@ export type Booking = {
     buyer: User;
     seller: User;
     product: Product;
+    messages: Message[];
     createdAt: string;
     updatedAt: string;
 };

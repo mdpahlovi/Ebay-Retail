@@ -97,6 +97,14 @@ export const CREATE_BOOKING = gql`
     }
 `;
 
+export const CREATE_MESSAGE = gql`
+    mutation createMessage($id: ID!, $type: String!, $content: String!) {
+        createMessage(id: $id, type: $type, content: $content) {
+            id
+        }
+    }
+`;
+
 export const DELETE_BOOKING = gql`
     mutation deleteBooking($id: ID!) {
         deleteBooking(id: $id) {

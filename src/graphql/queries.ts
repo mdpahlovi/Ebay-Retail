@@ -130,6 +130,37 @@ export const GET_BOOKINGS = gql`
     }
 `;
 
+export const GET_BOOKING_MESSAGE = gql`
+    query booking($id: ID!) {
+        booking(id: $id) {
+            id
+            date
+            location
+            buyer {
+                id
+                name
+                image
+            }
+            seller {
+                id
+                name
+                image
+            }
+            product {
+                name
+            }
+            messages {
+                id
+                user
+                type
+                content
+                createdAt
+            }
+            createdAt
+        }
+    }
+`;
+
 export const GET_BOOKING = gql`
     query booking($id: ID!) {
         booking(id: $id) {

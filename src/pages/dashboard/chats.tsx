@@ -6,16 +6,15 @@ import ChatSidebar from "@/components/dashboard/chats/chat-sidebar";
 import Messages from "@/components/dashboard/chats/messages";
 
 export default function ChatUI() {
-    const { data, loading } = useQuery(GET_BOOKINGS, { fetchPolicy: "no-cache" });
     const [searchParams] = useSearchParams();
-    const query = searchParams.get("room");
+    const { data, loading } = useQuery(GET_BOOKINGS, { fetchPolicy: "no-cache" });
 
     if (loading) return <Loader />;
 
     return (
         <div className="-mx-6 -my-5 h-[calc(100vh_-_4rem)] grid md:grid-cols-[16rem_1fr] xl:grid-cols-[20rem_1fr]">
             <ChatSidebar bookings={data.bookings} />
-            {query ? (
+            {searchParams.get("room") ? (
                 <Messages />
             ) : (
                 <div className="px-6 hidden flex-col items-center justify-center text-center md:flex">
