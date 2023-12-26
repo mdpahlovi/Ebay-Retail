@@ -4,7 +4,7 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const httpLink = new HttpLink({ uri: `http://localhost:4000/graphql` });
+const httpLink = new HttpLink({ uri: `https://ebay-retail.onrender.com/graphql` });
 const authToken = new ApolloLink((operation, forward) => {
     operation.setContext(({ headers = {} }) => ({
         headers: {
@@ -15,7 +15,7 @@ const authToken = new ApolloLink((operation, forward) => {
     return forward(operation);
 });
 
-const wsLink = new GraphQLWsLink(createClient({ url: "ws://localhost:4000/subscription" }));
+const wsLink = new GraphQLWsLink(createClient({ url: "wss://ebay-retail.onrender.com/subscription" }));
 
 const splitLink = split(
     ({ query }) => {
