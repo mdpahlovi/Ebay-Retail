@@ -1,6 +1,7 @@
 import "swiper/css";
 import "./index.css";
 
+import "regenerator-runtime/runtime";
 import App from "./app.tsx";
 import client from "./lib/client.ts";
 import store from "./redux/store.ts";
