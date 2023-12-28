@@ -20,7 +20,7 @@ const TopNews = () => {
 
     return (
         <section>
-            <h1 className="text-center mb-8">Top News</h1>
+            <h1 className="text-center mb-8">Latest News</h1>
             <Swiper {...baseSwiper} breakpoints={breakpoints}>
                 {loading
                     ? [...Array(3)].map((_, idx) => (

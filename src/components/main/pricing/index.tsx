@@ -12,27 +12,7 @@ import { userSchema } from "@/validations/userSchema";
 import { useMutation } from "@apollo/client";
 import { BECOMESELLER } from "@/graphql/mutations";
 import { toast } from "react-toastify";
-
-const pricing = [
-    {
-        title: "Starter",
-        description: "Good for one time use. We not recommend because donn't any get extra service.",
-        amount: "Free",
-        features: ["No Verification Tick", "10 Product Sell", "No Product Advertise", "No Support"],
-    },
-    {
-        title: "Professional",
-        description: "Highly Recommended. If you have small business or plan to start a business.",
-        amount: "99",
-        features: ["Verification Tick", "99 Product Sell", "9 Product Advertise", "24/7 Supports"],
-    },
-    {
-        title: "Enterprise",
-        description: "Mostly recommend for high scale business. Here you get unlimited service.",
-        amount: "199",
-        features: ["Verification Tick", "299 Product Sell", "29 Product Advertise", "24/7 Supports"],
-    },
-];
+import { pricing } from "@/lib/data";
 
 type BecomeSeller = { name: string; phone: string; address: string };
 

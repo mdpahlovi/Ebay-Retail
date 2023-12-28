@@ -14,11 +14,11 @@ export default function PriceCard({ price, setPlan }: { price: Price; setPlan: R
     const handlePay = () => (user?.id ? setPlan(title.toLowerCase()) : navigateTo("/login"));
 
     return (
-        <Card>
+        <Card className="md:last:col-span-2 lg:last:col-auto">
             <CardHeader className="text-center">
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{description}</CardDescription>
-                <h1>{amount}&#2547;</h1>
+                <h1>{amount}</h1>
             </CardHeader>
             <CardContent className="space-y-0.5">
                 {features.map((feature, idx) => (
