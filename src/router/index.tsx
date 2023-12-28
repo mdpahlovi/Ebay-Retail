@@ -22,6 +22,8 @@ import AllBuyer from "@/pages/dashboard/all-buyer";
 import AllSeller from "@/pages/dashboard/all-seller";
 import EditUser from "@/pages/dashboard/edit-user";
 import AddCategory from "@/pages/dashboard/add-category";
+import PricingPage from "@/pages/main/pricing";
+import NewsPage from "@/pages/main/news";
 
 const router = createBrowserRouter([
     {
@@ -41,12 +43,24 @@ const router = createBrowserRouter([
                 element: <Products />,
             },
             {
+                path: "/pricing",
+                element: <PricingPage />,
+            },
+            {
+                path: "/news",
+                element: <NewsPage />,
+            },
+            {
                 path: "/contacts",
                 element: <Contact />,
             },
             {
                 path: "/profile",
-                element: <Profile />,
+                element: (
+                    <PrivateRoute>
+                        <Profile />
+                    </PrivateRoute>
+                ),
             },
         ],
     },

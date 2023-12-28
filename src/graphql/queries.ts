@@ -183,6 +183,7 @@ export const GET_USER = gql`
             phone
             image
             role
+            address
             isVerify
         }
     }
@@ -196,6 +197,7 @@ export const GET_ALL_BUYER = gql`
             email
             phone
             image
+            address
             isVerify
             totalBooking
             createdAt
@@ -211,6 +213,7 @@ export const GET_ALL_SELLER = gql`
             email
             phone
             image
+            address
             isVerify
             totalProduct
             totalBooking

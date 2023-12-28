@@ -5,6 +5,7 @@ export type User = {
     phone: string;
     image: string;
     role: string;
+    address: string;
     isVerify: boolean;
     totalProduct: number;
     totalBooking: number;
@@ -62,4 +63,15 @@ export type Booking = {
 
 export type Token = {
     token: string;
+};
+
+export type Article = {
+    source: { id: string; name: string };
+    author: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage: string;
+    publishedAt: string;
+    content: string;
 };

@@ -1,4 +1,5 @@
-import { Booking, Product, User } from "@/types/data";
+import { UserToken } from "@/types";
+import { Booking, Product } from "@/types/data";
 
 export const createProductValues = {
     category: "",
@@ -13,30 +14,48 @@ export const createProductValues = {
 };
 
 export const updateProductValues = (product: Product) => {
+    const { category, name, image, resale_price, original_price, condition, description, location, purchase_date } = product;
+
     return {
-        category: product?.category?.id ? product.category.id : "",
-        name: product?.name ? product.name : "",
-        image: product?.image ? product.image : "",
-        resale_price: product?.resale_price ? product.resale_price : "",
-        original_price: product?.original_price ? product.original_price : "",
-        condition: product?.condition ? product.condition : "",
-        description: product?.description ? product.description : "",
-        location: product?.location ? product.location : "",
-        purchase_date: product?.purchase_date ? new Date(Number(product.purchase_date)) : new Date(),
+        category: category?.id ? category.id : "",
+        name: name ? name : "",
+        image: image ? image : "",
+        resale_price: resale_price ? resale_price : "",
+        original_price: original_price ? original_price : "",
+        condition: condition ? condition : "",
+        description: description ? description : "",
+        location: location ? location : "",
+        purchase_date: purchase_date ? new Date(Number(purchase_date)) : new Date(),
     };
 };
 
 export const updateBookingValues = (booking: Booking) => {
+    const { date, location } = booking;
+
     return {
-        date: booking?.date ? new Date(Number(booking.date)) : new Date(),
-        location: booking?.location ? booking.location : "",
+        date: date ? new Date(Number(date)) : new Date(),
+        location: location ? location : "",
     };
 };
 
-export const updateUserValues = (user: User) => {
+export const updateUserValues = (user: UserToken) => {
+    const { name, email, phone, address } = user;
+
     return {
-        name: user?.name ? user.name : "",
-        image: user?.image ? user.image : "",
-        phone: user?.phone ? user.phone : "",
+        name: name ? name : "",
+        email: email,
+        phone: phone ? phone : "",
+        address: address ? address : "",
+    };
+};
+
+export const pricingValues = (user: UserToken) => {
+    const { name, email, phone, address } = user;
+
+    return {
+        name: name ? name : "",
+        email: email,
+        phone: phone ? phone : "",
+        address: address ? address : "",
     };
 };

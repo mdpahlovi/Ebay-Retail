@@ -11,6 +11,7 @@ export interface UserToken {
     phone: string;
     image: string;
     role: string;
+    address: string;
     isVerify: boolean;
 }
 

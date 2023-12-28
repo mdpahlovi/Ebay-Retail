@@ -1,4 +1,3 @@
-import * as yup from "yup";
 import { useState } from "react";
 import { User } from "@/types/data";
 import { useAppSelector } from "@/redux/hooks";
@@ -14,12 +13,7 @@ import FormImageUpload from "@/components/form/FormImageUpload";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-type UserInput = { name: string; phone: string; location: string };
-const userSchema = yup.object().shape({
-    name: yup.string().required("Name is Required"),
-    phone: yup.string().required("Phone is Required"),
-});
+import { userSchema } from "@/validations/userSchema";
 
 export default function Profile() {
     const { updateProfile } = useAuthToken();
@@ -27,7 +21,7 @@ export default function Profile() {
     const { user } = useAppSelector((state) => state.user);
     const [profile, { loading: updateLoading }] = useMutation(PROFILE);
 
-    const handleBook = (data: UserInput) => {
+    const handleBook = (data: User) => {
         profile({ variables: data })
             .then(({ data }) => updateProfile(data?.profile))
             .catch((error) => toast.error(error.message));
@@ -35,7 +29,7 @@ export default function Profile() {
 
     return (
         <section>
-            <Form initialValues={updateUserValues(user as User)} validationSchema={userSchema} onSubmit={handleBook}>
+            <Form initialValues={updateUserValues(user!)} validationSchema={userSchema} onSubmit={handleBook}>
                 <div className="flex justify-between items-center">
                     <FormImageUpload name="image" disabled={!editing} avatar />
                     <Button type="button" variant={editing ? "default" : "destructive"} onClick={() => setEditing(!editing)}>
@@ -48,6 +42,7 @@ export default function Profile() {
                     <Input value={user?.email} disabled />
                 </div>
                 <FormInput name="phone" label="Phone Number" disabled={!editing} />
+                <FormInput name="address" label="Address" disabled={!editing} />
                 {editing ? <FormSubmit loading={updateLoading}>Submit</FormSubmit> : null}
             </Form>
         </section>

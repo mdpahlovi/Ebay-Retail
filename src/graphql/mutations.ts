@@ -120,7 +120,13 @@ export const DELETE_USER = gql`
 `;
 
 export const PROFILE = gql`
-    mutation profile($name: String!, $phone: String!, $image: String) {
-        profile(name: $name, phone: $phone, image: $image)
+    mutation profile($name: String!, $phone: String!, $image: String, $address: String) {
+        profile(name: $name, phone: $phone, image: $image, address: $address)
+    }
+`;
+
+export const BECOMESELLER = gql`
+    mutation becomeSeller($plan: String!, $name: String!, $phone: String!, $address: String!) {
+        becomeSeller(plan: $plan, name: $name, phone: $phone, address: $address)
     }
 `;

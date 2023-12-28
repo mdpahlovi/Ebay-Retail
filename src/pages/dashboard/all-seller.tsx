@@ -28,6 +28,10 @@ const columns: ColumnDef<User>[] = [
         header: "Phone",
     },
     {
+        accessorKey: "address",
+        header: "Address",
+    },
+    {
         accessorKey: "totalProduct",
         header: "Total Product",
     },

@@ -1,11 +1,29 @@
+import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useAppDispatch } from "@/redux/hooks";
+import { Link, useSearchParams } from "react-router-dom";
 import Advertise from "@/components/main/home/advertise";
 import Category from "@/components/main/home/category";
 import Hero from "@/components/main/home/hero";
 import ServiceCard from "@/components/main/home/service-card";
+import Pricing from "@/components/main/pricing";
+import TopNews from "@/components/main/news";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { setUser } from "@/redux/features/users/userSlice";
 
 export default function Home() {
+    const dispatch = useAppDispatch();
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get("token");
+
+    useEffect(() => {
+        if (token) {
+            localStorage.setItem("ebay-retail-token", token);
+            dispatch(setUser(jwtDecode(token)));
+            searchParams.delete("token");
+        }
+    }, [dispatch, searchParams, token]);
+
     return (
         <>
             <Hero />
@@ -32,6 +50,8 @@ export default function Home() {
                     <ServiceCard stats={20} title="Daily Customer" />
                 </div>
             </section>
+            <Pricing />
+            <TopNews />
             <section className="bg-primary/10 px-10 py-8 grid grid-cols-1 md:grid-cols-2 items-center gap-8 rounded-lg">
                 <div className="space-y-6">
                     <h1>Download it now</h1>

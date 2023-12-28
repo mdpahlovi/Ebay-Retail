@@ -1,22 +1,16 @@
-import * as yup from "yup";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USER } from "@/graphql/queries";
 import { UPDATE_USER } from "@/graphql/mutations";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { User } from "@/types/data";
+import { userSchema } from "@/validations/userSchema";
+import { updateUserValues } from "@/lib/initialValues";
+import Loader from "@/components/ui/loader";
 import Form from "@/components/form";
 import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
-import { useNavigate, useParams } from "react-router-dom";
-import Loader from "@/components/ui/loader";
-import { updateUserValues } from "@/lib/initialValues";
 import FormImageUpload from "@/components/form/FormImageUpload";
-
-type UserInput = { date: string; location: string };
-const userSchema = yup.object().shape({
-    name: yup.string().required("Name is Required"),
-    phone: yup.string().required("Phone is Required"),
-    image: yup.string().required("Image is Required"),
-});
 
 export default function EditUser() {
     const params = useParams();
@@ -24,7 +18,7 @@ export default function EditUser() {
     const { data, loading } = useQuery(GET_USER, { fetchPolicy: "no-cache", variables: { id: params?.id } });
     const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER);
 
-    const handleBook = (data: UserInput) => {
+    const handleBook = (data: User) => {
         updateUser({ variables: { id: params?.id, data } })
             .then(({ data }: { data?: { updateUser: { id: string; role: string } } }) => {
                 if (data?.updateUser) {
@@ -44,6 +38,7 @@ export default function EditUser() {
                 <FormImageUpload name="image" avatar />
                 <FormInput name="name" label="Full Name" />
                 <FormInput name="phone" label="Phone Number" />
+                <FormInput name="address" label="Address" />
                 <FormSubmit loading={updateLoading}>Submit</FormSubmit>
             </Form>
         </>
