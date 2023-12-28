@@ -1,8 +1,8 @@
+import moment from "moment";
 import { ColumnDef } from "@tanstack/react-table";
 import { Product } from "@/types/data";
 import { useQuery } from "@apollo/client";
 import { GET_SELLER_PRODUCTS } from "@/graphql/queries";
-import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import Loader from "@/components/ui/loader";
 import DataTable from "@/components/ui/data-table";
@@ -28,7 +28,7 @@ const columns: ColumnDef<Product>[] = [
     {
         accessorKey: "purchase_date",
         header: "Purchase Date",
-        cell: ({ getValue }) => <div>{format(new Date(Number(getValue())), "PP")}</div>,
+        cell: ({ getValue }) => <div>{moment(Number(getValue())).format("ll")}</div>,
     },
     {
         accessorKey: "condition",
@@ -43,7 +43,7 @@ const columns: ColumnDef<Product>[] = [
     {
         accessorKey: "createdAt",
         header: "Post Date",
-        cell: ({ getValue }) => <div>{format(new Date(Number(getValue())), "PP")}</div>,
+        cell: ({ getValue }) => <div>{moment(Number(getValue())).format("ll")}</div>,
     },
 ];
 

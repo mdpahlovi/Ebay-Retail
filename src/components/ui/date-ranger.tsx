@@ -1,5 +1,5 @@
+import moment from "moment";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import { CalendarDays } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
@@ -22,10 +22,10 @@ export function DateRanger({ date, setDate, className }: DateRangeProps) {
                         {date?.from ? (
                             date.to ? (
                                 <>
-                                    {format(date.from, "LLL dd, y")} - {format(date.to, "LLL dd, y")}
+                                    {moment(date.from).format("ll")} - {moment(date.to).format("ll")}
                                 </>
                             ) : (
-                                format(date.from, "LLL dd, y")
+                                moment(date.from).format("ll")
                             )
                         ) : (
                             <span>Pick a date</span>

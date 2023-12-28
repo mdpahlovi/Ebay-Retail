@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useQuery } from "@apollo/client";
 import { GET_BOOKINGS } from "@/graphql/queries";
 import { useAppSelector } from "@/redux/hooks";
@@ -6,7 +7,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Booking } from "@/types/data";
 import { UserToken } from "@/types";
 import { AvatarWithFallback } from "@/components/ui/avatar";
-import { format } from "date-fns";
 import DataTable from "@/components/ui/data-table";
 import { DELETE_BOOKING } from "@/graphql/mutations";
 
@@ -40,7 +40,7 @@ export default function Bookings() {
         {
             accessorKey: "date",
             header: "Meeting Date",
-            cell: ({ getValue }) => <div>{format(new Date(Number(getValue())), "PP")}</div>,
+            cell: ({ getValue }) => <div>{moment(Number(getValue())).format("ll")}</div>,
         },
         {
             accessorKey: "location",
@@ -60,8 +60,8 @@ export default function Bookings() {
         },
         {
             accessorKey: "createdAt",
-            header: "Booking Date",
-            cell: ({ getValue }) => <div>{format(new Date(Number(getValue())), "PP")}</div>,
+            header: "Booked Date",
+            cell: ({ getValue }) => <div>{moment(Number(getValue())).format("ll")}</div>,
         },
     ];
 

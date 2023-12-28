@@ -2,7 +2,6 @@
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
@@ -12,7 +11,7 @@ import { useSearchParams } from "react-router-dom";
 
 export function PaginationComp({ page, length }: { page: number; length: number }) {
     const totalPage = Math.ceil(length / 6);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [_, setSearchParams] = useSearchParams();
 
     const setPage = (page: number) => setSearchParams({ page: page.toString() });
 

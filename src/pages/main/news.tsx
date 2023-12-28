@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { newsapi } from "@/main";
-import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
 import { useSearchParams } from "react-router-dom";
@@ -22,7 +21,7 @@ export default function NewsPage() {
     const [articles, setArticles] = useState([]);
     const [totalResult, setTotalResults] = useState(0);
     const [query, setQuery] = useState({ q: "", sources: "new-york-times" });
-    const [date, setDate] = useState<DateRange>({ from: new Date(), to: addDays(new Date(), 2) });
+    const [date, setDate] = useState<DateRange>({ from: new Date(), to: new Date() });
     const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
 
     useEffect(() => {

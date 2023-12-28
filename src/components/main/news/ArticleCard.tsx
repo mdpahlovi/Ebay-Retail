@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import moment from "moment";
 import { AvatarWithFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -14,7 +14,7 @@ export default function ArticleCard({ article }: { article: Article }) {
             <CardHeader className="space-y-2.5 pb-2.5">
                 <div className="flex items-center justify-between">
                     <Badge className="w-max">{author}</Badge>
-                    <h6>{dayjs(publishedAt).format("MMM D, YYYY")}</h6>
+                    <h6>{moment(publishedAt).format("ll")}</h6>
                 </div>
                 <h4 className="leading-none">{title}</h4>
             </CardHeader>

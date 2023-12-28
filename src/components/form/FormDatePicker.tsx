@@ -1,5 +1,5 @@
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import moment from "moment";
+import { CalendarDays } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -25,8 +25,8 @@ export default function FormDatePicker({ name, label, placeholder, disabled }: F
                         variant="outline"
                         className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
                     >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {date ? format(date, "PPP") : <span>{placeholder}</span>}
+                        <CalendarDays size={16} className="mr-2" />
+                        {date ? moment(date).format("ll") : <span>{placeholder}</span>}
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
