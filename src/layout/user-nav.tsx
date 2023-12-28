@@ -49,7 +49,10 @@ export default function UserNav({ mobile }: { mobile?: boolean }) {
                             )}
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={logout} className="text-destructive focus:bg-destructive/10 cursor-pointer">
+                        <DropdownMenuItem
+                            onClick={logout}
+                            className="text-destructive focus:text-destructive focus:bg-destructive/10 cursor-pointer"
+                        >
                             Log out
                         </DropdownMenuItem>
                     </DropdownMenuContent>

@@ -55,7 +55,7 @@ export default function Home() {
             <section className="bg-primary/10 px-10 py-8 grid grid-cols-1 md:grid-cols-2 items-center gap-8 rounded-lg">
                 <div className="space-y-6">
                     <h1>Download it now</h1>
-                    <p className="text-lg">Be part of millions people around the world using talus in modern User Interfaces.</p>
+                    <p>Be part of millions people around the world using talus in modern User Interfaces.</p>
                     <div className="flex flex-wrap justify-center gap-4 md:justify-start lg:gap-6">
                         <img src="/icons/play_store_badge.png" className="w-36" alt="" />
                         <img src="/icons/app_store_badge.png" className="w-36" alt="" />

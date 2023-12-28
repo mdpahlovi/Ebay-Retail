@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { pricingValues } from "@/lib/initialValues";
 import { useLocation } from "react-router-dom";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import capitalizeFirstWord from "@/lib/capitalizeFirstWord";
 import PriceCard from "./price-card";
 import Form from "@/components/form";
@@ -41,16 +41,14 @@ export default function Pricing() {
             {user ? (
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{capitalizeFirstWord(plan)}</DialogTitle>
-                        <DialogDescription>
-                            <Form initialValues={pricingValues(user)} validationSchema={userSchema} onSubmit={handlePay}>
-                                <FormInput name="name" label="Name" disabled />
-                                <FormInput name="email" label="Email" disabled />
-                                <FormInput name="phone" label="Phone" />
-                                <FormInput name="address" label="Address" />
-                                <FormSubmit loading={loading}>Pay Now</FormSubmit>
-                            </Form>
-                        </DialogDescription>
+                        <DialogTitle className="mb-4">{capitalizeFirstWord(plan)}</DialogTitle>
+                        <Form initialValues={pricingValues(user)} validationSchema={userSchema} onSubmit={handlePay}>
+                            <FormInput name="name" label="Name" disabled />
+                            <FormInput name="email" label="Email" disabled />
+                            <FormInput name="phone" label="Phone" />
+                            <FormInput name="address" label="Address" />
+                            <FormSubmit loading={loading}>Pay Now</FormSubmit>
+                        </Form>
                     </DialogHeader>
                 </DialogContent>
             ) : null}

@@ -11,13 +11,14 @@ import contactSchema from "@/validations/contactSchema";
 
 type Values = { name: string; email: string; subject: string; body: string };
 const initialValues = { name: "", email: "", subject: "", body: "" };
+const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = (data: Values) => {
         setLoading(true);
-        emailjs.send("ebay-retail", "ebay-retail", data, import.meta.env.VITE_EMAILJS_PUBLIC_ID).then(
+        emailjs.send("ebay-retail", "ebay-retail", data, publicKey).then(
             (result) => {
                 setLoading(false);
                 if (result.text === "OK") toast.success("Email Sent Successfully");
@@ -39,7 +40,7 @@ export default function Contact() {
                             {createElement(icon)}
                             <div className="space-y-0.5">
                                 <h5>{title}</h5>
-                                <p>{details}</p>
+                                <h6>{details}</h6>
                             </div>
                         </div>
                     ))}

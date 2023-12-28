@@ -28,8 +28,8 @@ const TopNews = () => {
                               <Skeleton className="h-80 rounded-lg" />
                           </SwiperSlide>
                       ))
-                    : articles.map((article) => (
-                          <SwiperSlide key={article}>
+                    : articles.map((article, idx) => (
+                          <SwiperSlide key={idx}>
                               <ArticleCard article={article} />
                           </SwiperSlide>
                       ))}

@@ -1,14 +1,20 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { api } from "./api/apiSlice";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import themeReducer from "./features/theme/themeSlice";
 import userReducer from "./features/users/userSlice";
+import { persistStore, persistReducer } from "redux-persist";
+/* @ts-ignore */
+import storage from "redux-persist/lib/storage";
 
-const store = configureStore({
-    reducer: { theme: themeReducer, user: userReducer, [api.reducerPath]: api.reducer },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
+const persistConfig = { key: "ebay-retail-states", storage, blacklist: ["user"] };
+const rootReducer = combineReducers({ theme: themeReducer, user: userReducer });
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-export default store;

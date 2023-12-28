@@ -13,6 +13,7 @@ import FormDatePicker from "@/components/form/FormDatePicker";
 import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
 import toastOption from "@/lib/toastOption";
+import capitalizeFirstWord from "@/lib/capitalizeFirstWord";
 
 type BookingInput = { date: string; location: string };
 const bookingSchema = yup.object().shape({
@@ -44,6 +45,7 @@ export function BookingTrigger({ isBooked }: { isBooked: boolean }) {
 }
 
 export function BookingDialog({ product, refetch }: BookingDialogProps) {
+    const { user } = useAppSelector((state) => state.user);
     const [createBooking] = useMutation(CREATE_BOOKING);
     const handleBook = (data: BookingInput) => {
         const toastId = toast.loading("Please Wait For Booking");
@@ -63,7 +65,11 @@ export function BookingDialog({ product, refetch }: BookingDialogProps) {
             <Form initialValues={{ date: "", location: "" }} validationSchema={bookingSchema} onSubmit={handleBook}>
                 <FormDatePicker name="date" label="Meeting Date" />
                 <FormInput name="location" label="Meeting Location" />
-                <FormSubmit dialog>Book Now</FormSubmit>
+                {user && user.role === "buyer" ? (
+                    <FormSubmit dialog>Book Now</FormSubmit>
+                ) : (
+                    <span className="text-destructive">{capitalizeFirstWord(user?.role)} Can't Book Product</span>
+                )}
             </Form>
         </DialogContent>
     );

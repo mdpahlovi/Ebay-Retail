@@ -62,7 +62,7 @@ export default function DataTable<TData, TValue>({ path, deleteMutation, refetch
 
     return (
         <Dialog>
-            <ScrollArea className="rounded-md border">
+            <ScrollArea className="w-[calc(100vw_-_48px)] lg:w-[calc(100vw_-_368px)] border rounded-md">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

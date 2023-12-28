@@ -39,12 +39,12 @@ export const updateBookingValues = (booking: Booking) => {
 };
 
 export const updateUserValues = (user: UserToken) => {
-    const { name, email, phone, address } = user;
+    const { name, image, phone, address } = user;
 
     return {
         name: name ? name : "",
-        email: email,
         phone: phone ? phone : "",
+        image: image ? image : "",
         address: address ? address : "",
     };
 };

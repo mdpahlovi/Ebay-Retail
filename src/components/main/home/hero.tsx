@@ -11,7 +11,7 @@ export default function Hero() {
                     We here to help you.
                 </h1>
                 <p className="max-w-xl lg:max-w-[480px] pb-2">
-                    Ebay-Retail is bangladesh one of the best reseller website. Here you can buy & sell your used product. Get supper deal
+                    Ebay Retail is bangladesh one of the best reseller website. Here you can buy & sell your used product. Get supper deal
                     by connect your seller.
                 </p>
                 <div className="flex flex-wrap items-center gap-5">

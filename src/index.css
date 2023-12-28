@@ -5,6 +5,19 @@
 @layer base {
     @layer base {
         :root {
+            --pagination-padding-y: 7px;
+            --pagination-padding-x: 15px;
+            --pagination-item-margin-x: 5px;
+            --pagination-color: hsl(20, 14.3%, 4.1%);
+            --pagination-bg: hsl(0, 0%, 100%);
+            --pagination-hover-color: hsl(24, 9.8%, 10%);
+            --pagination-hover-bg: hsl(60, 4.8%, 95.9%);
+            --pagination-active-color: hsl(26, 83.3%, 14.1%);
+            --pagination-active-bg: hsl(35, 100%, 48%);
+            --pagination-disabled-color: hsla(20, 14.3%, 4.1%, 0.5);
+            --pagination-disabled-bg: hsla(0, 0%, 100%, 0.5);
+            --pagination-border-color: hsl(20, 5.9%, 90%);
+
             --background: 0 0% 100%;
             --foreground: 20 14.3% 4.1%;
 
@@ -37,6 +50,16 @@
         }
 
         .dark {
+            --pagination-color: hsl(60, 9.1%, 97.8%);
+            --pagination-bg: hsl(20, 14.3%, 4.1%);
+            --pagination-hover-color: hsl(60, 9.1%, 97.8%);
+            --pagination-hover-bg: hsl(12, 6.5%, 15.1%);
+            --pagination-active-color: hsl(26, 83.3%, 14.1%);
+            --pagination-active-bg: hsl(35, 100%, 48%);
+            --pagination-disabled-color: hsla(60, 9.1%, 97.8%, 0.5);
+            --pagination-disabled-bg: hsla(20, 14.3%, 4.1%, 0.5);
+            --pagination-border-color: hsl(12, 6.5%, 15.1%);
+
             --background: 20 14.3% 4.1%;
             --foreground: 60 9.1% 97.8%;
             --card: 20 14.3% 4.1%;
