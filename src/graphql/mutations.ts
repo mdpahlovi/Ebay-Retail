@@ -119,6 +119,14 @@ export const DELETE_USER = gql`
     }
 `;
 
+export const DELETE_CATEGORY = gql`
+    mutation deleteCategory($id: ID!) {
+        deleteCategory(id: $id) {
+            id
+        }
+    }
+`;
+
 export const PROFILE = gql`
     mutation profile($name: String!, $phone: String!, $image: String, $address: String) {
         profile(name: $name, phone: $phone, image: $image, address: $address)

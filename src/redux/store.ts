@@ -3,14 +3,15 @@ import themeReducer from "./features/theme/themeSlice";
 import userReducer from "./features/users/userSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { newApi } from "@/redux/apis/newsApi";
 
 const persistConfig = { key: "ebay-retail-states", storage, blacklist: ["user"] };
-const rootReducer = combineReducers({ theme: themeReducer, user: userReducer });
+const rootReducer = combineReducers({ theme: themeReducer, user: userReducer, [newApi.reducerPath]: newApi.reducer });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(newApi.middleware),
 });
 export const persistor = persistStore(store);
 

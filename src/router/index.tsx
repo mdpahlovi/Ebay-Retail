@@ -24,6 +24,7 @@ import EditUser from "@/pages/dashboard/edit-user";
 import AddCategory from "@/pages/dashboard/add-category";
 import PricingPage from "@/pages/main/pricing";
 import NewsPage from "@/pages/main/news";
+import CategoriesTable from "@/pages/dashboard/categories";
 
 const router = createBrowserRouter([
     {
@@ -125,6 +126,14 @@ const router = createBrowserRouter([
                 element: (
                     <AdminRoute>
                         <EditUser />
+                    </AdminRoute>
+                ),
+            },
+            {
+                path: "categories",
+                element: (
+                    <AdminRoute>
+                        <CategoriesTable />
                     </AdminRoute>
                 ),
             },

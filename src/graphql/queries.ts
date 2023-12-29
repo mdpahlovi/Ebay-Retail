@@ -24,6 +24,7 @@ export const GET_CATEGORIES = gql`
             name
             image
             total
+            createdAt
         }
     }
 `;

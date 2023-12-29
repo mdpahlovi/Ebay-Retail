@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 function links(role: string): string[] {
     switch (role) {
         case "admin":
-            return ["All Buyer", "All Seller", "Add Category"];
+            return ["All Buyer", "All Seller", "Categories", "Add Category"];
         case "seller":
             return ["Chats", "Bookings", "Products", "Add Product"];
         default:
