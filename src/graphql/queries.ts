@@ -65,6 +65,7 @@ export const GET_SELLER_PRODUCTS = gql`
             original_price
             purchase_date
             condition
+            advertised
             isBooked
             createdAt
         }
@@ -217,6 +218,28 @@ export const GET_ALL_SELLER = gql`
             isVerify
             totalProduct
             totalBooking
+            createdAt
+        }
+    }
+`;
+
+export const DASHBOARD = gql`
+    query dashboard {
+        dashboard {
+            _id
+            totalCount
+            lastAddedAt
+        }
+        categories {
+            name
+            total
+        }
+        bookings {
+            id
+            product {
+                name
+                image
+            }
             createdAt
         }
     }

@@ -8,6 +8,9 @@ dependencies:
   '@apollo/client':
     specifier: ^3.8.8
     version: 3.8.8(graphql-ws@5.14.3)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+  '@canvasjs/react-charts':
+    specifier: ^1.0.0
+    version: 1.0.0(@canvasjs/charts@3.7.32)(react@18.2.0)
   '@emailjs/browser':
     specifier: ^3.11.0
     version: 3.11.0
@@ -231,6 +234,20 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
+    dev: false
+
+  /@canvasjs/charts@3.7.32:
+    resolution: {integrity: sha512-t2I9h4HufIg9GRyvvrk0KAlhxKryVM10thF5QsLTeVEYvvutQt8x2XnnygxDFiyTwI1rTBqxf/J3jMbmT7j/LQ==}
+    dev: false
+
+  /@canvasjs/react-charts@1.0.0(@canvasjs/charts@3.7.32)(react@18.2.0):
+    resolution: {integrity: sha512-wGI675kz65owAwXZWzJULK9GXKCrPV59+CCawXP801f4rmYGmPskdtGrczgJhA8ThFEgIvq3K4qrkpLDPSmxCQ==}
+    peerDependencies:
+      '@canvasjs/charts': ^3.7.5
+      react: '>=16.0.0'
+    dependencies:
+      '@canvasjs/charts': 3.7.32
+      react: 18.2.0
     dev: false
 
   /@emailjs/browser@3.11.0:

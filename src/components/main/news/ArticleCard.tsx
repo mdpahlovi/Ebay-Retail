@@ -2,7 +2,7 @@ import moment from "moment";
 import { AvatarWithFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Article } from "@/types/data";
 
 export default function ArticleCard({ article }: { article: Article }) {
@@ -11,12 +11,12 @@ export default function ArticleCard({ article }: { article: Article }) {
     return (
         <Card className="overflow-hidden">
             <AvatarWithFallback src={urlToImage} className="w-full h-48 rounded-none" />
-            <CardHeader className="space-y-2.5 pb-2.5">
+            <CardHeader className="pb-2.5">
                 <div className="flex items-center justify-between">
                     <Badge className="w-max">{author}</Badge>
                     <h6>{moment(publishedAt).format("ll")}</h6>
                 </div>
-                <h4 className="leading-none">{title}</h4>
+                <CardTitle>{title}</CardTitle>
             </CardHeader>
             <CardContent className="pb-4">
                 <CardDescription>{content}</CardDescription>

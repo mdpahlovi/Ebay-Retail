@@ -130,3 +130,11 @@ export const BECOMESELLER = gql`
         becomeSeller(plan: $plan, name: $name, phone: $phone, address: $address)
     }
 `;
+
+export const ADVERTISEPRODUCT = gql`
+    mutation advertiseProduct($id: ID!, $advertised: Boolean!) {
+        advertiseProduct(id: $id, advertised: $advertised) {
+            id
+        }
+    }
+`;

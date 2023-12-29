@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle } from "lucide-react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { DialogTrigger } from "@/components/ui/dialog";
 import useNavigateWithState from "@/hooks/useNavigator";
 
@@ -16,7 +16,7 @@ export default function PriceCard({ price, setPlan }: { price: Price; setPlan: R
     return (
         <Card className="md:last:col-span-2 lg:last:col-auto">
             <CardHeader className="text-center">
-                <CardTitle>{title}</CardTitle>
+                <h3>{title}</h3>
                 <CardDescription>{description}</CardDescription>
                 <h1>{amount}</h1>
             </CardHeader>

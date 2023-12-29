@@ -16,7 +16,7 @@ export default function EditUser() {
     const params = useParams();
     const navigate = useNavigate();
     const { data, loading } = useQuery(GET_USER, { fetchPolicy: "no-cache", variables: { id: params?.id } });
-    const [updateUser, { loading: updateLoading, error }] = useMutation(UPDATE_USER);
+    const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER);
 
     const handleBook = (data: User) => {
         updateUser({ variables: { id: params?.id, data } })
@@ -28,8 +28,6 @@ export default function EditUser() {
             })
             .catch((error) => toast.error(error.message));
     };
-
-    console.log(error);
 
     if (loading) return <Loader />;
 

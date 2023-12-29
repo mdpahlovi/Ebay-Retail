@@ -5,7 +5,7 @@ export default function ServiceCard({ title, stats }: { title: string; stats: nu
     return (
         <CardHeader>
             <Avatar className="w-12 h-12">
-                <AvatarFallback>{stats}+</AvatarFallback>
+                <AvatarFallback className="text-sm">{stats}+</AvatarFallback>
             </Avatar>
             <CardTitle>{title}</CardTitle>
             <CardDescription>
