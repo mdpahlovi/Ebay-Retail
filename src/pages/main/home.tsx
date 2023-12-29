@@ -13,16 +13,17 @@ import { setUser } from "@/redux/features/users/userSlice";
 
 export default function Home() {
     const dispatch = useAppDispatch();
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const token = searchParams.get("token");
 
     useEffect(() => {
         if (token) {
-            localStorage.setItem("ebay-retail-token", token);
             dispatch(setUser(jwtDecode(token)));
+            localStorage.setItem("ebay-retail-token", token);
             searchParams.delete("token");
+            setSearchParams(searchParams);
         }
-    }, [dispatch, searchParams, token]);
+    }, [token, dispatch, searchParams, setSearchParams]);
 
     return (
         <>

@@ -17,11 +17,8 @@ export default function SellerProducts() {
     const handleAdvertise = (variables: { id: string; advertised: boolean }) => {
         const toastId = toast.loading("Please Wait For Update");
 
-        console.log(variables);
-
         advertiseProduct({ variables })
-            .then((data) => {
-                console.log(data);
+            .then(() => {
                 refetch();
                 toast.update(toastId, toastOption("success", `Operation Successfully`));
             })
