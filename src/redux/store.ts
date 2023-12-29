@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import themeReducer from "./features/theme/themeSlice";
 import userReducer from "./features/users/userSlice";
 import { persistStore, persistReducer } from "redux-persist";
-/* @ts-ignore */
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = { key: "ebay-retail-states", storage, blacklist: ["user"] };
