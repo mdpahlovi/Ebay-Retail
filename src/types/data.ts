@@ -7,6 +7,7 @@ export type User = {
     role: string;
     address: string;
     isVerify: boolean;
+    plan: string;
     totalProduct: number;
     totalBooking: number;
     createdAt: string;

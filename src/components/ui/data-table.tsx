@@ -46,6 +46,7 @@ export default function DataTable<TData, TValue>({ path, deleteMutation, refetch
         ],
         data: data ? data : [],
         getCoreRowModel: getCoreRowModel(),
+        initialState: { pagination: { pageSize: 6 } },
         getPaginationRowModel: getPaginationRowModel(),
     });
 

@@ -217,6 +217,7 @@ export const GET_ALL_SELLER = gql`
             image
             address
             isVerify
+            plan
             totalProduct
             totalBooking
             createdAt

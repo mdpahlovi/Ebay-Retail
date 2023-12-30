@@ -2,12 +2,12 @@ import moment from "moment";
 import { ColumnDef } from "@tanstack/react-table";
 import { User } from "@/types/data";
 import { AvatarWithFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_SELLER } from "@/graphql/queries";
-import Loader from "@/components/ui/loader";
-
-import DataTable from "@/components/ui/data-table";
 import { DELETE_USER } from "@/graphql/mutations";
+import Loader from "@/components/ui/loader";
+import DataTable from "@/components/ui/data-table";
 
 const columns: ColumnDef<User>[] = [
     {
@@ -30,6 +30,11 @@ const columns: ColumnDef<User>[] = [
     {
         accessorKey: "address",
         header: "Address",
+    },
+    {
+        accessorKey: "plan",
+        header: "Current Plan",
+        cell: ({ getValue }) => <Badge>{getValue() as string}</Badge>,
     },
     {
         accessorKey: "totalProduct",

@@ -31,7 +31,7 @@ export default function CategoriesTable() {
     return (
         <>
             <h1>All Category</h1>
-            <DataTable path="user" deleteMutation={DELETE_CATEGORY} refetch={refetch} columns={columns} data={data.categories} />
+            <DataTable path="category" deleteMutation={DELETE_CATEGORY} refetch={refetch} columns={columns} data={data.categories} />
         </>
     );
 }
