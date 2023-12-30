@@ -13,18 +13,20 @@ import { useMutation } from "@apollo/client";
 import { BECOMESELLER } from "@/graphql/mutations";
 import { toast } from "react-toastify";
 import { pricing } from "@/lib/data";
+import useAuthToken from "@/hooks/useAuthToken";
 
 type BecomeSeller = { name: string; phone: string; address: string };
 
 export default function Pricing() {
     const { pathname } = useLocation();
     const [plan, setPlan] = useState("");
+    const { updateProfile } = useAuthToken();
     const { user } = useAppSelector((state) => state.user);
     const [becomeSeller, { loading }] = useMutation(BECOMESELLER);
 
     const handlePay = (data: BecomeSeller) => {
         becomeSeller({ variables: { plan, ...data } })
-            .then(({ data }) => window.open(data.becomeSeller, "_blank"))
+            .then(({ data }) => (plan === "starter" ? updateProfile(data.becomeSeller) : window.open(data.becomeSeller, "_blank")))
             .catch((error) => toast.error(error.message));
     };
 

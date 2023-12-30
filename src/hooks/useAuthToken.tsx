@@ -24,7 +24,7 @@ export default function useAuthToken() {
             localStorage.setItem("ebay-retail-token", token);
             dispatch(setUser(jwtDecode(token)));
         } else {
-            toast.error("Profile Update Failed");
+            toast.error("Failed To Update");
         }
     };
 
