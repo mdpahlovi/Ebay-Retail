@@ -5,7 +5,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { newApi } from "@/redux/apis/newsApi";
 
-const persistConfig = { key: "ebay-retail-states", storage, blacklist: ["user"] };
+const persistConfig = { key: "ebay-retail-states", storage, whitelist: ["theme"] };
 const rootReducer = combineReducers({ theme: themeReducer, user: userReducer, [newApi.reducerPath]: newApi.reducer });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
