@@ -4,7 +4,7 @@ import { DateRange } from "react-day-picker";
 import { useSearchParams } from "react-router-dom";
 import { useGetNewsQuery } from "@/redux/apis/newsApi";
 import Header from "@/components/ui/header";
-import ArticleCard from "@/components/main/news/ArticleCard";
+import ArticleCard from "@/components/main/news/article_card";
 import ResponsivePagination from "react-responsive-pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";

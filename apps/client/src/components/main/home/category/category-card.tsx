@@ -1,8 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Category } from "@/types/data";
 import { Link } from "react-router-dom";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const CategoryCard = ({ category }: { category: Category }) => {
+export default function CategoryCard({ category }: { category: Category }) {
     const { id, name, image, total } = category;
 
     return (
@@ -17,6 +17,4 @@ const CategoryCard = ({ category }: { category: Category }) => {
             </div>
         </Link>
     );
-};
-
-export default CategoryCard;
+}

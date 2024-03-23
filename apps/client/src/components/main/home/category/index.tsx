@@ -9,7 +9,7 @@ import CategoryCard from "./category-card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const Category = () => {
+export default function Categories() {
     const { loading, data } = useQuery(GET_CATEGORIES);
 
     const sliderRef = useRef<SwiperRef | null>(null);
@@ -50,6 +50,4 @@ const Category = () => {
             </div>
         </section>
     );
-};
-
-export default Category;
+}

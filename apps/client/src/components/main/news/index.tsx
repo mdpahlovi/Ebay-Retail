@@ -1,4 +1,4 @@
-import ArticleCard from "./ArticleCard";
+import ArticleCard from "./article_card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { baseSwiper } from "@/lib/baseSwiper";
 import { Skeleton } from "@/components/ui/skeleton";
