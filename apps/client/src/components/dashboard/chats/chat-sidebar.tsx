@@ -22,9 +22,9 @@ export default function ChatSidebar({ bookings = [] }: { bookings: Booking[] }) 
                             className={`${query === id ? "bg-muted" : "hover:bg-muted"} p-2.5 rounded flex items-center gap-2`}
                         >
                             <AvatarWithFallback src={chat_user.image} />
-                            <div className="space-y-0.5">
-                                <h4 className="leading-none">{chat_user.name}</h4>
-                                <p className="leading-none">{product.name}</p>
+                            <div className="space-y-1">
+                                <h5 className="leading-none">{chat_user.name}</h5>
+                                <h6 className="leading-none text-muted-foreground">{product.name}</h6>
                             </div>
                         </div>
                     );

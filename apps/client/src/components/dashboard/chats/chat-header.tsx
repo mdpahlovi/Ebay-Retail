@@ -17,12 +17,14 @@ export default function ChatHeader({ booking }: { booking: Booking }) {
                     <h6 className="leading-none text-muted-foreground">{booking.product.name}</h6>
                 </div>
             </div>
-            <IconButton>
-                <Phone />
-            </IconButton>
-            <IconButton>
-                <Video />
-            </IconButton>
+            <div className="flex gap-4">
+                <IconButton>
+                    <Phone size={16} />
+                </IconButton>
+                <IconButton>
+                    <Video size={16} />
+                </IconButton>
+            </div>
         </div>
     );
 }
