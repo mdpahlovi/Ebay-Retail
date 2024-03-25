@@ -50,6 +50,7 @@
         "react-toastify": "^10.0.5",
         "redux-persist": "^6.0.0",
         "regenerator-runtime": "^0.14.1",
+        "socket.io-client": "^4.7.5",
         "swiper": "^11.0.7",
         "tailwind-merge": "^2.2.2",
         "tailwindcss-animate": "^1.0.7",
