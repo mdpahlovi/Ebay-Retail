@@ -11,9 +11,6 @@ export const MessageMutation = {
     createMessage: async (parent: any, { id, type, content }: Message, { token }: Context) => {
         const result = await Booking.findByIdAndUpdate(id, { $push: { messages: { user: token?.id, type, content } } }, { new: true });
 
-        const newMessage = result.messages[result.messages.length - 1];
-        console.log(newMessage);
-
-        return result;
+        return result.messages[result.messages.length - 1];
     },
 };

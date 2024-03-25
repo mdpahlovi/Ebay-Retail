@@ -7,6 +7,7 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import { readFileSync } from "fs";
+import { Server } from "socket.io";
 import cloudinary from "cloudinary";
 import bodyParser from "body-parser";
 import config from "./config/index.js";
@@ -38,6 +39,14 @@ app.use(PaymentRoutes);
 app.use(NewsRoutes);
 
 app.use("/graphql", expressMiddleware(server, { context }));
+
+const io = new Server(httpServer, { cors: { origin: "*" } });
+
+io.on("connection", (socket) => {
+    socket.on("new message", ({ room, message }) => {
+        socket.broadcast.emit(room, message);
+    });
+});
 
 await new Promise<void>((resolve) => httpServer.listen({ port: config.port }, resolve));
 console.log(`🚀 Server Running On http://localhost:${config.port}/graphql`);

@@ -1,65 +1,54 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useAppSelector } from "@/redux/hooks";
 import { useSearchParams } from "react-router-dom";
 import { CREATE_MESSAGE } from "@/graphql/mutations";
 
-import EmojiPicker from "emoji-picker-react";
+import ChatIcons from "./chat-icons";
+import { socket } from "@/lib/socket";
+import { Message } from "@/types/data";
 import { Input } from "@/components/ui/input";
+import { Popover } from "@/components/ui/popover";
+import { SendHorizontal, Smile } from "lucide-react";
 import { IconButton } from "@/components/ui/icon-button";
-import { Mic, MicOff, SendHorizontal, Smile } from "lucide-react";
-import { Popover, PopoverContent } from "@/components/ui/popover";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import ChatSpeechRecognition from "./speech-recognition";
 
-export default function ChatFooter() {
+export default function ChatFooter({ setMessages }: { setMessages: React.Dispatch<React.SetStateAction<Message[]>> }) {
     const [searchParams] = useSearchParams();
     const [content, setContent] = useState("");
     const [createMessage] = useMutation(CREATE_MESSAGE);
-    const { theme } = useAppSelector((state) => state.theme);
-    const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
-    useEffect(() => setContent((previous) => previous + transcript), [transcript]);
+    useEffect(() => {
+        const handleAddMessage = (data: Message) => {
+            setMessages((previous) => [...previous, data]);
+        };
+        socket.on(searchParams.get("room")!, handleAddMessage);
+        return () => {
+            socket.off(searchParams.get("room")!, handleAddMessage);
+        };
+    }, [searchParams, setMessages]);
 
     const handleSentMessage = () => {
         const message = { id: searchParams.get("room"), type: "text", content };
-        createMessage({ variables: message }).then(() => setContent(""));
+        createMessage({ variables: message }).then(({ data: { createMessage } }) => {
+            setContent("");
+            if (createMessage) {
+                setMessages((previous) => [...previous, createMessage]);
+                socket.emit("new message", { room: searchParams.get("room"), message: createMessage });
+            }
+        });
     };
 
     return (
         <Popover>
             <div className="z-20 sticky bottom-0 bg-background border-t py-5">
                 <div className="relative flex">
-                    <div className="absolute top-1 left-1">
-                        {listening ? (
-                            <IconButton
-                                onClick={() => {
-                                    SpeechRecognition.stopListening();
-                                    resetTranscript();
-                                }}
-                            >
-                                <MicOff size={16} />
-                            </IconButton>
-                        ) : (
-                            <IconButton
-                                onClick={() => {
-                                    if (!browserSupportsSpeechRecognition) {
-                                        toast.error("Oops! Not Supported For Your Browser");
-                                    } else {
-                                        SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
-                                    }
-                                }}
-                            >
-                                <Mic size={16} />
-                            </IconButton>
-                        )}
-                    </div>
+                    <ChatSpeechRecognition setContent={setContent} />
                     <Input
                         value={content}
                         className="pl-10 pr-[9.25rem]"
                         placeholder="Write Your Message!"
                         onChange={(e) => setContent(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && content && handleSentMessage()}
                     />
                     <div className="absolute top-1 right-1 space-x-1">
                         <IconButton trigger>
@@ -71,17 +60,7 @@ export default function ChatFooter() {
                     </div>
                 </div>
             </div>
-            <PopoverContent className="mr-6 border-none rounded-lg flex justify-end p-0">
-                <EmojiPicker
-                    height={384}
-                    /* @ts-ignore */
-                    theme={theme}
-                    /* @ts-ignore */
-                    emojiStyle="google"
-                    previewConfig={{ showPreview: false }}
-                    onEmojiClick={({ emoji }) => setContent((previous) => previous + emoji)}
-                />
-            </PopoverContent>
+            <ChatIcons setContent={setContent} />
         </Popover>
     );
 }

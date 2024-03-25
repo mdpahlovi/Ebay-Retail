@@ -119,7 +119,7 @@ type Mutation {
     updateBooking(id: ID!, data: BookingInput!): Booking
     deleteBooking(id: ID!): Booking
 
-    createMessage(id: ID!, type: String!, content: String!): Booking
+    createMessage(id: ID!, type: String!, content: String!): Message
 }
 
 input UserInput {

@@ -1,24 +1,10 @@
-import { useState } from "react";
-import { Booking } from "@/types/data";
-import { useAppSelector } from "@/redux/hooks";
-// import { useSubscription } from "@apollo/client";
-// import { useSearchParams } from "react-router-dom";
-// import { MESSAGE_SUBSCRIPTION } from "@/graphql/subscription";
+import { UserToken } from "@/types";
+import { Message, User } from "@/types/data";
 import { AvatarWithFallback } from "@/components/ui/avatar";
 
-export default function ChatBody({ booking }: { booking: Booking }) {
-    // const [searchParams] = useSearchParams();
-    const [messages] = useState(booking.messages);
-    // const { data } = useSubscription(MESSAGE_SUBSCRIPTION, { variables: { id: searchParams.get("room") } });
+type ChatBodyProps = { auth_user: UserToken | null; chat_user: User; messages: Message[] };
 
-    // useEffect(() => {
-    //     const newMessage = data?.messageCreated?.message;
-    //     if (newMessage) setMessages((previous) => [...previous, newMessage]);
-    // }, [data]);
-
-    const { user: auth_user } = useAppSelector((state) => state.user);
-    const chat_user = auth_user?.role === "seller" ? booking.buyer : booking.seller;
-
+export default function ChatBody({ auth_user, chat_user, messages }: ChatBodyProps) {
     return (
         <div className="space-y-4 py-5 min-h-[calc(100vh_-_226px)]">
             {messages.map(({ id, user, content }) => {
