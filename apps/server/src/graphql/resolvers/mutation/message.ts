@@ -1,6 +1,5 @@
 import Booking from "../../../models/booking/index.js";
 import { Context } from "../../../types/index.js";
-import { pubsub } from "../../context/index.js";
 
 interface Message {
     id: string;
@@ -13,8 +12,8 @@ export const MessageMutation = {
         const result = await Booking.findByIdAndUpdate(id, { $push: { messages: { user: token?.id, type, content } } }, { new: true });
 
         const newMessage = result.messages[result.messages.length - 1];
+        console.log(newMessage);
 
-        pubsub.publish(`MESSAGE_CREATE`, { messageCreated: { id: id, message: newMessage } });
         return result;
     },
 };
