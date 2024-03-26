@@ -1,6 +1,8 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import ChatFooter from "./chat-footer";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { IconButton } from "@/components/ui/icon-button";
+import { Mic, SendHorizontal, Smile } from "lucide-react";
 
 export default function ChatLoader() {
     return (
@@ -28,7 +30,24 @@ export default function ChatLoader() {
                     );
                 })}
             </div>
-            <ChatFooter />
+            <div className="z-20 sticky bottom-0 bg-background border-t py-5">
+                <div className="relative flex">
+                    <div className="absolute top-1 left-1">
+                        <IconButton>
+                            <Mic size={16} />
+                        </IconButton>
+                    </div>
+                    <Input className="pl-10 pr-[9.25rem]" placeholder="Write Your Message!" />
+                    <div className="absolute top-1 right-1 space-x-1">
+                        <IconButton>
+                            <Smile size={16} />
+                        </IconButton>
+                        <IconButton disabled message>
+                            <SendHorizontal size={16} />
+                        </IconButton>
+                    </div>
+                </div>
+            </div>
         </ScrollArea>
     );
 }
