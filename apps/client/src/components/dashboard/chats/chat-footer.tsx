@@ -27,6 +27,7 @@ export default function ChatFooter({ setMessages, room }: { setMessages: React.D
     }, [room, setMessages]);
 
     const handleSentMessage = () => {
+        socket.emit("typing", { room, typing: false });
         const message = { id: room, type: "text", content };
         createMessage({ variables: message }).then(({ data: { createMessage } }) => {
             setContent("");
@@ -53,9 +54,10 @@ export default function ChatFooter({ setMessages, room }: { setMessages: React.D
                         value={content}
                         className="pl-10 pr-[9.25rem]"
                         placeholder="Write Your Message!"
-                        onChange={(e) => setContent(e.target.value)}
-                        onBlur={() => socket.emit("typing", { room, typing: false })}
-                        onFocus={() => socket.emit("typing", { room, typing: true })}
+                        onChange={(e) => {
+                            setContent(e.target.value);
+                            socket.emit("typing", { room, typing: true });
+                        }}
                         onKeyDown={(e) => e.key === "Enter" && content && handleSentMessage()}
                     />
                     <div className="absolute top-1 right-1 space-x-1">
