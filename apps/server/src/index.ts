@@ -44,7 +44,11 @@ const io = new Server(httpServer, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
     socket.on("new message", ({ room, message }) => {
-        socket.broadcast.emit(room, message);
+        socket.broadcast.emit(`Message: ${room}`, message);
+    });
+
+    socket.on("typing", ({ room, typing }) => {
+        socket.broadcast.emit(`Typing: ${room}`, typing);
     });
 });
 
