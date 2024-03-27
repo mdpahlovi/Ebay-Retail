@@ -1,15 +1,22 @@
-import { UserToken } from "@/types";
-import { Message, User } from "@/types/data";
+import { useEffect, useRef } from "react";
+import { useAppSelector } from "@/redux/hooks";
 import { AvatarWithFallback } from "@/components/ui/avatar";
 
-type ChatBodyProps = { auth_user: UserToken | null; chat_user: User; messages: Message[] };
+export default function ChatBody({ room }: { room: string }) {
+    const viewRef = useRef<HTMLDivElement | null>(null);
+    const { booking } = useAppSelector((state) => state.booking);
+    const chat = booking.findIndex((b) => b.room === room);
 
-export default function ChatBody({ auth_user, chat_user, messages }: ChatBodyProps) {
+    useEffect(() => {
+        if (viewRef.current) viewRef.current.scrollIntoView({ behavior: "smooth" });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [booking[chat].messages]);
+
     return (
         <div className="space-y-4 py-5 min-h-[calc(100vh_-_226px)]">
-            {messages.map(({ id, user, content }) => {
-                const right = auth_user?.id === user;
-                const image = auth_user?.id === user ? auth_user.image : chat_user.image;
+            {booking[chat].messages.map(({ id, user, content }) => {
+                const right = booking[chat].sender.id === user;
+                const image = booking[chat].sender.id === user ? booking[chat].sender.image : booking[chat].receiver.image;
 
                 return (
                     <div key={id} className={`flex items-end ${right ? "flex-row-reverse" : "flex-row"} gap-2`}>
@@ -24,6 +31,7 @@ export default function ChatBody({ auth_user, chat_user, messages }: ChatBodyPro
                     </div>
                 );
             })}
+            <div ref={viewRef} />
         </div>
     );
 }

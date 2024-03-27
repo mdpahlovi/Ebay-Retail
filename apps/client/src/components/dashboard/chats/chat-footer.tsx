@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { PulseLoader } from "react-spinners";
+import { useAppDispatch } from "@/redux/hooks";
 import { CREATE_MESSAGE } from "@/graphql/mutations";
+import { setMessage } from "@/redux/features/booking/bookingSlice";
 
 import ChatIcons from "./chat-icons";
 import { socket } from "@/lib/socket";
@@ -12,19 +14,20 @@ import { SendHorizontal, Smile } from "lucide-react";
 import { IconButton } from "@/components/ui/icon-button";
 import ChatSpeechRecognition from "./speech-recognition";
 
-export default function ChatFooter({ setMessages, room }: { setMessages: React.Dispatch<React.SetStateAction<Message[]>>; room: string }) {
+export default function ChatFooter({ room }: { room: string }) {
+    const dispatch = useAppDispatch();
     const [content, setContent] = useState("");
     const [typing, setTyping] = useState(false);
     const [createMessage] = useMutation(CREATE_MESSAGE);
 
     useEffect(() => {
-        socket.on(`Typing: ${room}`, (data: boolean) => setTyping(data));
-        socket.on(`Message: ${room}`, (data: Message) => setMessages((previous) => [...previous, data]));
+        socket.on(`Typing: ${room}`, (status: boolean) => setTyping(status));
+        socket.on(`Message: ${room}`, (message: Message) => dispatch(setMessage({ room, message })));
         return () => {
-            socket.off(`Typing: ${room}`, (data: boolean) => setTyping(data));
-            socket.off(`Message: ${room}`, (data: Message) => setMessages((previous) => [...previous, data]));
+            socket.off(`Typing: ${room}`, (status: boolean) => setTyping(status));
+            socket.off(`Message: ${room}`, (message: Message) => dispatch(setMessage({ room, message })));
         };
-    }, [room, setMessages]);
+    }, [dispatch, room]);
 
     const handleSentMessage = () => {
         socket.emit("typing", { room, typing: false });
@@ -32,13 +35,11 @@ export default function ChatFooter({ setMessages, room }: { setMessages: React.D
         createMessage({ variables: message }).then(({ data: { createMessage } }) => {
             setContent("");
             if (createMessage) {
-                setMessages((previous) => [...previous, createMessage]);
+                dispatch(setMessage({ room, message: createMessage }));
                 socket.emit("new message", { room, message: createMessage });
             }
         });
     };
-
-    console.log(typing);
 
     return (
         <Popover>
@@ -58,6 +59,7 @@ export default function ChatFooter({ setMessages, room }: { setMessages: React.D
                             setContent(e.target.value);
                             socket.emit("typing", { room, typing: true });
                         }}
+                        onBlur={() => socket.emit("typing", { room, typing: true })}
                         onKeyDown={(e) => e.key === "Enter" && content && handleSentMessage()}
                     />
                     <div className="absolute top-1 right-1 space-x-1">

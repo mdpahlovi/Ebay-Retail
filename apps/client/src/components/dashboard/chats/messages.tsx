@@ -1,34 +1,38 @@
-import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { GET_BOOKING_MESSAGE } from "@/graphql/queries";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import ChatBody from "@/components/dashboard/chats/chat-body";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import ChatLoader from "@/components/dashboard/chats/chat-loader";
 import ChatHeader from "@/components/dashboard/chats/chat-header";
-import ChatBody from "@/components/dashboard/chats/chat-body";
 import ChatFooter from "@/components/dashboard/chats/chat-footer";
-import { useEffect, useState } from "react";
-import { Message } from "@/types/data";
-import { useAppSelector } from "@/redux/hooks";
+import { setBooking } from "@/redux/features/booking/bookingSlice";
 
 export default function Messages() {
+    const dispatch = useAppDispatch();
+    const [loading, setLoading] = useState(true);
     const [searchParams] = useSearchParams();
-    const room_id = searchParams.get("room");
+    const id = searchParams.get("room");
 
-    const { data, loading } = useQuery(GET_BOOKING_MESSAGE, { fetchPolicy: "no-cache", variables: { id: room_id } });
+    const { data } = useQuery(GET_BOOKING_MESSAGE, { fetchPolicy: "no-cache", variables: { id } });
+    const { user } = useAppSelector((state) => state.user);
 
-    const [messages, setMessages] = useState<Message[]>([]);
-    useEffect(() => data?.booking?.messages && setMessages(data.booking.messages), [data?.booking?.messages]);
+    useEffect(() => {
+        if (user && data?.booking) {
+            dispatch(setBooking({ user, booking: data?.booking }));
+            setTimeout(() => setLoading(false), 300);
+        }
+    }, [data?.booking, dispatch, user]);
 
-    const { user: auth_user } = useAppSelector((state) => state.user);
-    const chat_user = auth_user?.role === "seller" ? data?.booking?.buyer : data?.booking?.seller;
-
-    if (!room_id || loading) return <ChatLoader />;
+    if (!id || loading) return <ChatLoader />;
 
     return (
         <ScrollArea className="px-6">
-            <ChatHeader chat_user={chat_user} product_name={data?.booking?.product?.name} />
-            <ChatBody auth_user={auth_user} chat_user={chat_user} messages={messages} />
-            <ChatFooter setMessages={setMessages} room={room_id} />
+            <ChatHeader room={id} />
+            <ChatBody room={id} />
+            <ChatFooter room={id} />
         </ScrollArea>
     );
 }

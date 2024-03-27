@@ -4,7 +4,9 @@ import { Mic, MicOff } from "lucide-react";
 import { IconButton } from "@/components/ui/icon-button";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-export default function ChatSpeechRecognition({ setContent }: { setContent: React.Dispatch<React.SetStateAction<string>> }) {
+type ChatSpeechRecognitionProps = { setContent: React.Dispatch<React.SetStateAction<string>> };
+
+export default function ChatSpeechRecognition({ setContent }: ChatSpeechRecognitionProps) {
     const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
     useEffect(() => setContent((previous) => previous + transcript), [setContent, transcript]);
