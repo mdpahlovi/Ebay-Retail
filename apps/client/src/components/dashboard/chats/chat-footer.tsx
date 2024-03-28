@@ -59,7 +59,7 @@ export default function ChatFooter({ room }: { room: string }) {
                             setContent(e.target.value);
                             socket.emit("typing", { room, typing: true });
                         }}
-                        onBlur={() => socket.emit("typing", { room, typing: true })}
+                        onBlur={() => socket.emit("typing", { room, typing: false })}
                         onKeyDown={(e) => e.key === "Enter" && content && handleSentMessage()}
                     />
                     <div className="absolute top-1 right-1 space-x-1">

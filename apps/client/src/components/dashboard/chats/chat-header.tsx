@@ -1,4 +1,4 @@
-import { Phone, Video } from "lucide-react";
+import { Video } from "lucide-react";
 import { useAppSelector } from "@/redux/hooks";
 import { IconButton } from "@/components/ui/icon-button";
 import { AvatarWithFallback } from "@/components/ui/avatar";
@@ -16,14 +16,9 @@ export default function ChatHeader({ room }: { room: string }) {
                     <h6 className="leading-none text-muted-foreground">{booking[chat]?.product}</h6>
                 </div>
             </div>
-            <div className="flex gap-4">
-                <IconButton>
-                    <Phone size={16} />
-                </IconButton>
-                <IconButton>
-                    <Video size={16} />
-                </IconButton>
-            </div>
+            <IconButton>
+                <Video size={16} />
+            </IconButton>
         </div>
     );
 }
