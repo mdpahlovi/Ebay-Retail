@@ -66,7 +66,7 @@ export default function ChatFooter({ room }: { room: string }) {
                         <IconButton trigger>
                             <Smile size={16} />
                         </IconButton>
-                        <IconButton onClick={handleSentMessage} disabled={!content} message>
+                        <IconButton variant="default" onClick={handleSentMessage} disabled={!content}>
                             <SendHorizontal size={16} />
                         </IconButton>
                     </div>

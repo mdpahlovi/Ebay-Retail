@@ -42,7 +42,7 @@ export default function ChatLoader() {
                         <IconButton>
                             <Smile size={16} />
                         </IconButton>
-                        <IconButton disabled message>
+                        <IconButton variant="default" disabled>
                             <SendHorizontal size={16} />
                         </IconButton>
                     </div>
