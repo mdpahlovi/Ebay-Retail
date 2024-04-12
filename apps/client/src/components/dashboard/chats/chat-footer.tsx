@@ -21,11 +21,11 @@ export default function ChatFooter({ room }: { room: string }) {
     const [createMessage] = useMutation(CREATE_MESSAGE);
 
     useEffect(() => {
-        socket.on(`Typing: ${room}`, (status: boolean) => setTyping(status));
-        socket.on(`Message: ${room}`, (message: Message) => dispatch(setMessage({ room, message })));
+        socket.on(`${room}:Typing`, (status: boolean) => setTyping(status));
+        socket.on(`${room}:Message`, (message: Message) => dispatch(setMessage({ room, message })));
         return () => {
-            socket.off(`Typing: ${room}`, (status: boolean) => setTyping(status));
-            socket.off(`Message: ${room}`, (message: Message) => dispatch(setMessage({ room, message })));
+            socket.off(`${room}:Typing`, (status: boolean) => setTyping(status));
+            socket.off(`${room}:Message`, (message: Message) => dispatch(setMessage({ room, message })));
         };
     }, [dispatch, room]);
 
@@ -36,7 +36,7 @@ export default function ChatFooter({ room }: { room: string }) {
             setContent("");
             if (createMessage) {
                 dispatch(setMessage({ room, message: createMessage }));
-                socket.emit("new message", { room, message: createMessage });
+                socket.emit("message", { room, message: createMessage });
             }
         });
     };

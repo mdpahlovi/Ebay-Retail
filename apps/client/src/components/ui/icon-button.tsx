@@ -1,8 +1,15 @@
 import { PopoverTrigger } from "./popover";
 import { Button, ButtonProps } from "./button";
 
-export function IconButton({ children, size = "icon", variant = "outline", trigger, ...restProps }: { trigger?: boolean } & ButtonProps) {
-    const props = { size, variant, ...restProps };
+export function IconButton({
+    children,
+    className,
+    size = "icon",
+    variant = "outline",
+    trigger,
+    ...restProps
+}: { trigger?: boolean } & ButtonProps) {
+    const props = { className: `size-8 ${className}`, size, variant, ...restProps };
 
     return trigger ? (
         <PopoverTrigger asChild>

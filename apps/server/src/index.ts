@@ -43,12 +43,24 @@ app.use("/graphql", expressMiddleware(server, { context }));
 const io = new Server(httpServer, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
-    socket.on("new message", ({ room, message }) => {
-        socket.broadcast.emit(`Message: ${room}`, message);
+    socket.on("message", ({ room, message }) => {
+        socket.broadcast.emit(`${room}:Message`, message);
+    });
+    socket.on("typing", ({ room, typing }) => {
+        socket.broadcast.emit(`${room}:Typing`, typing);
     });
 
-    socket.on("typing", ({ room, typing }) => {
-        socket.broadcast.emit(`Typing: ${room}`, typing);
+    socket.on("Call", ({ room, offer }) => {
+        socket.broadcast.emit(`${room}:Incoming:Call`, { offer });
+    });
+    socket.on("Call:Accepted", ({ room, ans }) => {
+        socket.broadcast.emit(`${room}:Call:Accepted`, { ans });
+    });
+    socket.on("Negotiation:Need", ({ room, offer }) => {
+        socket.broadcast.emit(`${room}:Negotiation:Need`, { offer });
+    });
+    socket.on("Negotiation:Done", ({ room, ans }) => {
+        socket.broadcast.emit(`${room}:Negotiation:Done`, { ans });
     });
 });
 

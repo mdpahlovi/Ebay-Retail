@@ -1,16 +1,32 @@
-import { X } from "lucide-react";
 import { Video } from "lucide-react";
+import { socket } from "@/lib/socket";
+import { peer } from "@/services/peer";
+import { useCallback, useState } from "react";
+import { VideoCalling } from "./video-calling";
 import { useAppSelector } from "@/redux/hooks";
+import { Dialog } from "@/components/ui/dialog";
 import { IconButton } from "@/components/ui/icon-button";
 import { AvatarWithFallback } from "@/components/ui/avatar";
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 export default function ChatHeader({ room }: { room: string }) {
     const { booking } = useAppSelector((state) => state.booking);
     const chat = booking.findIndex((b) => b.room === room);
 
+    const [open, setOpen] = useState(false);
+    const [myStream, setMyStream] = useState<MediaStream | null>(null);
+    const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
+
+    const handleCallUser = useCallback(async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+        const offer = await peer.getOffer();
+
+        socket.emit("Call", { room, offer });
+        setMyStream(stream);
+        setOpen(true);
+    }, [room]);
+
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <div className="z-20 sticky top-0 bg-background border-b py-5 flex justify-between items-center gap-2">
                 <div className="flex items-center gap-2">
                     <AvatarWithFallback src={booking[chat]?.receiver?.image} />
@@ -19,21 +35,11 @@ export default function ChatHeader({ room }: { room: string }) {
                         <h6 className="leading-none text-muted-foreground">{booking[chat]?.product}</h6>
                     </div>
                 </div>
-                <DialogTrigger asChild>
-                    <IconButton>
-                        <Video size={16} />
-                    </IconButton>
-                </DialogTrigger>
+                <IconButton onClick={handleCallUser}>
+                    <Video size={16} />
+                </IconButton>
             </div>
-            <DialogContent className="aspect-square flex justify-center">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem mollitia recusandae nostrum veritatis, et, vel magnam ut
-                quas ex harum labore itaque doloremque fuga magni velit id libero, doloribus deserunt.
-                <DialogClose asChild>
-                    <IconButton variant="destructive" className="absolute bottom-6">
-                        <X size={16} />
-                    </IconButton>
-                </DialogClose>
-            </DialogContent>
+            <VideoCalling {...{ room, open, setOpen, myStream, setMyStream, remoteStream, setRemoteStream }} />
         </Dialog>
     );
 }
