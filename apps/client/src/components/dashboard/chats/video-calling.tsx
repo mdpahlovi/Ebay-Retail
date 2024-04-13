@@ -3,10 +3,9 @@ import { X } from "lucide-react";
 import { socket } from "@/lib/socket";
 import { peer } from "@/services/peer";
 import ReactPlayer from "react-player";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { IconButton } from "@/components/ui/icon-button";
 import { DialogClose, DialogContent } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 
 type VideoCallingProps = {
     room: string;
@@ -19,16 +18,16 @@ type VideoCallingProps = {
 };
 
 export function VideoCalling({ room, setOpen, myStream, remoteStream, setMyStream, setRemoteStream }: VideoCallingProps) {
-    const [incomingCall, setIncomingCall] = useState(false);
-    const [offer, setOffer] = useState<RTCSessionDescriptionInit | null>(null);
-
     const handleInComingCall = useCallback(
         async ({ offer }: { offer: RTCSessionDescriptionInit }) => {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+            const ans = await peer.getAnswer(offer);
+
+            socket.emit("Call:Accepted", { room, ans });
+            setMyStream(stream);
             setOpen(true);
-            setOffer(offer);
-            setIncomingCall(true);
         },
-        [setOpen]
+        [room, setMyStream, setOpen]
     );
 
     const handleCallAccepted = useCallback(
@@ -93,22 +92,6 @@ export function VideoCalling({ room, setOpen, myStream, remoteStream, setMyStrea
 
     return (
         <DialogContent className="aspect-square flex justify-center">
-            {incomingCall ? (
-                <Button
-                    onClick={async () => {
-                        if (offer) {
-                            const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-                            const ans = await peer.getAnswer(offer);
-
-                            socket.emit("Call:Accepted", { room, ans });
-                            setMyStream(stream);
-                            setIncomingCall(false);
-                        }
-                    }}
-                >
-                    Accept
-                </Button>
-            ) : null}
             {myStream ? <ReactPlayer playing width={300} height={300} url={myStream} /> : null}
             {remoteStream ? <ReactPlayer playing width={300} height={300} url={remoteStream} /> : null}
             <DialogClose asChild>
