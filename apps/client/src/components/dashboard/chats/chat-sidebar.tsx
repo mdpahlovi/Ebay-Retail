@@ -1,8 +1,9 @@
+import { cn } from "@/lib/utils";
 import { Booking } from "@/types/data";
-import { AvatarWithFallback } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSearchParams } from "react-router-dom";
 import { useAppSelector } from "@/redux/hooks";
+import { useSearchParams } from "react-router-dom";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { AvatarWithFallback } from "@/components/ui/avatar";
 
 export default function ChatSidebar({ bookings = [] }: { bookings: Booking[] }) {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -10,7 +11,7 @@ export default function ChatSidebar({ bookings = [] }: { bookings: Booking[] }) 
     const { user } = useAppSelector((state) => state.user);
 
     return (
-        <ScrollArea className={`${query ? "hidden" : "block"} px-6 md:border-r md:block`}>
+        <ScrollArea className={cn(query ? "hidden" : "block", "px-6 md:border-r md:block")}>
             <h2 className="z-20 sticky top-0 bg-background py-5 border-b">Bookings</h2>
             <div>
                 {bookings.map(({ id, buyer, seller, product }) => {
@@ -19,7 +20,10 @@ export default function ChatSidebar({ bookings = [] }: { bookings: Booking[] }) 
                         <div
                             key={id}
                             onClick={() => setSearchParams({ room: id })}
-                            className={`${query === id ? "bg-muted" : "hover:bg-muted"} p-2.5 rounded flex items-center gap-2`}
+                            className={cn(
+                                query === id ? "bg-muted" : "hover:bg-muted",
+                                "cursor-pointer p-2.5 rounded  flex items-center gap-2"
+                            )}
                         >
                             <AvatarWithFallback src={chat_user.image} />
                             <div className="space-y-1">

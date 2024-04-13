@@ -24,13 +24,11 @@ export default function ChatSpeechRecognition({ setContent }: ChatSpeechRecognit
                 </IconButton>
             ) : (
                 <IconButton
-                    onClick={() => {
-                        if (!browserSupportsSpeechRecognition) {
-                            toast.error("Oops! Not Supported For Your Browser");
-                        } else {
-                            SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
-                        }
-                    }}
+                    onClick={() =>
+                        !browserSupportsSpeechRecognition
+                            ? toast.error("Oops! Not Supported For Your Browser")
+                            : SpeechRecognition.startListening({ continuous: true, language: "en-IN" })
+                    }
                 >
                     <Mic size={16} />
                 </IconButton>

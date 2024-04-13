@@ -1,6 +1,6 @@
 import EmojiPicker from "emoji-picker-react";
-import { PopoverContent } from "@/components/ui/popover";
 import { useAppSelector } from "@/redux/hooks";
+import { PopoverContent } from "@/components/ui/popover";
 
 export default function ChatIcons({ setContent }: { setContent: React.Dispatch<React.SetStateAction<string>> }) {
     const { theme } = useAppSelector((state) => state.theme);
