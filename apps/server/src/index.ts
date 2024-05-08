@@ -54,17 +54,8 @@ io.on("connection", (socket) => {
         socket.broadcast.to(room).emit("typing", typing);
     });
 
-    socket.on("Call", ({ room, offer }) => {
-        socket.broadcast.emit(`${room}:Incoming:Call`, { offer });
-    });
-    socket.on("Call:Accepted", ({ room, ans }) => {
-        socket.broadcast.emit(`${room}:Call:Accepted`, { ans });
-    });
-    socket.on("Negotiation:Need", ({ room, offer }) => {
-        socket.broadcast.emit(`${room}:Negotiation:Need`, { offer });
-    });
-    socket.on("Negotiation:Done", ({ room, ans }) => {
-        socket.broadcast.emit(`${room}:Negotiation:Done`, { ans });
+    socket.on("remote:peer", ({ room, peer }) => {
+        socket.broadcast.to(room).emit("remote:peer", { peer });
     });
 });
 
