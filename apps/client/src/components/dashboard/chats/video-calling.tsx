@@ -7,18 +7,18 @@ import { IconButton } from "@/components/ui/icon-button";
 type VideoCallingProps = {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    remoteVideoRef: React.MutableRefObject<MediaStream | null>;
-    currentVideoRef: React.MutableRefObject<MediaStream | null>;
+    remoteVideo: MediaStream | undefined;
+    currentVideo: MediaStream | undefined;
 };
 
-export function VideoCalling({ remoteVideoRef, currentVideoRef }: VideoCallingProps) {
+export function VideoCalling({ remoteVideo, currentVideo }: VideoCallingProps) {
     return (
         <DialogContent className="p-2 gap-2 max-w-5xl">
             <div className="bg-background aspect-video rounded">
-                <ReactPlayer url={remoteVideoRef.current ? remoteVideoRef.current : undefined} playing width="100%" height="100%" />
+                <ReactPlayer url={remoteVideo} playing width="100%" height="100%" />
             </div>
             <div className="bg-background aspect-video rounded min-[512px]:w-60 sm:w-80 min-[512px]:fixed top-2 right-2">
-                <ReactPlayer url={currentVideoRef.current ? currentVideoRef.current : undefined} playing width="100%" height="100%" />
+                <ReactPlayer url={currentVideo} playing width="100%" height="100%" />
             </div>
             <div className="p-4 flex justify-center gap-4">
                 <IconButton className="size-10">

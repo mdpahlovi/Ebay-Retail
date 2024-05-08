@@ -6,8 +6,8 @@ export function useVideoCall(room: string) {
     const [open, setOpen] = useState(false);
     const peerRef = useRef<Peer | null>(null);
     const [remotePeerId, setRemotePeerId] = useState("");
-    const remoteVideoRef = useRef<MediaStream | null>(null);
-    const currentVideoRef = useRef<MediaStream | null>(null);
+    const [remoteVideo, setRemoteVideo] = useState<MediaStream>();
+    const [currentVideo, setCurrentVideo] = useState<MediaStream>();
 
     useEffect(() => {
         const peer = new Peer();
@@ -16,10 +16,10 @@ export function useVideoCall(room: string) {
         peer.on("call", (call) => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
                 setOpen(true);
-                currentVideoRef.current = mediaStream;
+                setCurrentVideo(mediaStream);
 
                 call.answer(mediaStream);
-                call.on("stream", (remoteStream) => (remoteVideoRef.current = remoteStream));
+                call.on("stream", (remoteStream) => setRemoteVideo(remoteStream));
             });
         });
         peerRef.current = peer;
@@ -37,15 +37,15 @@ export function useVideoCall(room: string) {
         if (remotePeerId) {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
                 setOpen(true);
-                currentVideoRef.current = mediaStream;
+                setCurrentVideo(mediaStream);
 
                 if (peerRef.current) {
                     const call = peerRef.current.call(remotePeerId, mediaStream);
-                    call.on("stream", (remoteStream) => (remoteVideoRef.current = remoteStream));
+                    call.on("stream", (remoteStream) => setRemoteVideo(remoteStream));
                 }
             });
         }
     };
 
-    return { open, setOpen, handleCall, remoteVideoRef, currentVideoRef };
+    return { open, setOpen, handleCall, remoteVideo, currentVideo };
 }

@@ -10,7 +10,7 @@ export default function ChatHeader({ room }: { room: string }) {
     const { booking } = useAppSelector((state) => state.booking);
     const chat = booking.findIndex((b) => b.room === room);
 
-    const { open, setOpen, handleCall, remoteVideoRef, currentVideoRef } = useVideoCall(room);
+    const { open, setOpen, handleCall, remoteVideo, currentVideo } = useVideoCall(room);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -26,7 +26,7 @@ export default function ChatHeader({ room }: { room: string }) {
                     <Video size={16} />
                 </IconButton>
             </div>
-            <VideoCalling {...{ open, setOpen, remoteVideoRef, currentVideoRef }} />
+            <VideoCalling {...{ open, setOpen, remoteVideo, currentVideo }} />
         </Dialog>
     );
 }
