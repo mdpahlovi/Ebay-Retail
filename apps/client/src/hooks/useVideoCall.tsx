@@ -1,6 +1,7 @@
 import Peer from "peerjs";
 import { socket } from "@/lib/socket";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 export function useVideoCall(room: string) {
     const [open, setOpen] = useState(false);
@@ -34,7 +35,7 @@ export function useVideoCall(room: string) {
     }, []);
 
     const handleCall = () => {
-        if (remotePeerId) {
+        if (remotePeerId && !remoteVideo && !currentVideo) {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
                 setOpen(true);
                 setCurrentVideo(mediaStream);
@@ -44,8 +45,18 @@ export function useVideoCall(room: string) {
                     call.on("stream", (remoteStream) => setRemoteVideo(remoteStream));
                 }
             });
+        } else if (remotePeerId && remoteVideo && currentVideo) {
+            setOpen(true);
+        } else {
+            toast.error("Oops! No Active User...!");
         }
     };
 
-    return { open, setOpen, handleCall, remoteVideo, currentVideo };
+    const handleEndCall = () => {
+        setOpen(false);
+        if (peerRef.current) peerRef.current.destroy();
+        if (currentVideo) currentVideo.getTracks().forEach((track) => track.readyState == "live" && track.stop());
+    };
+
+    return { open, setOpen, handleCall, handleEndCall, remoteVideo, currentVideo };
 }
