@@ -15,6 +15,7 @@ export function useVideoCall(room: string) {
 
         peer.on("call", (call) => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
+                setOpen(true);
                 currentVideoRef.current = mediaStream;
 
                 call.answer(mediaStream);
