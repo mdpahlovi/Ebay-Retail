@@ -43,11 +43,15 @@ app.use("/graphql", expressMiddleware(server, { context }));
 const io = new Server(httpServer, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
+    socket.on("join:room", ({ room, user }) => {
+        socket.join(room);
+    });
+
     socket.on("message", ({ room, message }) => {
-        socket.broadcast.emit(`${room}:Message`, message);
+        socket.broadcast.to(room).emit("message", message);
     });
     socket.on("typing", ({ room, typing }) => {
-        socket.broadcast.emit(`${room}:Typing`, typing);
+        socket.broadcast.to(room).emit("typing", typing);
     });
 
     socket.on("Call", ({ room, offer }) => {

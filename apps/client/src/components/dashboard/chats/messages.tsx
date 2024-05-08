@@ -9,6 +9,7 @@ import ChatLoader from "@/components/dashboard/chats/chat-loader";
 import ChatHeader from "@/components/dashboard/chats/chat-header";
 import ChatFooter from "@/components/dashboard/chats/chat-footer";
 import { setBooking } from "@/redux/features/booking/bookingSlice";
+import { socket } from "@/lib/socket";
 
 export default function Messages() {
     const dispatch = useAppDispatch();
@@ -20,9 +21,13 @@ export default function Messages() {
     const { user } = useAppSelector((state) => state.user);
 
     useEffect(() => {
-        if (user && data?.booking) {
-            dispatch(setBooking({ user, booking: data?.booking }));
-            setTimeout(() => setLoading(false), 300);
+        if (user) {
+            socket.emit("join:room", { room: id, user: user.id });
+
+            if (data?.booking) {
+                dispatch(setBooking({ user, booking: data?.booking }));
+                setTimeout(() => setLoading(false), 300);
+            }
         }
     }, [data?.booking, dispatch, user]);
 
