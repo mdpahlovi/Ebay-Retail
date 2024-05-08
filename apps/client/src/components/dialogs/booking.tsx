@@ -1,9 +1,8 @@
 import * as yup from "yup";
 import { useAppSelector } from "@/redux/hooks";
-import useNavigateWithState from "@/hooks/useNavigator";
 import { useLocation } from "react-router-dom";
+import { useNavigateWithState } from "@/hooks/useNavigator";
 import { Button, ButtonProps } from "@/components/ui/button";
-import { DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BookingDialogProps } from "@/types";
 import { useMutation } from "@apollo/client";
 import { CREATE_BOOKING } from "@/graphql/mutations";
@@ -14,6 +13,7 @@ import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";
 import toastOption from "@/lib/toastOption";
 import capitalizeFirstWord from "@/lib/capitalizeFirstWord";
+import { DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 type BookingInput = { date: string; location: string };
 const bookingSchema = yup.object().shape({

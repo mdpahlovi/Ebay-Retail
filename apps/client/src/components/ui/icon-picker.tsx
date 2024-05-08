@@ -2,7 +2,7 @@ import EmojiPicker from "emoji-picker-react";
 import { useAppSelector } from "@/redux/hooks";
 import { PopoverContent } from "@/components/ui/popover";
 
-export default function ChatIcons({ setContent }: { setContent: React.Dispatch<React.SetStateAction<string>> }) {
+export function IconPicker({ onChange }: { onChange: React.Dispatch<React.SetStateAction<string>> }) {
     const { theme } = useAppSelector((state) => state.theme);
 
     return (
@@ -16,7 +16,7 @@ export default function ChatIcons({ setContent }: { setContent: React.Dispatch<R
                 /* @ts-ignore */
                 emojiStyle="google"
                 previewConfig={{ showPreview: false }}
-                onEmojiClick={({ emoji }) => setContent((previous) => previous + emoji)}
+                onEmojiClick={({ emoji }) => onChange((previous) => previous + emoji)}
             />
         </PopoverContent>
     );

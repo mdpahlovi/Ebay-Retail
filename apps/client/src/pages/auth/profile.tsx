@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { User } from "@/types/data";
+import { toast } from "react-toastify";
 import { useAppSelector } from "@/redux/hooks";
 import { useMutation } from "@apollo/client";
 import { PROFILE } from "@/graphql/mutations";
-import { toast } from "react-toastify";
+import { useAuthToken } from "@/hooks/useAuthToken";
 import { updateUserValues } from "@/lib/initialValues";
-import useAuthToken from "@/hooks/useAuthToken";
 import Form from "@/components/form";
 import FormInput from "@/components/form/FormInput";
 import FormSubmit from "@/components/form/FormSubmit";

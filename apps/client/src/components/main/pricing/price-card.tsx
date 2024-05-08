@@ -1,9 +1,9 @@
 import { useAppSelector } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle } from "lucide-react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { DialogTrigger } from "@/components/ui/dialog";
-import useNavigateWithState from "@/hooks/useNavigator";
+import { useNavigateWithState } from "@/hooks/useNavigator";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 
 type Price = { title: string; description: string; amount: string; features: string[] };
 

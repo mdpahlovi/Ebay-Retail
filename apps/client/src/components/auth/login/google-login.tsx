@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useGoogleLogin } from "@react-oauth/google";
+import { AtSign } from "lucide-react";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
-import { SOCIAL_LOGIN } from "@/graphql/mutations";
 import { Button } from "@/components/ui/button";
-import { AtSign } from "lucide-react";
-import useAuthToken from "@/hooks/useAuthToken";
+import { SOCIAL_LOGIN } from "@/graphql/mutations";
+import { useAuthToken } from "@/hooks/useAuthToken";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const googleapi = axios.create({ baseURL: "https://www.googleapis.com/oauth2/v1" });
 

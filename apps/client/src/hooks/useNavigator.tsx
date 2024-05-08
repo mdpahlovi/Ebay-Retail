@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function useNavigateWithState() {
+export function useNavigateWithState() {
     const navigate = useNavigate();
     const { state } = useLocation();
     const from = state?.from || "/";

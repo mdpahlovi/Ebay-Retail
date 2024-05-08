@@ -1,6 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/redux/hooks";
+import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
     DropdownMenu,
@@ -11,7 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useAuthToken from "@/hooks/useAuthToken";
+import { useAuthToken } from "@/hooks/useAuthToken";
 
 export default function UserNav({ mobile }: { mobile?: boolean }) {
     const { pathname } = useLocation();

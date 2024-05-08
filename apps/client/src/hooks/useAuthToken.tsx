@@ -1,10 +1,10 @@
-import { useAppDispatch } from "@/redux/hooks";
-import { jwtDecode } from "jwt-decode";
-import { setUser } from "@/redux/features/users/userSlice";
 import { toast } from "react-toastify";
-import useNavigateWithState from "./useNavigator";
+import { jwtDecode } from "jwt-decode";
+import { useAppDispatch } from "@/redux/hooks";
+import { useNavigateWithState } from "./useNavigator";
+import { setUser } from "@/redux/features/users/userSlice";
 
-export default function useAuthToken() {
+export function useAuthToken() {
     const dispatch = useAppDispatch();
     const { navigateFrom } = useNavigateWithState();
 

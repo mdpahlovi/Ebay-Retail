@@ -1,3 +1,4 @@
+import { socket } from "@/lib/socket";
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -9,7 +10,6 @@ import ChatLoader from "@/components/dashboard/chats/chat-loader";
 import ChatHeader from "@/components/dashboard/chats/chat-header";
 import ChatFooter from "@/components/dashboard/chats/chat-footer";
 import { setBooking } from "@/redux/features/booking/bookingSlice";
-import { socket } from "@/lib/socket";
 
 export default function Messages() {
     const dispatch = useAppDispatch();

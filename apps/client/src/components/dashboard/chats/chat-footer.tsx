@@ -5,12 +5,12 @@ import { useAppDispatch } from "@/redux/hooks";
 import { CREATE_MESSAGE } from "@/graphql/mutations";
 import { setMessage } from "@/redux/features/booking/bookingSlice";
 
-import ChatIcons from "./chat-icons";
 import { socket } from "@/lib/socket";
 import { Message } from "@/types/data";
 import { Input } from "@/components/ui/input";
 import { Popover } from "@/components/ui/popover";
 import { SendHorizontal, Smile } from "lucide-react";
+import { IconPicker } from "@/components/ui/icon-picker";
 import { IconButton } from "@/components/ui/icon-button";
 import ChatSpeechRecognition from "./speech-recognition";
 
@@ -72,7 +72,7 @@ export default function ChatFooter({ room }: { room: string }) {
                     </div>
                 </div>
             </div>
-            <ChatIcons setContent={setContent} />
+            <IconPicker onChange={setContent} />
         </Popover>
     );
 }

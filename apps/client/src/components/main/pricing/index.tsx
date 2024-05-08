@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useAppSelector } from "@/redux/hooks";
 import { pricingValues } from "@/lib/initialValues";
-import { useLocation } from "react-router-dom";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import capitalizeFirstWord from "@/lib/capitalizeFirstWord";
+
 import PriceCard from "./price-card";
 import Form from "@/components/form";
 import FormInput from "@/components/form/FormInput";
@@ -13,7 +13,8 @@ import { useMutation } from "@apollo/client";
 import { BECOMESELLER } from "@/graphql/mutations";
 import { toast } from "react-toastify";
 import { pricing } from "@/lib/data";
-import useAuthToken from "@/hooks/useAuthToken";
+import { useAuthToken } from "@/hooks/useAuthToken";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 type BecomeSeller = { name: string; phone: string; address: string };
 
@@ -42,16 +43,14 @@ export default function Pricing() {
             </section>
             {user ? (
                 <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle className="mb-4">{capitalizeFirstWord(plan)}</DialogTitle>
-                        <Form initialValues={pricingValues(user)} validationSchema={userSchema} onSubmit={handlePay}>
-                            <FormInput name="name" label="Name" disabled />
-                            <FormInput name="email" label="Email" disabled />
-                            <FormInput name="phone" label="Phone" />
-                            <FormInput name="address" label="Address" />
-                            <FormSubmit loading={loading}>Pay Now</FormSubmit>
-                        </Form>
-                    </DialogHeader>
+                    <DialogTitle className="mb-4">{capitalizeFirstWord(plan)}</DialogTitle>
+                    <Form initialValues={pricingValues(user)} validationSchema={userSchema} onSubmit={handlePay}>
+                        <FormInput name="name" label="Name" disabled />
+                        <FormInput name="email" label="Email" disabled />
+                        <FormInput name="phone" label="Phone" />
+                        <FormInput name="address" label="Address" />
+                        <FormSubmit loading={loading}>Pay Now</FormSubmit>
+                    </Form>
                 </DialogContent>
             ) : null}
         </Dialog>

@@ -1,6 +1,4 @@
 import { Video } from "lucide-react";
-import { socket } from "@/lib/socket";
-import { peer } from "@/services/peer";
 import { useCallback, useState } from "react";
 import { VideoCalling } from "./video-calling";
 import { useAppSelector } from "@/redux/hooks";
@@ -13,15 +11,8 @@ export default function ChatHeader({ room }: { room: string }) {
     const chat = booking.findIndex((b) => b.room === room);
 
     const [open, setOpen] = useState(false);
-    const [myStream, setMyStream] = useState<MediaStream | null>(null);
-    const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
 
     const handleCallUser = useCallback(async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-        const offer = await peer.getOffer();
-
-        socket.emit("Call", { room, offer });
-        setMyStream(stream);
         setOpen(true);
     }, [room]);
 
@@ -39,7 +30,7 @@ export default function ChatHeader({ room }: { room: string }) {
                     <Video size={16} />
                 </IconButton>
             </div>
-            <VideoCalling {...{ room, open, setOpen, myStream, setMyStream, remoteStream, setRemoteStream }} />
+            <VideoCalling {...{ room, open, setOpen }} />
         </Dialog>
     );
 }

@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { REGISTER } from "@/graphql/mutations";
-import useNavigateWithState from "@/hooks/useNavigator";
-import useAuthToken from "@/hooks/useAuthToken";
+import { useAuthToken } from "@/hooks/useAuthToken";
+import { useNavigateWithState } from "@/hooks/useNavigator";
 import Auth from "@/layout/auth";
 import Form from "@/components/form";
 import FormInput from "@/components/form/FormInput";
