@@ -11,7 +11,7 @@ type VideoCallingProps = {
     currentVideoRef: React.MutableRefObject<MediaStream | null>;
 };
 
-export function VideoCalling({ open, setOpen, remoteVideoRef, currentVideoRef }: VideoCallingProps) {
+export function VideoCalling({ remoteVideoRef, currentVideoRef }: VideoCallingProps) {
     return (
         <DialogContent className="p-2 gap-2 max-w-5xl">
             <div className="bg-background aspect-video rounded">
