@@ -54,8 +54,8 @@ io.on("connection", (socket) => {
         socket.broadcast.to(room).emit("typing", typing);
     });
 
-    socket.on("remote:peer", ({ room, peer }) => {
-        socket.broadcast.to(room).emit("remote:peer", { peer });
+    socket.on("call:incoming", ({ room, peerId }) => {
+        socket.broadcast.to(room).emit("call:incoming", { peerId });
     });
 });
 

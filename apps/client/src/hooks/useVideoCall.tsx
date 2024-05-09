@@ -1,62 +1,81 @@
 import Peer from "peerjs";
 import { socket } from "@/lib/socket";
-import { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
+import { useEffect, useRef } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+    setOpen,
+    setCallStage,
+    setRemotePeerId,
+    setRemoteVideo,
+    setCurrentVideo,
+    setCurrentPeerId,
+} from "@/redux/features/video/videoSlice";
 
 export function useVideoCall(room: string) {
-    const [open, setOpen] = useState(false);
+    const dispatch = useAppDispatch();
     const peerRef = useRef<Peer | null>(null);
-    const [remotePeerId, setRemotePeerId] = useState("");
-    const [remoteVideo, setRemoteVideo] = useState<MediaStream>();
-    const [currentVideo, setCurrentVideo] = useState<MediaStream>();
+    const { remotePeerId, currentPeerId } = useAppSelector((state) => state.video);
 
     useEffect(() => {
         const peer = new Peer();
-        peer.on("open", (peer) => socket.emit("remote:peer", { room, peer }));
+        peer.on("open", (id) => dispatch(setCurrentPeerId(id)));
 
         peer.on("call", (call) => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
-                setOpen(true);
-                setCurrentVideo(mediaStream);
-
                 call.answer(mediaStream);
-                call.on("stream", (remoteStream) => setRemoteVideo(remoteStream));
+                call.on("stream", (remoteStream) => {
+                    dispatch(setCallStage("answered"));
+                    dispatch(setRemoteVideo(remoteStream));
+                });
             });
         });
+
         peerRef.current = peer;
     }, []);
 
     useEffect(() => {
-        socket.on("remote:peer", ({ peer }) => setRemotePeerId(peer));
+        socket.on("call:incoming", ({ peerId }) => {
+            dispatch(setOpen(true));
+            dispatch(setRemotePeerId(peerId));
+            dispatch(setCallStage("incoming"));
+        });
 
         return () => {
-            socket.off("remote:peer", ({ peer }) => setRemotePeerId(peer));
+            socket.off("call:incoming", ({ peerId }) => {
+                dispatch(setOpen(true));
+                dispatch(setRemotePeerId(peerId));
+                dispatch(setCallStage("incoming"));
+            });
         };
     }, []);
 
     const handleCall = () => {
-        if (remotePeerId && !remoteVideo && !currentVideo) {
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
-                setOpen(true);
-                setCurrentVideo(mediaStream);
-
-                if (peerRef.current) {
-                    const call = peerRef.current.call(remotePeerId, mediaStream);
-                    call.on("stream", (remoteStream) => setRemoteVideo(remoteStream));
-                }
-            });
-        } else if (remotePeerId && remoteVideo && currentVideo) {
-            setOpen(true);
+        if (remotePeerId) {
+            dispatch(setOpen(true));
         } else {
-            toast.error("Oops! No Active User...!");
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
+                dispatch(setOpen(true));
+                dispatch(setCallStage("sent"));
+                dispatch(setCurrentVideo(mediaStream));
+
+                if (currentPeerId) socket.emit("call:incoming", { room, peerId: currentPeerId });
+            });
         }
     };
 
-    const handleEndCall = () => {
-        setOpen(false);
-        if (peerRef.current) peerRef.current.destroy();
-        if (currentVideo) currentVideo.getTracks().forEach((track) => track.readyState == "live" && track.stop());
+    const handleAnswer = () => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
+            dispatch(setCurrentVideo(mediaStream));
+            if (peerRef.current && remotePeerId) {
+                const call = peerRef.current.call(remotePeerId, mediaStream);
+
+                call.on("stream", (remoteStream) => {
+                    dispatch(setCallStage("answered"));
+                    dispatch(setRemoteVideo(remoteStream));
+                });
+            }
+        });
     };
 
-    return { open, setOpen, handleCall, handleEndCall, remoteVideo, currentVideo };
+    return { handleCall, handleAnswer };
 }

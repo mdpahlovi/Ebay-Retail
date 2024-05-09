@@ -1,19 +1,22 @@
 import { Video } from "lucide-react";
 import { VideoCalling } from "./video-calling";
-import { useAppSelector } from "@/redux/hooks";
 import { Dialog } from "@/components/ui/dialog";
 import { useVideoCall } from "@/hooks/useVideoCall";
 import { IconButton } from "@/components/ui/icon-button";
 import { AvatarWithFallback } from "@/components/ui/avatar";
+import { setOpen } from "@/redux/features/video/videoSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 export default function ChatHeader({ room }: { room: string }) {
     const { booking } = useAppSelector((state) => state.booking);
-    const chat = booking.findIndex((b) => b.room === room);
 
-    const { open, setOpen, handleCall, handleEndCall, remoteVideo, currentVideo } = useVideoCall(room);
+    const dispatch = useAppDispatch();
+    const chat = booking.findIndex((b) => b.room === room);
+    const open = useAppSelector((state) => state.video.open);
+    const { handleCall, handleAnswer } = useVideoCall(room);
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={(value) => dispatch(setOpen(value))}>
             <div className="z-20 sticky top-0 bg-background border-b py-5 flex justify-between items-center gap-2">
                 <div className="flex items-center gap-2">
                     <AvatarWithFallback src={booking[chat]?.receiver?.image} />
@@ -26,7 +29,7 @@ export default function ChatHeader({ room }: { room: string }) {
                     <Video size={16} />
                 </IconButton>
             </div>
-            <VideoCalling {...{ open, setOpen, remoteVideo, currentVideo, handleEndCall }} />
+            <VideoCalling {...{ room, handleAnswer }} />
         </Dialog>
     );
 }
