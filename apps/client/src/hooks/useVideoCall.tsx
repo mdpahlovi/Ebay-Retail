@@ -1,6 +1,6 @@
 import Peer from "peerjs";
 import { socket } from "@/lib/socket";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
     setOpen,
@@ -14,7 +14,8 @@ import {
 export function useVideoCall(room: string) {
     const dispatch = useAppDispatch();
     const peerRef = useRef<Peer | null>(null);
-    const { remotePeerId, currentPeerId } = useAppSelector((state) => state.video);
+    const [refresh, setRefresh] = useState<number>();
+    const { remotePeerId, currentPeerId, remoteVideo } = useAppSelector((state) => state.video);
 
     useEffect(() => {
         const peer = new Peer();
@@ -31,7 +32,7 @@ export function useVideoCall(room: string) {
         });
 
         peerRef.current = peer;
-    }, []);
+    }, [refresh]);
 
     useEffect(() => {
         socket.on("call:incoming", ({ peerId }) => {
@@ -40,17 +41,21 @@ export function useVideoCall(room: string) {
             dispatch(setCallStage("incoming"));
         });
 
+        socket.on("call:end", () => handleEnd());
+
         return () => {
             socket.off("call:incoming", ({ peerId }) => {
                 dispatch(setOpen(true));
                 dispatch(setRemotePeerId(peerId));
                 dispatch(setCallStage("incoming"));
             });
+
+            socket.off("call:end", () => handleEnd());
         };
     }, []);
 
     const handleCall = () => {
-        if (remotePeerId) {
+        if (remotePeerId || remoteVideo) {
             dispatch(setOpen(true));
         } else {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((mediaStream) => {
@@ -77,5 +82,18 @@ export function useVideoCall(room: string) {
         });
     };
 
-    return { handleCall, handleAnswer };
+    const handleEnd = () => {
+        if (peerRef.current) {
+            peerRef.current.destroy();
+
+            dispatch(setOpen(false));
+            dispatch(setCallStage(null));
+            dispatch(setRemoteVideo(undefined));
+            dispatch(setCurrentVideo(undefined));
+
+            setRefresh(Math.random() * 100);
+        }
+    };
+
+    return { handleCall, handleAnswer, handleEnd };
 }

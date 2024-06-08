@@ -57,6 +57,10 @@ io.on("connection", (socket) => {
     socket.on("call:incoming", ({ room, peerId }) => {
         socket.broadcast.to(room).emit("call:incoming", { peerId });
     });
+
+    socket.on("call:end", ({ room }) => {
+        socket.broadcast.to(room).emit("call:end");
+    });
 });
 
 await new Promise<void>((resolve) => httpServer.listen({ port: config.port }, resolve));

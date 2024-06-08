@@ -1,12 +1,12 @@
 import ReactPlayer from "react-player";
+import { Phone, X } from "lucide-react";
 import { useAppSelector } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
-import { Mic, Phone, Video, X } from "lucide-react";
 import { DialogContent } from "@/components/ui/dialog";
-import { IconButton } from "@/components/ui/icon-button";
 import { AvatarWithFallback } from "@/components/ui/avatar";
+import { socket } from "@/lib/socket";
 
-export function VideoCalling({ room, handleAnswer }: { room: string; handleAnswer: () => void }) {
+export function VideoCalling({ room, handleAnswer, handleEnd }: { room: string; handleAnswer: () => void; handleEnd: () => void }) {
     const { booking } = useAppSelector((state) => state.booking);
     const { callStage, remoteVideo, currentVideo } = useAppSelector((state) => state.video);
 
@@ -34,17 +34,15 @@ export function VideoCalling({ room, handleAnswer }: { room: string; handleAnswe
                     <Button onClick={handleAnswer} variant="success" className="rounded-full">
                         <Phone size={20} />
                     </Button>
-                ) : (
-                    <>
-                        <IconButton className="size-10">
-                            <Mic size={20} />
-                        </IconButton>
-                        <IconButton className="size-10">
-                            <Video size={20} />
-                        </IconButton>
-                    </>
-                )}
-                <Button variant="destructive" className="rounded-full">
+                ) : null}
+                <Button
+                    variant="destructive"
+                    className="rounded-full"
+                    onClick={() => {
+                        handleEnd();
+                        socket.emit("call:end", { room });
+                    }}
+                >
                     <X size={20} />
                 </Button>
             </div>

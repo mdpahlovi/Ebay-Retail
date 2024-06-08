@@ -9,7 +9,7 @@ export const User = {
             case "buyer":
                 return null;
             case "seller":
-                return await paymentLoader.load(_id);
+                return await paymentLoader.load(_id as string);
             case "admin":
                 return null;
         }
