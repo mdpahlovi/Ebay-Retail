@@ -15,7 +15,7 @@ export function useVideoCall(room: string) {
     const dispatch = useAppDispatch();
     const peerRef = useRef<Peer | null>(null);
     const [refresh, setRefresh] = useState<number>();
-    const { remotePeerId, currentPeerId, remoteVideo } = useAppSelector((state) => state.video);
+    const { remotePeerId, currentPeerId, currentVideo, remoteVideo } = useAppSelector((state) => state.video);
 
     useEffect(() => {
         const peer = new Peer();
@@ -41,7 +41,7 @@ export function useVideoCall(room: string) {
             dispatch(setCallStage("incoming"));
         });
 
-        socket.on("call:end", () => handleEnd());
+        socket.on("call:end", () => handleEnd(currentVideo));
 
         return () => {
             socket.off("call:incoming", ({ peerId }) => {
@@ -50,9 +50,9 @@ export function useVideoCall(room: string) {
                 dispatch(setCallStage("incoming"));
             });
 
-            socket.off("call:end", () => handleEnd());
+            socket.off("call:end", () => handleEnd(currentVideo));
         };
-    }, []);
+    }, [currentVideo]);
 
     const handleCall = () => {
         if (remotePeerId || remoteVideo) {
@@ -82,8 +82,10 @@ export function useVideoCall(room: string) {
         });
     };
 
-    const handleEnd = () => {
+    const handleEnd = (media: MediaStream | undefined) => {
         if (peerRef.current) {
+            media ? media.getTracks().forEach((track) => track.stop()) : null;
+
             peerRef.current.destroy();
 
             dispatch(setOpen(false));

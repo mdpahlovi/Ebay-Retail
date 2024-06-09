@@ -1,12 +1,14 @@
+import { socket } from "@/lib/socket";
 import ReactPlayer from "react-player";
 import { Phone, X } from "lucide-react";
 import { useAppSelector } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
 import { DialogContent } from "@/components/ui/dialog";
 import { AvatarWithFallback } from "@/components/ui/avatar";
-import { socket } from "@/lib/socket";
 
-export function VideoCalling({ room, handleAnswer, handleEnd }: { room: string; handleAnswer: () => void; handleEnd: () => void }) {
+type VideoCallingProps = { room: string; handleAnswer: () => void; handleEnd: (media: MediaStream | undefined) => void };
+
+export function VideoCalling({ room, handleAnswer, handleEnd }: VideoCallingProps) {
     const { booking } = useAppSelector((state) => state.booking);
     const { callStage, remoteVideo, currentVideo } = useAppSelector((state) => state.video);
 
@@ -39,7 +41,7 @@ export function VideoCalling({ room, handleAnswer, handleEnd }: { room: string; 
                     variant="destructive"
                     className="rounded-full"
                     onClick={() => {
-                        handleEnd();
+                        handleEnd(currentVideo);
                         socket.emit("call:end", { room });
                     }}
                 >
