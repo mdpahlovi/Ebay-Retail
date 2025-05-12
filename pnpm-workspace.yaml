@@ -1,2 +1,7 @@
 packages:
-    - "apps/*"
+  - apps/*
+onlyBuiltDependencies:
+  - '@apollo/protobufjs'
+  - '@swc/core'
+  - bcrypt
+  - esbuild

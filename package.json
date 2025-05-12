@@ -7,10 +7,10 @@
         "start": "turbo start"
     },
     "devDependencies": {
-        "dotenv-cli": "^7.4.2",
+        "dotenv-cli": "^8.0.0",
         "turbo": "latest"
     },
-    "packageManager": "pnpm@9.1.0",
+    "packageManager": "pnpm@10.10.0",
     "engines": {
         "node": ">=18"
     }
