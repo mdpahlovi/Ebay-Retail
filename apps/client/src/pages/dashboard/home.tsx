@@ -13,21 +13,26 @@ const DashboardHome = () => {
     const { data, loading } = useQuery(DASHBOARD);
 
     if (loading) return <Loader />;
+
+    const dashboard = data?.dashboard ?? [];
+    const categories = data?.categories ?? [];
+    const bookings = data?.bookings ?? [];
+
     return (
         <>
             <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-5">
-                {data.dashboard.map((data: TotalData) => (
+                {dashboard.map((data: TotalData) => (
                     <DataCard key={data._id} data={data} />
                 ))}
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-5">
-                <ProductChart categories={data.categories} />
+                <ProductChart categories={categories} />
                 <Card>
                     <CardHeader className="pb-5">
                         <CardTitle>Recent Bookings</CardTitle>
                     </CardHeader>
                     <CardContent className="pb-5">
-                        {data.bookings.map(({ id, product, createdAt }: Booking) => (
+                        {bookings.map(({ id, product, createdAt }: Booking) => (
                             <Link key={id} to="/dashboard/bookings" className="flex gap-2">
                                 <AvatarWithFallback src={product.image} className="rounded-lg" />
                                 <div>

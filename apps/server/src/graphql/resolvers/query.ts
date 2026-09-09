@@ -24,6 +24,8 @@ export const Query = {
                 return await Booking.find({ seller: token?.id });
             case "admin":
                 return await Booking.find();
+            default:
+                return [];
         }
     },
     booking: async (parent: any, { id }: { id: string }) => await Booking.findById(id),

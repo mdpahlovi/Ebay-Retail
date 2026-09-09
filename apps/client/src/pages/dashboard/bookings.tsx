@@ -68,7 +68,13 @@ export default function Bookings() {
     return (
         <>
             <h1>All Booking</h1>
-            <DataTable path="booking" deleteMutation={DELETE_BOOKING} refetch={refetch} columns={columns} data={data.bookings} />
+            <DataTable
+                path="booking"
+                deleteMutation={DELETE_BOOKING}
+                refetch={refetch}
+                columns={columns}
+                data={data?.bookings ?? []}
+            />
         </>
     );
 }

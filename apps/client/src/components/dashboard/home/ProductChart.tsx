@@ -3,7 +3,7 @@ import { Category } from "@/types/data";
 import { Card, CardHeader } from "@/components/ui/card";
 import { useAppSelector } from "@/redux/hooks";
 
-export default function ProductChart({ categories }: { categories: Category[] }) {
+export default function ProductChart({ categories = [] }: { categories?: Category[] }) {
     const { theme } = useAppSelector((state) => state.theme);
     const textColor = theme === "light" ? "hsl(20, 14.3%, 4.1%)" : "hsl(60, 9.1%, 97.8%)";
     const borderColor = theme === "light" ? "hsl(20, 5.9%, 90%)" : "hsl(12, 6.5%, 15.1%)";

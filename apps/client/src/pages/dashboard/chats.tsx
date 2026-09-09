@@ -13,7 +13,7 @@ export default function ChatUI() {
 
     return (
         <div className="-mx-6 -my-5 h-[calc(100vh_-_4rem)] grid md:grid-cols-[16rem_1fr] xl:grid-cols-[20rem_1fr]">
-            <ChatSidebar bookings={data.bookings} />
+            <ChatSidebar bookings={data?.bookings ?? []} />
             {searchParams.get("room") ? (
                 <Messages />
             ) : (
