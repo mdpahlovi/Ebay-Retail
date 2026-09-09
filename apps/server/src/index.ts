@@ -16,6 +16,7 @@ import context from "./graphql/context/index.js";
 import { resolvers } from "./graphql/resolvers/index.js";
 import { PaymentRoutes } from "./routes/payment.js";
 import { NewsRoutes } from "./routes/news.js";
+import { HealthRoutes } from "./routes/health.js";
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -35,6 +36,7 @@ await mongoose.connect(config.mongodb_url!);
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(HealthRoutes);
 app.use(PaymentRoutes);
 app.use(NewsRoutes);
 
