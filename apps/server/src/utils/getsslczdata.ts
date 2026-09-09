@@ -2,11 +2,19 @@ import config from "../config/index.js";
 import { IPayment } from "../models/payment/interface.js";
 import { IUser } from "../models/user/interface.js";
 
+// Single source of truth for plan pricing (BDT) — used by both the init payload
+// and the callback validation, so amounts can never drift apart.
+export const PLAN_AMOUNTS: Record<IPayment["plan"], number> = {
+    starter: 0,
+    professional: 99,
+    enterprise: 199,
+};
+
 const getsslczdata = (payment: IPayment, user: IUser) => {
     return {
         currency: "BDT",
         tran_id: payment.tran_id,
-        total_amount: payment.plan === "professional" ? 99 : 199,
+        total_amount: PLAN_AMOUNTS[payment.plan],
         success_url: `${config.server_url}/success/${payment.id}`,
         fail_url: `${config.server_url}/fail/${payment.id}`,
         cancel_url: `${config.server_url}/cancel/${payment.id}`,

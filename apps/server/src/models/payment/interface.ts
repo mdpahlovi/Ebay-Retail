@@ -7,7 +7,7 @@ export interface IPayment extends Document {
     user_id: Types.ObjectId | IUser;
     tran_id: string;
     plan: Plan;
-    status: "padding" | "success";
+    status: "padding" | "success" | "failed";
 }
 
 export type PaymentModel = Model<IPayment, Record<string, unknown>>;
